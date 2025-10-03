@@ -19,6 +19,14 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+
+  @media (max-width: 768px) {
+    padding: 0 16px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 12px;
+  }
 }
 
 /* Enhanced smooth scrolling */
@@ -93,4 +101,72 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #357ABD;
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+  
+  .show-mobile {
+    display: block !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .hide-desktop {
+    display: none !important;
+  }
+  
+  .show-desktop {
+    display: block !important;
+  }
+}
+
+/* Mobile-first responsive text */
+.responsive-text {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .responsive-text {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}
+
+/* Responsive spacing */
+.responsive-padding {
+  padding: 24px;
+}
+
+@media (max-width: 768px) {
+  .responsive-padding {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-padding {
+    padding: 12px;
+  }
+}
+
+/* Responsive margins */
+.responsive-margin {
+  margin: 24px 0;
+}
+
+@media (max-width: 768px) {
+  .responsive-margin {
+    margin: 16px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-margin {
+    margin: 12px 0;
+  }
 }

@@ -31,11 +31,11 @@ function App() {
     {
 
       path: "/login",
-      element: <Login />,
+      element: (<><Login /><ScrollToTop /></>),
     },
     {
       path: "/register",
-      element: <Register />,
+      element: (<><Register /><ScrollToTop /></>),
     },
     // Main app routes (with header/footer)
     {

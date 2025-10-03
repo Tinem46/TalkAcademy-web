@@ -40,8 +40,8 @@ function AuthLayout({ children }) {
         <Row
           justify="center"
           align="middle"
-          gutter={[48, 0]}
-          style={{ height: "100%" }}
+          gutter={[48, 24]}
+          style={{ height: "100%", minHeight: "100vh" }}
         >
           <Col
             xs={24}
@@ -59,14 +59,26 @@ function AuthLayout({ children }) {
               </p>
             </div>
           </Col>
-          <Divider
-            type="vertical"
-            style={{
-              height: "400px",
-              borderColor: "white",
-              borderWidth: "1px",
-            }}
-          />
+          <Col xs={24} sm={24} md={0} lg={0}>
+            <Divider
+              type="horizontal"
+              style={{
+                borderColor: "rgba(255, 255, 255, 0.3)",
+                borderWidth: "1px",
+                margin: "20px 0",
+              }}
+            />
+          </Col>
+          <Col xs={0} sm={0} md={0} lg={0}>
+            <Divider
+              type="vertical"
+              style={{
+                height: "400px",
+                borderColor: "white",
+                borderWidth: "1px",
+              }}
+            />
+          </Col>
           <Col xs={24} sm={24} md={10} lg={8}>
             {children}
           </Col>

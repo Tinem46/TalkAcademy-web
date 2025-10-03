@@ -166,30 +166,106 @@
         padding: 16px;
 
         .dashboard-header {
-            padding: 24px 16px;
-            margin-bottom: 24px;
+            padding: 20px 16px;
+            margin-bottom: 20px;
 
             .welcome-title {
-                font-size: 28px;
+                font-size: 24px;
+                line-height: 1.3;
             }
 
             .welcome-subtitle {
-                font-size: 16px;
+                font-size: 14px;
+                line-height: 1.4;
+            }
+        }
+
+        .dashboard-tabs {
+            .ant-tabs-tab {
+                font-size: 14px;
+                padding: 8px 12px;
             }
         }
 
         .stat-card {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
+
+            .ant-statistic-title {
+                font-size: 12px;
+            }
+
+            .ant-statistic-content {
+                font-size: 20px;
+            }
         }
 
         .achievement-card {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
+
+            .achievement-content {
+                padding: 12px;
+
+                .achievement-icon {
+                    font-size: 36px;
+                    margin-bottom: 12px;
+                }
+            }
         }
 
         .activity-item {
             .ant-tag {
                 align-self: flex-start;
                 margin-top: 4px;
+                font-size: 12px;
+            }
+        }
+
+        .progress-card,
+        .activity-card,
+        .schedule-card {
+            .ant-card-head-title {
+                font-size: 16px;
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        padding: 12px;
+
+        .dashboard-header {
+            padding: 16px 12px;
+            margin-bottom: 16px;
+
+            .welcome-title {
+                font-size: 20px;
+            }
+
+            .welcome-subtitle {
+                font-size: 13px;
+            }
+        }
+
+        .dashboard-tabs {
+            .ant-tabs-tab {
+                font-size: 13px;
+                padding: 6px 10px;
+            }
+        }
+
+        .stat-card {
+            .ant-statistic-content {
+                font-size: 18px;
+            }
+        }
+
+        .achievement-card {
+            .achievement-content {
+                padding: 10px;
+
+                .achievement-icon {
+                    font-size: 32px;
+                    margin-bottom: 10px;
+                }
             }
         }
     }

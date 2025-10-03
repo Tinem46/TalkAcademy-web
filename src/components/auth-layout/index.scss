@@ -87,6 +87,19 @@
 // Responsive design
 @media (max-width: 768px) {
   .auth-layout {
+    height: 100vh;
+    overflow-y: auto;
+
+    .background-video {
+      width: 150%;
+      height: 120%;
+      object-fit: cover;
+    }
+
+    .content-overlay {
+      padding: 20px 0;
+    }
+
     .logo-section {
       padding: 15px;
       margin: 10px;
@@ -103,6 +116,44 @@
         font-size: 14px;
         max-width: 250px;
       }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-layout {
+    .background-video {
+      width: 200%;
+      height: 110%;
+    }
+
+    .content-overlay {
+      padding: 15px 0;
+    }
+
+    .logo-section {
+      padding: 12px;
+      margin: 8px;
+
+      .logo-title {
+        font-size: 28px;
+        letter-spacing: 1px;
+      }
+
+      .logo-subtitle {
+        font-size: 20px;
+      }
+
+      .logo-description {
+        font-size: 13px;
+        max-width: 220px;
+        margin: 15px auto;
+      }
+    }
+
+    .logo-image {
+      width: 60px;
+      height: 70px;
     }
   }
 }

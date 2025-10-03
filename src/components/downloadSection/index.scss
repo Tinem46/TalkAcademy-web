@@ -230,9 +230,26 @@
 .title-section {
     text-align: center;
     margin-top: 40px;
+    
+    @media (max-width: 768px) {
+        margin-top: 30px;
+    }
+
+    @media (max-width: 480px) {
+        margin-top: 20px;
+    }
+
     h2 {
         font-size: 48px;
         font-weight: bold;
         color: #43B7FA;
+
+        @media (max-width: 768px) {
+            font-size: 36px;
+        }
+
+        @media (max-width: 480px) {
+            font-size: 28px;
+        }
     }
 }

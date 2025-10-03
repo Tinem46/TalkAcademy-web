@@ -3,9 +3,18 @@
     padding: 20px;
     background-color: transparent;
     border-radius: 8px;
-    top: 50%;
-    left: 50%;
+    margin: 0 auto;
     margin-bottom: 10px;
+
+    @media (max-width: 768px) {
+        max-width: 400px;
+        padding: 16px;
+    }
+
+    @media (max-width: 480px) {
+        max-width: 320px;
+        padding: 12px;
+    }
 
     .ant-form-item-label>label {
         color: white;
@@ -22,6 +31,11 @@
         padding: 10px 0;
         font-size: 16px;
         padding-left: 6px;
+
+        @media (max-width: 480px) {
+            font-size: 14px;
+            padding: 8px 0;
+        }
 
         &::placeholder {
             color: rgba(51, 51, 51, 0.7);
@@ -43,6 +57,11 @@
         width: 100%;
         border-radius: 10px;
         cursor: pointer;
+
+        @media (max-width: 480px) {
+            height: 42px;
+            font-size: 15px;
+        }
 
         &:hover {
             background-color: #2A9DE8 !important;
