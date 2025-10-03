@@ -1,0 +1,296 @@
+.hero-section {
+    margin-top: -50px;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: white;
+
+    .hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+
+
+        .hero-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            .dot {
+                position: absolute;
+                width: 8px;
+                height: 8px;
+                background: rgba(81, 125, 221, 0.8);
+                border-radius: 50%;
+                animation: float 6s ease-in-out infinite;
+
+                &.dot-1 {
+                    top: 80%;
+                    left: 10%;
+                    animation-delay: 0s;
+                    background: #FFD700;
+                    /* Vàng */
+                }
+
+                &.dot-2 {
+                    top: 30%;
+                    right: 15%;
+                    animation-delay: 1s;
+                    background: #43B7FA;
+                    /* Xanh dương */
+                }
+
+                &.dot-3 {
+                    top: 60%;
+                    left: 20%;
+                    animation-delay: 2s;
+                    background: #FF6B6B;
+                    /* Đỏ coral */
+                }
+
+                &.dot-4 {
+                    top: 70%;
+                    right: 25%;
+                    animation-delay: 3s;
+                    background: #4ECDC4;
+                    /* Xanh ngọc */
+                }
+
+                &.dot-5 {
+                    top: 40%;
+                    left: 50%;
+                    animation-delay: 4s;
+                    background: #95E1D3;
+                    /* Xanh mint */
+                }
+
+                &.dot-6 {
+                    top: 15%;
+                    left: 30%;
+                    animation-delay: 0.5s;
+                    background: #F38BA8;
+                    /* Hồng */
+                }
+
+                &.dot-7 {
+                    top: 25%;
+                    right: 30%;
+                    animation-delay: 1.5s;
+                    background: #A8DADC;
+                    /* Xanh pastel */
+                }
+
+                &.dot-8 {
+                    top: 55%;
+                    right: 10%;
+                    animation-delay: 2.5s;
+                    background: #457B9D;
+                    /* Xanh đậm */
+                }
+
+                &.dot-9 {
+                    top: 75%;
+                    left: 35%;
+                    animation-delay: 3.5s;
+                    background: #F1FAEE;
+                    /* Trắng kem */
+                }
+
+                &.dot-10 {
+                    top: 45%;
+                    left: 75%;
+                    animation-delay: 5s;
+                    background: #E63946;
+                    /* Đỏ */
+                }
+
+
+            }
+        }
+    }
+
+    .hero-container {
+        position: relative;
+        z-index: 2;
+        margin: 0 auto;
+        padding: 0 20px;
+        max-width: 1200px;
+        width: 100%;
+    }
+
+    .hero-content {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        min-height: 80vh;
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            text-align: center;
+            gap: 40px;
+        }
+    }
+
+    .hero-text {
+        flex: 1;
+        max-width: 600px;
+        color: #333;
+
+        .hero-dot {
+            width: 12px;
+            height: 12px;
+            background: #43B7FA;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: #2C3E50;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+            .highlight {
+                color: #43B7FA;
+            }
+
+            @media (max-width: 768px) {
+                font-size: 2.5rem;
+            }
+
+            @media (max-width: 480px) {
+                font-size: 2rem;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #5A6C7D;
+            margin-bottom: 35px;
+            line-height: 1.5;
+            opacity: 0.9;
+
+            @media (max-width: 768px) {
+                font-size: 1.1rem;
+            }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+
+            @media (max-width: 480px) {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .start-btn {
+                background: #43B7FA;
+                border-color: #43B7FA;
+                color: white;
+                font-weight: 600;
+                padding: 12px 32px;
+                height: auto;
+                font-size: 1.1rem;
+                box-shadow: 0 4px 15px rgba(175, 226, 255, 0.3);
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: #2A9DE8;
+                    border-color: #2A9DE8;
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(175, 226, 255, 0.4);
+                }
+            }
+
+            .learn-more-btn {
+                background: transparent;
+                border: 2px solid #4A90E2;
+                color: #43B7FA;
+                font-weight: 600;
+                padding: 12px 32px;
+                height: auto;
+                font-size: 1.1rem;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: #43B7FA;
+                    color: white;
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(175, 226, 255, 0.3);
+                }
+            }
+        }
+    }
+
+    .hero-mascot {
+        flex: 0 0 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @media (max-width: 768px) {
+            flex: none;
+        }
+
+        .mascot-character {
+            font-size: 8rem;
+            animation: bounce 2s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+            transform: translateX(-20px);
+
+            .mascot-image {
+                max-width: 600px;
+                max-height: 500px;
+                width: 300%;
+                height: 1000px;
+                object-fit: cover;
+                object-position: center top;
+                border-radius: 20px;
+                overflow: hidden;
+            }
+        }
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-30px);
+    }
+
+    60% {
+        transform: translateY(-15px);
+    }
+}

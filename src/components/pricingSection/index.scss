@@ -1,0 +1,214 @@
+.pricingSection {
+    min-height: 100vh;
+    background: #AFE2FF;
+    padding: 4rem 1rem;
+    position: relative;
+    overflow: hidden;
+
+    .stripedBackground {
+        position: absolute;
+        inset: 0;
+        opacity: 0.3;
+        z-index: 0;
+
+
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 10;
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+
+            .title {
+                font-size: 32px;
+                font-weight: 700;
+                color: #1f2937;
+                margin-bottom: 0.75rem;
+
+                @media (max-width: 768px) {
+                    font-size: 2.5rem;
+                }
+            }
+
+            .subtitle {
+                color: #4b5563;
+                font-size: 20px;
+            }
+        }
+
+        .cardsGrid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+
+            @media (max-width: 768px) {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                background: linear-gradient(to bottom right, #fdf2f8, #eff6ff);
+                border-radius: 1.5rem;
+                padding: 2rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+
+                &:hover {
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+                    transform: translateY(-5px);
+                }
+
+                .cardHeader {
+                    text-align: center;
+                    margin-bottom: 1.5rem;
+
+                    .planTitle {
+                        font-size: 1.5rem;
+                        font-weight: 600;
+                        color: #1f2937;
+                        margin-bottom: 1rem;
+                    }
+
+                    .priceContainer {
+                        margin-bottom: 1.5rem;
+
+                        .price {
+                            font-size: 3rem;
+                            font-weight: 700;
+                            color: #60a5fa;
+                        }
+
+                        .priceUnit {
+                            color: #4b5563;
+                            margin-left: 0.5rem;
+                            font-size: 1rem;
+                        }
+                    }
+                }
+
+                .features {
+                    margin-bottom: 1.5rem;
+                    flex: 1;
+
+                    .featureItem {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                        margin-bottom: 0.75rem;
+
+                        .iconWrapper {
+                            flex-shrink: 0;
+                            width: 1.5rem;
+                            height: 1.5rem;
+                            border-radius: 50%;
+                            border: 2px solid #1f2937;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            svg {
+                                width: 1rem;
+                                height: 1rem;
+                                color: #1f2937;
+                            }
+                        }
+
+                        .featureText {
+                            color: #374151;
+                            font-size: 0.875rem;
+                        }
+                    }
+                }
+
+                .upgradeSection {
+                    border-top: 1px solid #d1d5db;
+                    margin-top: auto;
+                    margin-bottom: 1.5rem;
+                    padding-top: 1.5rem;
+
+                    .upgradeDivider {
+                        text-align: center;
+                        color: #6b7280;
+                        font-size: 0.875rem;
+                        margin-bottom: 1rem;
+                    }
+
+                    .extraFeatures {
+                        .featureItem {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                            margin-bottom: 0.75rem;
+
+                            .iconWrapper {
+                                flex-shrink: 0;
+                                width: 1.5rem;
+                                height: 1.5rem;
+                                border-radius: 50%;
+                                border: 2px solid #1f2937;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+
+                                svg {
+                                    width: 1rem;
+                                    height: 1rem;
+                                    color: #1f2937;
+                                }
+                            }
+
+                            .featureText {
+                                color: #374151;
+                                font-size: 0.875rem;
+                            }
+                        }
+                    }
+                }
+
+                .button {
+                    width: 100%;
+                    margin-bottom: 0;
+                    margin-top: auto;
+                    background-color: #43B7FA;
+                    color: #1f2937;
+                    font-weight: 600;
+                    padding: 0.75rem 1.5rem;
+                    border-radius: 9999px;
+                    border: none;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    font-size: 1rem;
+
+
+
+
+                    &:hover {
+                        background-color: #60a5fa;
+                        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+                        transform: translateY(-2px);
+                    }
+
+                    &:active {
+                        transform: translateY(0);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+
+}

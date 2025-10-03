@@ -1,0 +1,637 @@
+.features-section {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 0px 20px;
+
+  .features-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease-in-out infinite;
+
+    .bg-stripes {
+      position: absolute;
+      inset: 0;
+      /* sọc dọc trắng mờ */
+      background-image: repeating-linear-gradient(90deg,
+          transparent 0, transparent 30px,
+          rgba(255, 255, 255, 0.4) 30px, rgba(255, 255, 255, 0.4) 32px);
+      animation: stripeMove 20s linear infinite;
+    }
+  }
+
+  .features-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .main-row {
+    min-height: 80vh;
+    align-items: center;
+
+    &.third-row {
+      margin-bottom: 0;
+    }
+  }
+
+  .birds-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .birds-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text-col {
+    display: flex;
+    align-items: center;
+  }
+
+  .text-content {
+    max-width: 450px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+
+    &.animate-in {
+      opacity: 1;
+      transform: translateY(0);
+
+      .title {
+        animation: titleGlow 2s ease-in-out infinite alternate;
+      }
+
+      .desc {
+        animation: fadeInUp 0.8s ease-out 0.3s forwards;
+      }
+    }
+
+    .title {
+      color: #43B7FA;
+      font-weight: 800;
+      font-size: 48px;
+      line-height: 1.3;
+      margin: 0 0 20px;
+      background: linear-gradient(45deg, #43B7FA, #2E86AB);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.4s ease;
+
+ 
+    }
+
+    .desc {
+      color: #333;
+      font-size: 24px;
+      line-height: 1.6;
+      margin: 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out 0.2s;
+    }
+
+    &.animate-in .desc {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* MASCOT STYLES */
+  .mascot-pair,
+  .mascot-single,
+  .mascot-large {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mascot {
+    max-width: 160px;
+    height: auto;
+    object-fit: contain;
+    transition: all 0.6s ease;
+    opacity: 0;
+    transform: translateX(-30px) scale(0.8);
+
+    &.animate-in {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      animation: floatMascot 3s ease-in-out 0.5s infinite;
+    }
+
+    &:hover {
+      transform: scale(1.08) rotate(5deg) !important;
+      filter: brightness(1.1) drop-shadow(0 10px 20px rgba(67, 183, 250, 0.3));
+      animation-play-state: paused;
+    }
+
+    &.mascot-single {
+      max-width: 300px;
+
+      &.animate-in {
+        animation-delay: 0.8s;
+      }
+    }
+
+    &.mascot-large {
+      max-width: 260px;
+
+      &.animate-in {
+        animation-delay: 1s;
+      }
+    }
+
+    &.mascot-right {
+      transform: translateX(30px) scale(0.8);
+
+      &.animate-in {
+        transform: translateX(0) scale(1);
+      }
+    }
+  }
+
+  /* BIRDS vẽ bằng CSS */
+  .birds {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bird {
+    position: relative;
+    width: 100px;
+    height: 120px;
+  }
+
+  .bird .body {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75px;
+    height: 90px;
+    background: #43B7FA;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  }
+
+  .bird .cap {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 22px;
+    background: #2c3e50;
+    border-radius: 4px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: -12px;
+      right: -10px;
+      width: 15px;
+      height: 15px;
+      background: #fbbf24;
+      border-radius: 50%;
+    }
+  }
+
+  .bird .glasses {
+    position: absolute;
+    top: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 55px;
+    height: 25px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #2c3e50;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: 3px;
+      top: 3px;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #2c3e50;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  // Bridge between glasses
+  .bird .glasses {
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 11px;
+      left: 26px;
+      width: 6px;
+      height: 3px;
+      background: #2c3e50;
+      z-index: 1;
+    }
+  }
+
+  /* Large bird for third section */
+  .bird-large {
+    width: 120px;
+    height: 140px;
+
+    .body {
+      width: 90px;
+      height: 110px;
+    }
+
+    .cap {
+      width: 72px;
+      height: 26px;
+
+      &::after {
+        width: 18px;
+        height: 18px;
+        top: -14px;
+        right: -12px;
+      }
+    }
+
+    .glasses {
+      width: 66px;
+      height: 30px;
+      top: 55px;
+
+      &::before,
+      &::after {
+        width: 24px;
+        height: 24px;
+        border-width: 3px;
+      }
+
+      &:before {
+        top: 13px;
+        left: 30px;
+        width: 8px;
+        height: 4px;
+      }
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 992px) {
+    padding: 60px 20px;
+
+    .main-row {
+      min-height: 40vh;
+      margin-bottom: 160px;
+
+      &.third-row {
+        margin-bottom: 0;
+      }
+    }
+
+    .text-content .title {
+      font-size: 24px;
+    }
+
+    .text-content .desc {
+      font-size: 15px;
+    }
+
+    .bird {
+      width: 85px;
+      height: 105px;
+
+      .body {
+        width: 65px;
+        height: 80px;
+      }
+
+      .cap {
+        width: 52px;
+        height: 20px;
+
+        &::after {
+          width: 12px;
+          height: 12px;
+        }
+      }
+
+      .glasses {
+        width: 48px;
+        height: 22px;
+
+        &::before,
+        &::after {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+
+    .birds {
+      gap: 25px;
+    }
+
+    /* Mascot responsive for tablet */
+    .mascot {
+      max-width: 100px;
+
+      &.mascot-single {
+        max-width: 120px;
+      }
+
+      &.mascot-large {
+        max-width: 140px;
+      }
+    }
+
+    .mascot-pair,
+    .mascot-single,
+    .mascot-large {
+      gap: 25px;
+    }
+
+    // Large bird responsive for tablet
+    .bird-large {
+      width: 100px;
+      height: 120px;
+
+      .body {
+        width: 75px;
+        height: 95px;
+      }
+
+      .cap {
+        width: 60px;
+        height: 22px;
+
+        &::after {
+          width: 15px;
+          height: 15px;
+        }
+      }
+
+      .glasses {
+        width: 55px;
+        height: 26px;
+
+        &::before,
+        &::after {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 40px 15px;
+
+    .main-row {
+      flex-direction: column;
+      gap: 40px;
+      min-height: auto;
+      margin-bottom: 40px;
+
+      &.third-row {
+        margin-bottom: 0;
+      }
+    }
+
+    .birds-col,
+    .text-col {
+      text-align: center;
+    }
+
+    .text-content {
+      max-width: 100%;
+
+      .title {
+        font-size: 22px;
+      }
+
+      .desc {
+        font-size: 14px;
+      }
+    }
+
+    .bird {
+      width: 70px;
+      height: 90px;
+
+      .body {
+        width: 55px;
+        height: 68px;
+      }
+
+      .cap {
+        width: 45px;
+        height: 18px;
+
+        &::after {
+          width: 10px;
+          height: 10px;
+        }
+      }
+
+      .glasses {
+        width: 42px;
+        height: 20px;
+
+        &::before,
+        &::after {
+          width: 16px;
+          height: 16px;
+        }
+
+        &:before {
+          left: 23px;
+          width: 4px;
+          height: 2px;
+        }
+      }
+    }
+
+    .birds {
+      gap: 20px;
+    }
+
+    /* Mascot responsive for mobile */
+    .mascot {
+      max-width: 80px;
+
+      &.mascot-single {
+        max-width: 100px;
+      }
+
+      &.mascot-large {
+        max-width: 120px;
+      }
+    }
+
+    .mascot-pair,
+    .mascot-single,
+    .mascot-large {
+      gap: 20px;
+    }
+
+    // Large bird responsive for mobile
+    .bird-large {
+      width: 85px;
+      height: 100px;
+
+      .body {
+        width: 65px;
+        height: 80px;
+      }
+
+      .cap {
+        width: 52px;
+        height: 18px;
+
+        &::after {
+          width: 12px;
+          height: 12px;
+        }
+      }
+
+      .glasses {
+        width: 48px;
+        height: 22px;
+        top: 45px;
+
+        &::before,
+        &::after {
+          width: 18px;
+          height: 18px;
+        }
+
+        &:before {
+          left: 24px;
+          width: 4px;
+          height: 2px;
+        }
+      }
+    }
+  }
+
+  /* KEYFRAME ANIMATIONS */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes titleGlow {
+    from {
+      text-shadow: 0 0 5px rgba(67, 183, 250, 0.3);
+    }
+
+    to {
+      text-shadow: 0 0 20px rgba(67, 183, 250, 0.6), 0 0 30px rgba(67, 183, 250, 0.4);
+    }
+  }
+
+  @keyframes floatMascot {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes slideInFloat {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes stripeMove {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(32px);
+    }
+  }
+
+  @keyframes titleShimmer {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}

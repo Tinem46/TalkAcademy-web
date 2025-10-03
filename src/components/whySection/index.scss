@@ -1,0 +1,131 @@
+.why-section {
+    position: relative;
+    padding: 40px 0;
+    background: linear-gradient(90deg,
+            #B8E6FF 0%,
+            #B8E6FF 8.33%,
+            #A8D8F0 8.33%,
+            #A8D8F0 16.66%,
+            #B8E6FF 16.66%,
+            #B8E6FF 25%,
+            #A8D8F0 25%,
+            #A8D8F0 33.33%,
+            #B8E6FF 33.33%,
+            #B8E6FF 41.66%,
+            #A8D8F0 41.66%,
+            #A8D8F0 50%,
+            #B8E6FF 50%,
+            #B8E6FF 58.33%,
+            #A8D8F0 58.33%,
+            #A8D8F0 66.66%,
+            #B8E6FF 66.66%,
+            #B8E6FF 75%,
+            #A8D8F0 75%,
+            #A8D8F0 83.33%,
+            #B8E6FF 83.33%,
+            #B8E6FF 91.66%,
+            #A8D8F0 91.66%,
+            #A8D8F0 100%);
+
+    .why-container {
+        position: relative;
+        z-index: 2;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #2c3e50;
+
+            @media (max-width: 768px) {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+        }
+
+        .why-grid {
+            .why-item {
+                text-align: center;
+                padding-top: 30px ;
+                transition: all 0.3s ease;
+                height: 100%;
+
+                .why-icon-circle {
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 50%;
+                    background: #5DADE2;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 30px auto;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 8px 20px rgba(93, 173, 226, 0.3);
+
+                    .why-icon {
+                        font-size: 3rem;
+                        color: #2c3e50 !important;
+                        display: block;
+                        transition: all 0.3s ease;
+                    }
+                }
+
+                .why-title {
+                    font-size: 1.8rem;
+                    font-weight: 700;
+                    color: #2c3e50;
+                    margin-bottom: 15px !important;
+                    margin-top: 0 !important;
+                }
+
+                .why-description {
+                    font-size: 1rem;
+                    color: #34495e;
+                    line-height: 1.6;
+                    display: block;
+                    font-weight: 400;
+                }
+
+                &:hover {
+                    .why-icon-circle {
+                        transform: translateY(-5px);
+                        box-shadow: 0 12px 30px rgba(93, 173, 226, 0.4);
+                    }
+
+                    .why-icon {
+                        transform: scale(1.1);
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .why-container {
+            .why-grid {
+                .why-item {
+                    .why-icon-circle {
+                        width: 100px;
+                        height: 100px;
+                        margin-bottom: 20px;
+
+                        .why-icon {
+                            font-size: 2.5rem;
+                        }
+                    }
+
+                    .why-title {
+                        font-size: 1.5rem;
+                    }
+
+                    .why-description {
+                        font-size: 0.9rem;
+                    }
+                }
+            }
+        }
+    }
+}
