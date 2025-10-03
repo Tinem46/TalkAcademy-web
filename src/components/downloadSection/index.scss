@@ -36,16 +36,14 @@
             justify-content: center;
             margin-bottom: 30px;
 
-            .mascot-icon {
+            .mascot-image {
                 position: relative;
-                width: 140px;
-                height: 140px;
-                background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
-                border-radius: 50%;
+                width: 96px;
+                height: 115px;
+                
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 15px 40px rgba(74, 144, 226, 0.35);
                 animation: float 3s ease-in-out infinite;
 
                 @media (max-width: 480px) {

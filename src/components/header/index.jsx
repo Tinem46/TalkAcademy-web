@@ -1,6 +1,7 @@
 import "./index.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import mascot1 from '../../assets/Mascot/Asset 1logoFB.png';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -13,8 +14,8 @@ const Header = () => {
         {/* Logo */}
         <div className="header-logo" onClick={() => navigate("/")}>
           <div className="logo-icon">
-            <div className="graduation-cap">🎓</div>
-            <div className="speech-bubble">💬</div>
+            <img src={mascot1} alt="Talkademy Logo" className="logo-image" />
+         
           </div>
           <span className="logo-text">Talkademy</span>
         </div>

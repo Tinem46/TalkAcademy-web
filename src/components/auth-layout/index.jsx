@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import { Col, Row, Divider } from "antd";
 import backgroundVideo from '../../assets/video/invideo-ai-1080 Bạn sẽ nói hay hơn chỉ sau 1 tuần_ 2025-10-02.mp4';
+import mascot1 from '../../assets/Mascot/Asset 1logoFB.png';
 
 function AuthLayout({ children }) {
   const navigate = useNavigate();
@@ -49,8 +50,9 @@ function AuthLayout({ children }) {
             lg={8}
             style={{ display: "flex", justifyContent: "center" }}
           >
-            <div className="logo-section">
-              <h1 className="logo-title" onClick={() => navigate("/")}>TALKADEMY</h1>
+            <div className="logo-section" onClick={() => navigate("/")}>
+              <div><img src={mascot1} alt="Talkademy Logo" className="logo-image" />
+                <h1 className="logo-title" >TALKADEMY</h1></div>
               <h2 className="logo-subtitle">HỌC TIẾNG VIỆT</h2>
               <p className="logo-description">
                 Ứng dụng học tiếng Việt hàng đầu với công nghệ AI tiên tiến

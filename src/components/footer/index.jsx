@@ -1,7 +1,10 @@
 import React from "react";
 import "./index.scss";
+import mascot1 from '../../assets/Mascot/Asset 1logoFB.png';
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer className="talkademy-footer">
       <div className="footer-background"></div>
@@ -12,8 +15,7 @@ const Footer = () => {
           <div className="footer-brand">
             <div className="footer-logo">
               <div className="logo-icon">
-                <div className="graduation-cap">🎓</div>
-                <div className="speech-bubble">💬</div>
+                <img src={mascot1} alt="Talkademy Logo" className="logo-image1" />
               </div>
               <span className="logo-text">Talkademy</span>
             </div>
@@ -28,10 +30,10 @@ const Footer = () => {
             <div className="footer-column">
               <h3 className="column-title">Khám Phá</h3>
               <ul className="column-list">
-                <li className="column-item">Về Chúng Tôi</li>
+                <li className="column-item" onClick={() => navigate("/about")}>Về Chúng Tôi</li>
                 <li className="column-item">Đặc Trưng</li>
-                <li className="column-item">Gói Lời</li>
-                <li className="column-item">Privacy Policy</li>
+                <li className="column-item" onClick={() => navigate("/services")}>Gói Lời</li>
+                <li className="column-item" onClick={() => navigate("/privacy")}>Privacy Policy</li>
               </ul>
             </div>
 

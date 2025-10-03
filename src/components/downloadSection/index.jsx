@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.scss';
+import mascot1 from '../../assets/Mascot/Asset 1logoFB.png';
 
 const DownloadSection = () => {
     return (
@@ -14,8 +15,7 @@ const DownloadSection = () => {
 
                     <div className="mascot-wrapper" data-aos="zoom-in" data-aos-delay="200">
                         <div className="mascot-icon">
-                            <span className="graduation-cap">🎓</span>
-                            <span className="glasses">👓</span>
+                          <img src={mascot1} alt="Talkademy Logo" className="mascot-image" />
                         </div>
                     </div>
 
