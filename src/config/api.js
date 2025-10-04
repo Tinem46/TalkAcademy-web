@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://localhost:7266/api/",
+  baseURL: "/api",
+
 });
 
 let isRefreshing = false;
@@ -22,7 +23,7 @@ const refreshTokenRequest = async () => {
   const userId = localStorage.getItem("userId");
   const refreshToken = localStorage.getItem("refreshToken");
 
-  const response = await axios.post("https://localhost:7266/api/Auth/refresh-token", {
+  const response = await axios.post("/api/auth/refresh-token", {
     id: userId,
     refreshToken,
   });
@@ -44,9 +45,9 @@ const refreshTokenRequest = async () => {
 api.interceptors.request.use(
   (config) => {
     if (
-      config.url.includes("Auth/login") ||
-      config.url.includes("Auth/register") ||
-      config.url.includes("Auth/google-login-token")
+      config.url.includes("auth/login") ||
+      config.url.includes("auth/register") ||
+      config.url.includes("auth/google-login-token")
     ) {
       delete config.headers.Authorization;
     } else {

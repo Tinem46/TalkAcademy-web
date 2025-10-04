@@ -8,5 +8,13 @@ export default defineConfig({
     https: false,               // 👈 Bật HTTPS
     host: 'localhost',         // 👈 Cho phép truy cập từ localhost
     port: 5173,
+    proxy: {
+      '/api': {
+        target: 'https://voice-tranning-be.onrender.com',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   },
 });

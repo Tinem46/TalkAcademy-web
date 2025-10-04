@@ -13,40 +13,38 @@ function Register() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  // const handleRegister = async (values) => {
-  //   setLoading(true);
-  //   try {
-  //     const apiData = {
-  //       email: values.email,
-  //       password: values.password,
-  //       firstName: values.firstName,
-  //       lastName: values.lastName,
-  //       gender: Number(values.gender),
-  //     };
+  const handleRegister = async (values) => {
+    setLoading(true);
+    try {
+      const apiData = {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      };
 
-  //     const apiResponse = await api.post("Auth/register", apiData);
+      const apiResponse = await api.post("auth/register", apiData);
 
-  //     toast.success("Đăng ký thành công. Vui lòng xác nhận email.");
-  //     navigate("/confirm-email", {
-  //       state: {
-  //         email: values.email,
-  //         userId: apiResponse.data.userId, // <-- giả sử backend trả về userId
-  //       },
-  //     });
-  //   } catch (err) {
-  //     console.error("Error details:", err);
-  //     toast.error(err.response?.data?.message || "Đăng ký thất bại");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+      toast.success("Đăng ký thành công. Vui lòng xác nhận email.");
+      navigate("/login", {
+        state: {
+          email: values.email,
+          userId: apiResponse.data.userId, // <-- giả sử backend trả về userId
+        },
+      });
+    } catch (err) {
+      console.error("Error details:", err);
+      toast.error(err.response?.data?.message || "Đăng ký thất bại");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <AuthLayout>
       <Form
         layout="vertical"
         name="register-form"
-        onFinish={() => { }}
+        onFinish={handleRegister}
         className="register-form"
         data-aos="fade-down"
       >
@@ -55,13 +53,13 @@ function Register() {
             
 
             <Form.Item
-              name="lastName"
-              label="Tên"
+              name="username"
+              label="Tên tài khoản"
               rules={[
-                { required: true, message: "Vui lòng nhập tên của bạn!" },
+                { required: true, message: "Vui lòng nhập tên tài khoản của bạn!" },
               ]}
             >
-              <Input placeholder="Nhập tên của bạn" />
+              <Input placeholder="Nhập tên tài khoản của bạn" />
             </Form.Item>
 
             <Form.Item

@@ -11,6 +11,7 @@ import Services from "./page/serviceTeam";
 import Team from "./page/team";
 import Blog from "./page/blog";
 import Contact from "./page/contact";
+import Profile from "./page/profile";
 import ScrollToTop from "./components/ScrollToTop";
 import LoadingAnimation from "./components/loadingAnimation";
 
@@ -78,6 +79,10 @@ function App() {
         {
           path: "/read/:documentId",
           element: <ReadDocument />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
         },
       ],
     },

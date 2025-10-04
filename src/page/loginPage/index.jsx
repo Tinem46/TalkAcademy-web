@@ -5,6 +5,11 @@ import { useDispatch } from "react-redux";
 import "./index.scss";
 import { useState, useRef } from "react";
 import AuthLayout from "../../components/auth-layout";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import { loginSuccess, loginFailure } from "../../redux/slices/authSlice";
+import api from "../../config/api";
+import { getUserFromToken } from "../../utils/jwtUtils";
 
 const GOOGLE_CLIENT_ID =
   "573872884539-lov9g4rc77itiaucc7lovecrjel9bbnd.apps.googleusercontent.com";
@@ -77,75 +82,97 @@ const Login = () => {
   // };
 
   // ========== Login thường ==========
-  // const handleLogin = async (values) => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await api.post("Auth/login", values);
-  //     console.log("Login response:", response);
+  const handleLogin = async (values) => {
+    setLoading(true);
+    try {
+      const response = await api.post("auth/login", values);
+      console.log("Login response:", response);
 
-  //     // Sửa đoạn này!
-  //     const apiData = response.data;
-  //     const isSuccess = apiData?.isSuccess;
-  //     const token = apiData?.data?.accessToken;
-  //     const role = apiData?.data?.roles?.[0] || "USER";
-  //     const userId = apiData?.data?.id;
-  //     const refreshToken = apiData?.data?.refreshToken;
+      // Lấy dữ liệu từ response
+      const apiData = response.data;
+      const isSuccess = apiData?.statusCode === 201;
+      const token = apiData?.data?.accessToken;
+      const refreshToken = apiData?.data?.refreshToken;
+      
+      console.log("API Data:", apiData); // Debug log
+      
+      // Decode JWT để lấy thông tin user và role
+      const userInfo = getUserFromToken(token);
+      const role = userInfo?.role || "CUSTOMER";
+      const userId = userInfo?.id;
 
-  //     if (isSuccess && token) {
-  //       // ✅ Lưu vào localStorage
-  //       localStorage.setItem("token", token);
-  //       localStorage.setItem("role", role);
-  //       localStorage.setItem("userId", userId);
-  //       localStorage.setItem("refreshToken", refreshToken);
+      if (isSuccess && token) {
+        // ✅ Lưu vào localStorage
+        localStorage.setItem("token", token);
+        localStorage.setItem("role", role);
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("refreshToken", refreshToken);
 
-  //       // ✅ Dispatch lên Redux
-  //       dispatch(login({ token, role }));
+        // ✅ Dispatch lên Redux
+        dispatch(loginSuccess({ 
+          token, 
+          refreshToken, 
+          role, 
+          userId, 
+          user: { 
+            id: userId, 
+            email: userInfo?.email,
+            username: userInfo?.username || values.username
+          } 
+        }));
 
-  //       // ✅ Điều hướng theo vai trò
-  //       if (role === "Admin" || role === "MANAGER") {
-  //         navigate("/dashboard");
-  //         toast.success("Welcome Admin/Manager!");
-  //       } else if (role === "STAFF") {
-  //         navigate("/staff-dashboard");
-  //         toast.success("Welcome Staff!");
-  //       } else {
-  //         navigate("/");
-  //         await Swal.fire({
-  //           title: "🎉 Chào mừng bạn đến với Shop!",
-  //           text: "Chúc bạn mua sắm vui vẻ ❤️",
-  //           icon: "success",
-  //           timer: 3000,
-  //           showConfirmButton: true,
-  //           confirmButtonText: "OK",
-  //         });
-  //       }
-  //     } else {
-  //       toast.error(apiData?.message || "Login failed!");
-  //       throw new Error("Invalid response from server");
-  //     }
-  //   } catch (err) {
-  //     if (err.response?.data) {
-  //       console.log("Backend response:", err.response.data);
-  //       toast.error(err.response.data?.message || "Login failed!");
-  //     }
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+        // ✅ Điều hướng theo vai trò
+        console.log("User role:", role); // Debug log
+        if (role === "ADMIN" || role === "MANAGER") {
+          navigate("/dashboard");
+          toast.success("Welcome Admin/Manager!");
+        } else if (role === "STAFF") {
+          navigate("/staff-dashboard");
+          toast.success("Welcome Staff!");
+        } else {
+          navigate("/");
+          await Swal.fire({
+            title: "🎉 Chào mừng bạn đến với Talkademy!",
+            text: "Chúc bạn học tập vui vẻ ❤️",
+            icon: "success",
+            timer: 3000,
+            showConfirmButton: true,
+            confirmButtonText: "OK",
+          });
+        }
+      } else {
+        toast.error(apiData?.message || "Đăng nhập thất bại!");
+        dispatch(loginFailure(apiData?.message || "Đăng nhập thất bại!"));
+        return;
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      if (err.response?.data) {
+        console.log("Backend response:", err.response.data);
+        toast.error(err.response.data?.message || "Đăng nhập thất bại!");
+        dispatch(loginFailure(err.response.data?.message || "Đăng nhập thất bại!"));
+      } else {
+        toast.error("Lỗi kết nối. Vui lòng thử lại.");
+        dispatch(loginFailure("Lỗi kết nối. Vui lòng thử lại."));
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <AuthLayout>
       <Form
         layout="vertical"
-        onFinish={() => { }}
+        onFinish={handleLogin}
         className="login-form"
         data-aos="fade-up"
       >
         <Form.Item
-          name="email"
-          rules={[{ required: true, message: "Vui lòng nhập email của bạn" }]}
+          name="username"
+          rules={[{ required: true, message: "Vui lòng nhập tên đăng nhập" }]}
         >
-          <Input placeholder="Nhập email của bạn" />
+          <Input placeholder="Nhập tên đăng nhập" />
         </Form.Item>
         <Form.Item
           name="password"

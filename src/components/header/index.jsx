@@ -1,14 +1,17 @@
 import "./index.scss";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
+import { MenuOutlined, CloseOutlined, UserOutlined, LogoutOutlined } from "@ant-design/icons";
+import { Dropdown, Button } from "antd";
+import { toast } from "react-toastify";
 import mascot1 from '../../assets/Mascot/Asset 1logoFB.png';
+import { logout } from "../../redux/slices/authSlice";
 
 const Header = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
-  const isLoggedIn = user?.isLoggedIn;
+  const dispatch = useDispatch();
+  const { isAuthenticated, user, role } = useSelector((state) => state.auth);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -18,6 +21,44 @@ const Header = () => {
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.clear();
+    navigate("/");
+    toast.success("Đăng xuất thành công!");
+    closeMobileMenu();
+  };
+
+  const userMenuItems = [
+    {
+      key: 'profile',
+      icon: <UserOutlined />,
+      label: 'Thông tin cá nhân',
+      onClick: () => {
+        navigate("/profile");
+        closeMobileMenu();
+      }
+    },
+    {
+      key: 'dashboard',
+      icon: <UserOutlined />,
+      label: 'Dashboard',
+      onClick: () => {
+        navigate("/dashboard");
+        closeMobileMenu();
+      }
+    },
+    {
+      type: 'divider',
+    },
+    {
+      key: 'logout',
+      icon: <LogoutOutlined />,
+      label: 'Đăng xuất',
+      onClick: handleLogout
+    }
+  ];
 
   return (
     <header className="talkademy-header">
@@ -49,27 +90,38 @@ const Header = () => {
 
         {/* Auth Buttons */}
         <div className={`header-auth ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-          {isLoggedIn ? (
+          {isAuthenticated ? (
             <div className="user-menu">
-              <span className="user-name">Xin chào!</span>
-              <button
-                className="sign-out-btn"
-                onClick={() => navigate("/dashboard")}
+              <Dropdown
+                menu={{ items: userMenuItems }}
+                placement="bottomRight"
+                trigger={['click']}
               >
-                Dashboard
-              </button>
+                <Button type="text" className="user-dropdown-btn">
+                  <UserOutlined />
+                  <span className="user-name">
+                    {user?.username || user?.email || 'User'}
+                  </span>
+                </Button>
+              </Dropdown>
             </div>
           ) : (
             <div className="auth-buttons">
               <button
                 className="sign-in-btn"
-                onClick={() => navigate("/login")}
+                onClick={() => {
+                  navigate("/login");
+                  closeMobileMenu();
+                }}
               >
                 Sign In
               </button>
               <button
                 className="sign-up-btn"
-                onClick={() => navigate("/register")}
+                onClick={() => {
+                  navigate("/register");
+                  closeMobileMenu();
+                }}
               >
                 Sign Up
               </button>
