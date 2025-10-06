@@ -11,7 +11,6 @@ import "./styles/animations.css";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
 
-// Initialize AOS
 AOS.init({
   duration: 1000,
   easing: 'ease-in-out',

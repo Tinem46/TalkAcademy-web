@@ -59,7 +59,7 @@ export const getGeminiResponse = async (userMessage, conversationHistory = []) =
     console.log('🔑 Using API Key:', API_KEY.substring(0, 10) + '...');
 
     try {
-        // Tạo context từ lịch sử hội thoại
+     
         const context = conversationHistory
             .slice(-5) // Chỉ lấy 5 tin nhắn gần nhất
             .map(msg => `${msg.type === 'user' ? 'Người dùng' : 'AI'}: ${msg.content}`)
@@ -67,7 +67,7 @@ export const getGeminiResponse = async (userMessage, conversationHistory = []) =
 
         console.log('🔗 Context created, length:', context.length);
 
-        // Tạo prompt đầy đủ
+        
         const fullPrompt = `${SYSTEM_PROMPT}
 
 LỊCH SỬ HỘI THOẠI:
@@ -79,14 +79,13 @@ HÃY TRẢ LỜI:`;
 
         console.log('📤 Sending request to Gemini...');
 
-        // Sử dụng model đã khởi tạo sẵn
-        // Hoặc tạo instance mới nếu cần
+       
         const tempAI = new GoogleGenerativeAI(API_KEY);
         const tempModel = tempAI.getGenerativeModel({
             model: "gemini-2.0-flash-exp"
         });
 
-        // Gọi API với timeout
+      
         const result = await Promise.race([
             tempModel.generateContent(fullPrompt),
             new Promise((_, reject) =>
@@ -120,5 +119,5 @@ HÃY TRẢ LỜI:`;
     }
 };
 
-// Chỉ export function chính
+
 export default { getGeminiResponse };
