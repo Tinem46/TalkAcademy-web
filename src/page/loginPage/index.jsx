@@ -18,6 +18,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
   const googleBtnRef = useRef(null);
 
   // ========== Render Google Sign-In ==========
@@ -59,16 +60,42 @@ const Login = () => {
 
   //   try {
   //     const res = await api.post("Auth/google-login-token", { tokenId });
-  //     const { role } = res.data;
-  //     const token = res.data?.data?.accessToken;
-  //     const userId = res.data?.data?.id;
+  //     const apiData = res.data;
+  //     const token = apiData?.data?.accessToken;
+  //     const refreshToken = apiData?.data?.refreshToken;
+  //     
+  //     // Decode JWT để lấy thông tin user và role
+  //     const userInfo = getUserFromToken(token);
+  //     const role = userInfo?.role || "CUSTOMER";
+  //     const userId = userInfo?.id;
+  //     const userEmail = userInfo?.email;
+  //     const username = userInfo?.username || "User";
 
   //     localStorage.setItem("token", token);
   //     localStorage.setItem("role", role);
   //     localStorage.setItem("userId", userId);
-  //     dispatch(login(res.data));
-  //     navigate("/");
-  //     toast.success("Login successful with Google!");
+  //     localStorage.setItem("refreshToken", refreshToken);
+  //     
+  //     dispatch(loginSuccess({ 
+  //       token, 
+  //       refreshToken, 
+  //       role, 
+  //       userId, 
+  //       user: { 
+  //         id: userId, 
+  //         email: userEmail,
+  //         username: username
+  //       } 
+  //     }));
+  //     
+  //     // Điều hướng theo vai trò cho Google login
+  //     if (role === "ADMIN" || role === "MANAGER" || role === "STAFF") {
+  //       navigate("/admin");
+  //       toast.success("Chào mừng Admin/Manager đến với hệ thống quản trị!");
+  //     } else {
+  //       navigate("/");
+  //       toast.success("Login successful with Google!");
+  //     }
   //   } catch (error) {
   //     console.error("Server login error:", error);
   //     if (error.response?.data) {
@@ -93,13 +120,18 @@ const Login = () => {
       const isSuccess = apiData?.statusCode === 201;
       const token = apiData?.data?.accessToken;
       const refreshToken = apiData?.data?.refreshToken;
-      
+
       console.log("API Data:", apiData); // Debug log
-      
+
       // Decode JWT để lấy thông tin user và role
       const userInfo = getUserFromToken(token);
       const role = userInfo?.role || "CUSTOMER";
       const userId = userInfo?.id;
+      const userEmail = userInfo?.email;
+      const username = userInfo?.username || "User";
+
+      console.log("User info from JWT:", userInfo); // Debug log
+      console.log("Role from JWT:", role); // Debug log
 
       if (isSuccess && token) {
         // ✅ Lưu vào localStorage
@@ -109,26 +141,26 @@ const Login = () => {
         localStorage.setItem("refreshToken", refreshToken);
 
         // ✅ Dispatch lên Redux
-        dispatch(loginSuccess({ 
-          token, 
-          refreshToken, 
-          role, 
-          userId, 
-          user: { 
-            id: userId, 
-            email: userInfo?.email,
-            username: userInfo?.username || values.username
-          } 
+        dispatch(loginSuccess({
+          token,
+          refreshToken,
+          role,
+          userId,
+          user: {
+            id: userId,
+            email: userEmail,
+            username: username
+          }
         }));
 
         // ✅ Điều hướng theo vai trò
         console.log("User role:", role); // Debug log
         if (role === "ADMIN" || role === "MANAGER") {
-          navigate("/dashboard");
-          toast.success("Welcome Admin/Manager!");
+          navigate("/admin");
+          toast.success("Chào mừng Admin/Manager đến với hệ thống quản trị!");
         } else if (role === "STAFF") {
-          navigate("/staff-dashboard");
-          toast.success("Welcome Staff!");
+          navigate("/admin");
+          toast.success("Chào mừng Staff đến với hệ thống quản trị!");
         } else {
           navigate("/");
           await Swal.fire({

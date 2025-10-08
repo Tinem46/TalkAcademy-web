@@ -14,6 +14,11 @@ import Contact from "./page/contact";
 import Profile from "./page/profile";
 import ScrollToTop from "./components/ScrollToTop";
 import LoadingAnimation from "./components/loadingAnimation";
+import Dashboard from "./components/dashboard";
+import AccountManagement from "./page/admin/accountManagement";
+import ReadingPassageManagement from "./page/admin/readingPassageManagement";
+import CategoryManagement from "./page/admin/categoryManagement";
+import PackageManagement from "./page/admin/packageManagement";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -83,6 +88,30 @@ function App() {
         {
           path: "/profile",
           element: <Profile />,
+        },
+      ],
+    },
+
+
+    {
+      path: "/admin",
+      element: <Dashboard />,
+      children: [
+        {
+          path: "accounts",
+          element: <AccountManagement />,
+        },
+        {
+          path: "reading-passages",
+          element: <ReadingPassageManagement />,
+        },
+        {
+          path: "categories",
+          element: <CategoryManagement />,
+        },
+        {
+          path: "packages",
+          element: <PackageManagement />,
         },
       ],
     },
