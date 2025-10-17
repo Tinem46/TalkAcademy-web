@@ -1,0 +1,269 @@
+/* ===== RESET PASSWORD PAGE ===== */
+.reset-form {
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+
+    @media (max-width: 768px) {
+        max-width: 350px;
+        padding: 16px;
+    }
+
+    @media (max-width: 480px) {
+        max-width: 320px;
+        padding: 12px;
+    }
+
+    .form-header {
+        text-align: center;
+        margin-bottom: 30px;
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+                color: #43B7FA;
+            }
+
+            @media (max-width: 768px) {
+                position: static;
+                margin-bottom: 20px;
+                display: inline-block;
+            }
+        }
+
+        .form-title {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            margin-top: 0;
+
+            @media (max-width: 768px) {
+                font-size: 24px;
+            }
+        }
+
+        .form-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0;
+
+            strong {
+                color: #43B7FA;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .ant-form-item-label>label {
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .ant-input,
+    .ant-input-password {
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #AFE2FF;
+        color: white;
+        padding: 10px 0;
+        font-size: 16px;
+        padding-left: 6px;
+
+        @media (max-width: 480px) {
+            font-size: 14px;
+            padding: 8px 0;
+        }
+
+        &::placeholder {
+            color: rgba(51, 51, 51, 0.7);
+        }
+
+        &:focus {
+            box-shadow: none;
+            border-color: #43B7FA;
+        }
+    }
+
+    .ant-input-password-icon {
+        color: #43B7FA;
+    }
+
+    .ant-input-prefix {
+        color: #43B7FA;
+        margin-right: 12px;
+        font-size: 16px;
+    }
+
+    .reset-btn {
+        background-color: #43B7FA;
+        border-color: #43B7FA;
+        height: 45px;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        width: 100%;
+        border-radius: 10px;
+        cursor: pointer;
+
+        @media (max-width: 480px) {
+            height: 42px;
+            font-size: 15px;
+        }
+
+        &:hover {
+            background-color: #2A9DE8 !important;
+            border-color: #2A9DE8 !important;
+        }
+    }
+
+    .form-footer {
+        margin-top: 20px;
+        text-align: center;
+        color: white;
+        font-size: 14px;
+
+        a {
+            color: #43B7FA;
+            font-weight: bold;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .ant-form-item-explain-error {
+        color: #f44336 !important;
+        font-size: 13px;
+    }
+
+    .ant-input::placeholder {
+        color: #e0e0e0 !important;
+    }
+}
+
+// Success state
+.success-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+
+    .success-content {
+        text-align: center;
+        max-width: 400px;
+        padding: 40px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+        .success-icon {
+            font-size: 64px;
+            color: #52c41a;
+            margin-bottom: 24px;
+            animation: bounce 2s ease-in-out infinite;
+
+            @keyframes bounce {
+
+                0%,
+                20%,
+                50%,
+                80%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                40% {
+                    transform: translateY(-10px);
+                }
+
+                60% {
+                    transform: translateY(-5px);
+                }
+            }
+        }
+
+        .success-title {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            margin-top: 0;
+        }
+
+        .success-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .back-to-login-btn {
+            background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);
+            border: none;
+            border-radius: 12px;
+            height: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 0 32px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(82, 196, 26, 0.3);
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(82, 196, 26, 0.4);
+                background: linear-gradient(135deg, #73d13d 0%, #52c41a 100%);
+            }
+
+            .anticon {
+                margin-right: 8px;
+            }
+        }
+    }
+}
+
+// Responsive design
+@media (max-width: 480px) {
+    .success-container {
+        .success-content {
+            padding: 30px 15px;
+
+            .success-icon {
+                font-size: 48px;
+                margin-bottom: 20px;
+            }
+
+            .success-title {
+                font-size: 20px;
+            }
+
+            .success-description {
+                font-size: 14px;
+            }
+
+            .back-to-login-btn {
+                height: 45px;
+                font-size: 14px;
+                padding: 0 24px;
+            }
+        }
+    }
+}
