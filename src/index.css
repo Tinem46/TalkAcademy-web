@@ -108,7 +108,7 @@ html {
   .hide-mobile {
     display: none !important;
   }
-  
+
   .show-mobile {
     display: block !important;
   }
@@ -118,7 +118,7 @@ html {
   .hide-desktop {
     display: none !important;
   }
-  
+
   .show-desktop {
     display: block !important;
   }

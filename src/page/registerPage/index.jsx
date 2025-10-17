@@ -50,7 +50,7 @@ function Register() {
       >
         <Row gutter={[64, 16]}>
           <Col xs={24} md={12}>
-            
+
 
             <Form.Item
               name="username"
@@ -73,7 +73,7 @@ function Register() {
               <Input placeholder="Nhập email của bạn" />
             </Form.Item>
 
-         
+
           </Col>
 
           <Col xs={24} md={12}>
@@ -129,13 +129,13 @@ function Register() {
         <Form.Item
           className="signin-link"
           style={{
-            
+
             marginTop: "10px",
             fontSize: "16px",
             color: "white",
             textAlign: "center",
             fontWeight: "bold",
-          
+
 
           }}
         >

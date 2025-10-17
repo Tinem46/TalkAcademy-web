@@ -82,8 +82,8 @@ const Header = () => {
             <li onClick={() => { navigate("/"); closeMobileMenu(); }}>Home</li>
             <li onClick={() => { navigate("/about"); closeMobileMenu(); }}>About Us</li>
             <li onClick={() => { navigate("/services"); closeMobileMenu(); }}>Services</li>
-            <li onClick={() => { navigate("/team"); closeMobileMenu(); }}>Our Team</li>
-            <li onClick={() => { navigate("/blog"); closeMobileMenu(); }}>Blog</li>
+            {/* <li onClick={() => { navigate("/team"); closeMobileMenu(); }}>Our Team</li> */}
+            {/* <li onClick={() => { navigate("/blog"); closeMobileMenu(); }}>Blog</li> */}
             <li onClick={() => { navigate("/contact"); closeMobileMenu(); }}>Contact Us</li>
           </ul>
         </nav>

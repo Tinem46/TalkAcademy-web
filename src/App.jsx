@@ -4,6 +4,8 @@ import Layout from "./components/layout";
 import Home from "./page/home";
 import Login from "./page/loginPage";
 import Register from "./page/registerPage";
+import ForgotPassword from "./page/forgotPassword";
+import ResetPassword from "./page/resetPassword";
 import UserDashboard from "./page/userDashboard";
 import ReadDocument from "./page/readDocument";
 import About from "./page/about";
@@ -43,6 +45,14 @@ function App() {
       path: "/register",
       element: (<><Register /><ScrollToTop /></>),
     },
+    {
+      path: "/forgot-password",
+      element: (<><ForgotPassword /><ScrollToTop /></>),
+    },
+    {
+      path: "/reset-password",
+      element: (<><ResetPassword /><ScrollToTop /></>),
+    },
     // Main app routes (with header/footer)
     {
       path: "/",
@@ -65,14 +75,7 @@ function App() {
           path: "/services",
           element: <Services />,
         },
-        {
-          path: "/team",
-          element: <Team />,
-        },
-        {
-          path: "/blog",
-          element: <Blog />,
-        },
+
         {
           path: "/contact",
           element: <Contact />,

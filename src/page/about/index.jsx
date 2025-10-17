@@ -1,5 +1,5 @@
-import React from 'react';
-import { Card, Row, Col, Typography, Timeline, Avatar, Statistic, Divider } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Card, Row, Col, Typography, Timeline, Avatar, Statistic, Divider, Button } from 'antd';
 import {
     BookOutlined,
     TeamOutlined,
@@ -25,6 +25,12 @@ import mascot3 from '../../assets/Mascot/Asset 3talking.png';
 const { Title, Paragraph, Text } = Typography;
 
 const About = () => {
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        setIsVisible(true);
+    }, []);
+
     const talkademyHistory = [
         {
             period: "Tháng 1/2024",
@@ -127,25 +133,43 @@ const About = () => {
     return (
         <div className="talkademy-about">
             {/* Hero Section */}
-            <div className="hero-section">
+            <div className="about-hero">
                 <div className="hero-background">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&h=1080&fit=crop" alt="Team collaboration" />
-                    <div className="hero-overlay"></div>
+                    <div className="floating-elements">
+                        <div className="floating-icon icon-1"><BookOutlined /></div>
+                        <div className="floating-icon icon-2"><TeamOutlined /></div>
+                        <div className="floating-icon icon-3"><TrophyOutlined /></div>
+                        <div className="floating-icon icon-4"><GlobalOutlined /></div>
+                        <div className="floating-icon icon-5"><HistoryOutlined /></div>
+                        <div className="floating-icon icon-6"><CrownOutlined /></div>
+                    </div>
+                    <div className="hero-particles">
+                        {[...Array(15)].map((_, i) => (
+                            <div key={i} className={`particle particle-${i % 3}`}></div>
+                        ))}
+                    </div>
                 </div>
                 <div className="hero-content">
                     <div className="hero-text">
-                        <Title level={1} className="hero-title">Talkademy</Title>
-                        <Paragraph className="hero-description">
-                            là ứng dụng học tiếng Việt mới nổi, sử dụng công nghệ AI tiên tiến để giúp bạn
-                            tự tin giao tiếp và phát triển kỹ năng ngôn ngữ một cách hiệu quả nhất. Chỉ sau 1 năm phát triển,
-                            chúng tôi đã thu hút hàng nghìn người dùng tin tưởng.
+                        <div className={`hero-ai-icon ${isVisible ? 'animate-in' : ''}`}>
+                            <RobotOutlined />
+                        </div>
+                        <Title level={1} className={`hero-title ${isVisible ? 'animate-in' : ''}`}>
+                            Về chúng tôi - Talkademy
+                        </Title>
+                        <Paragraph className={`hero-subtitle ${isVisible ? 'animate-in delay-1' : ''}`}>
+                            Khám phá câu chuyện đằng sau ứng dụng học tiếng Việt thông minh,
+                            nơi công nghệ AI gặp gỡ tình yêu ngôn ngữ để tạo nên trải nghiệm học tập tuyệt vời
                         </Paragraph>
+                        <Button type="primary" size="large" className={`cta-button ${isVisible ? 'animate-in delay-2' : ''}`}>
+                            Tìm hiểu thêm
+                        </Button>
                     </div>
                     <div className="hero-mascot">
                         <div className="mascot-character">
                             <img
                                 src={mascot1}
-                                alt="Talkademy Mascot"
+                                alt="Talkademy About Mascot"
                                 className="mascot-image"
                             />
                         </div>
