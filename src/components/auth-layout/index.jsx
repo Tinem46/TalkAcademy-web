@@ -1,91 +1,41 @@
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import PropTypes from "prop-types";
 import "./index.scss";
-import { Col, Row, Divider } from "antd";
-import backgroundVideo from '../../assets/video/invideo-ai-1080 Bạn sẽ nói hay hơn chỉ sau 1 tuần_ 2025-10-02.mp4';
-import mascot1 from '../../assets/Mascot/Asset 1logoFB.png';
 
-function AuthLayout({ children }) {
-  const navigate = useNavigate();
+/** Khung nền chung cho Login/Register */
+const AuthLayout = ({ bgImage, overlayOpacity = 0.45, children }) => {
   return (
-    <div
-      className="auth-layout"
-      style={{
-        backgroundColor: "",
-        height: "120vh",
-        width: "100%",
-      }}
-    >
-      <video
-        className="background-video"
-        autoPlay
-        loop
-        muted
-        playsInline
-        onLoadedMetadata={(e) => {
-          e.target.currentTime = 0;
-        }}
-        onTimeUpdate={(e) => {
-          if (e.target.currentTime >= 19) {
-            e.target.currentTime = 0;
-          }
-        }}
-      >
-        <source src={backgroundVideo} type="video/mp4" />
-      </video>
-      <div className="video-overlay"></div>
-      <div
-        className="content-overlay"
-        style={{ height: "100%" }}
-      >
-        <Row
-          justify="center"
-          align="middle"
-          gutter={[48, 24]}
-          style={{ height: "100%", minHeight: "100vh" }}
-        >
-          <Col
-            xs={24}
-            sm={24}
-            md={10}
-            lg={8}
-            style={{ display: "flex", justifyContent: "center" }}
-          >
-            <div className="logo-section" onClick={() => navigate("/")}>
-              <div><img src={mascot1} alt="Talkademy Logo" className="logo-image" />
-                <h1 className="logo-title" >TALKADEMY</h1></div>
-              <h2 className="logo-subtitle">HỌC TIẾNG VIỆT</h2>
-              <p className="logo-description">
-                Ứng dụng học tiếng Việt hàng đầu với công nghệ AI tiên tiến
-              </p>
-            </div>
-          </Col>
-          <Col xs={24} sm={24} md={0} lg={0}>
-            <Divider
-              type="horizontal"
-              style={{
-                borderColor: "rgba(255, 255, 255, 0.3)",
-                borderWidth: "1px",
-                margin: "20px 0",
-              }}
-            />
-          </Col>
-          <Col xs={0} sm={0} md={0} lg={0}>
-            <Divider
-              type="vertical"
-              style={{
-                height: "400px",
-                borderColor: "white",
-                borderWidth: "1px",
-              }}
-            />
-          </Col>
-          <Col xs={24} sm={24} md={10} lg={8}>
-            {children}
-          </Col>
-        </Row>
+    <div className="auth auth--layout" data-auth="layout-root">
+      <div className="auth__background" aria-hidden="true">
+        {bgImage && (
+          <img
+            className="auth__background-image"
+            src={bgImage}
+            alt=""
+            role="presentation"
+            loading="lazy"
+          />
+        )}
+        <div
+          className="auth__overlay"
+          style={{ opacity: overlayOpacity }}
+          data-auth="overlay"
+        />
+      </div>
+
+      <div className="auth__content" data-auth="content">
+        <div className="auth__container" data-auth="container">
+          {children}
+        </div>
       </div>
     </div>
   );
-}
+};
+
+AuthLayout.propTypes = {
+  bgImage: PropTypes.string,
+  overlayOpacity: PropTypes.number,
+  children: PropTypes.node.isRequired,
+};
 
 export default AuthLayout;

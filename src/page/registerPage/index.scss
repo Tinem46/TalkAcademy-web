@@ -1,152 +1,23 @@
-.register-form {
-    max-width: 500px;
-    padding: 20px;
-    background-color: transparent;
-    border-radius: 8px;
-    margin: 0 auto;
-    margin-bottom: 10px;
+/* Core ở components/auth-layout/index.scss đã bao gồm mọi thứ */
 
-    @media (max-width: 768px) {
-        max-width: 400px;
-        padding: 16px;
-    }
+/* Padding mềm cho inputs */
+.auth-form--register .auth-form__item .auth-form__input.is-droplet {
+  padding: 12px 14px;
+}
+.auth-form--register .auth-form__item .ant-input-affix-wrapper.is-droplet {
+  padding: 10px 12px;
+}
 
-    @media (max-width: 480px) {
-        max-width: 320px;
-        padding: 12px;
-    }
+/* label antd sáng */
+.auth-card--form .ant-form-item-label > label { color: var(--auth-text); }
 
-    .ant-form-item-label>label {
-        color: white;
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .ant-input,
-    .ant-input-password {
-        background-color: transparent;
-        border: none;
-        border-bottom: 1px solid #AFE2FF;
-        color: white;
-        padding: 10px 0;
-        font-size: 16px;
-        padding-left: 6px;
-
-        @media (max-width: 480px) {
-            font-size: 14px;
-            padding: 8px 0;
-        }
-
-        &::placeholder {
-            color: rgba(51, 51, 51, 0.7);
-        }
-
-        &:focus {
-            box-shadow: none;
-            border-color: #43B7FA;
-        }
-    }
-
-    .register-btn {
-        background-color: #43B7FA;
-        border-color: #43B7FA;
-        height: 45px;
-        font-size: 16px;
-        font-weight: bold;
-        color: white;
-        width: 100%;
-        border-radius: 10px;
-        cursor: pointer;
-
-        @media (max-width: 480px) {
-            height: 42px;
-            font-size: 15px;
-        }
-
-        &:hover {
-            background-color: #2A9DE8 !important;
-            border-color: #2A9DE8 !important;
-        }
-    }
-
-    .google-login-btn {
-        margin-top: 0;
-        background-color: white;
-        color: black;
-        border: 1px solid #ccc;
-        height: 45px;
-        font-size: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: background-color 0.3s, color 0.3s;
-        width: 100%;
-
-        &:hover {
-            background-color: #f5f5f5;
-            color: black;
-        }
-
-        img {
-            margin-right: 10px;
-        }
-    }
-
-    input:-internal-autofill-selected {
-        appearance: menulist-button;
-        background-image: none !important;
-        color: fieldtext !important;
-    }
-
-    .signin-link {
-        margin-top: 10px;
-        text-align: center;
-        color: white;
-        font-size: 14px;
-
-        a {
-            color: #43B7FA;
-            font-weight: bold;
-        }
-    }
-
-    .or-divider {
-        text-align: center;
-        margin: 15px 0;
-        color: white;
-        font-size: 14px;
-    }
-
-    .ant-input-suffix {
-        font-size: 16px;
-
-        .anticon svg {
-            color: #43B7FA;
-        }
-    }
-
-    .ant-form-item-has-error .ant-input,
-    .ant-form-item-has-error .ant-input-password {
-        background-color: #7c7b7b !important;
-        box-shadow: none !important;
-        color: #000 !important;
-    }
-
-    .ant-input-password {
-        display: flex;
-        align-items: center;
-        border-radius: 4px;
-        overflow: hidden;
-    }
-
-    .ant-input::placeholder {
-        color: #e0e0e0 !important;
-    }
-
-    .ant-form-item-explain-error {
-        color: #f44336 !important;
-        font-size: 13px;
-    }
+/* đề phòng CSS khác vô tình ẩn brand */
+.auth-card--brand { display: block !important; visibility: visible !important; }
+.brand__title{
+    color: #43B7FA;
+    font-size: 45px;
+}
+.brand__subtitle{
+    
+    font-size: 35px;
 }
