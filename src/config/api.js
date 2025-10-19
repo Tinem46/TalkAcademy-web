@@ -98,6 +98,27 @@ api.interceptors.response.use(
   }
 );
 
+// Auth API functions
+export const authAPI = {
+  // Forgot password
+  forgotPassword: async (email) => {
+    const response = await api.post('/auth/forgot-password', {
+      email: email
+    });
+    return response.data;
+  },
+
+  // Reset password
+  resetPassword: async (email, otp, newPassword) => {
+    const response = await api.post('/auth/reset-password', {
+      email: email,
+      otp: otp,
+      newPassword: newPassword
+    });
+    return response.data;
+  }
+};
+
 export default api;
 
 
