@@ -1,0 +1,14 @@
+.auth-callback-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+
+    &__text {
+        margin-top: 20px;
+        font-size: 1.1rem;
+        color: #5a6c7d;
+    }
+}

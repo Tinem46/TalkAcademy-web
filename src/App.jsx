@@ -10,8 +10,6 @@ import UserDashboard from "./page/userDashboard";
 import ReadDocument from "./page/readDocument";
 import About from "./page/about";
 import Services from "./page/serviceTeam";
-import Team from "./page/team";
-import Blog from "./page/blog";
 import Contact from "./page/contact";
 import Profile from "./page/profile";
 import ScrollToTop from "./components/ScrollToTop";
@@ -22,111 +20,85 @@ import ReadingPassageManagement from "./page/admin/readingPassageManagement";
 import CategoryManagement from "./page/admin/categoryManagement";
 import PackageManagement from "./page/admin/packageManagement";
 
+// ===== 1. IMPORT COMPONENT MỚI =====
+import AuthCallback from "./page/authCallback";
+
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    // Simulate initial loading
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2500);
+    useEffect(() => {
+        // Simulate initial loading
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2500);
 
-    return () => clearTimeout(timer);
-  }, []);
+        return () => clearTimeout(timer);
+    }, []);
 
-  const router = createBrowserRouter([
-    // Auth routes (without header/footer)
-    {
+    const router = createBrowserRouter([
+        // Auth routes (without header/footer)
+        {
+            path: "/login",
+            element: (<><Login /><ScrollToTop /></>),
+        },
+        {
+            path: "/register",
+            element: (<><Register /><ScrollToTop /></>),
+        },
+        {
+            path: "/forgot-password",
+            element: (<><ForgotPassword /><ScrollToTop /></>),
+        },
+        {
+            path: "/reset-password",
+            element: (<><ResetPassword /><ScrollToTop /></>),
+        },
+        // ===== 2. THÊM ROUTE CALLBACK MỚI =====
+        {
+            path: "/auth/callback",
+            element: (<><AuthCallback /><ScrollToTop /></>),
+        },
+        
+        // Main app routes (with header/footer)
+        {
+            path: "/",
+            element: (
+                <>
+                    <ScrollToTop />
+                    <Layout />
+                </>
+            ),
+            children: [
+                { path: "", element: <Home /> },
+                { path: "/about", element: <About /> },
+                { path: "/services", element: <Services /> },
+                { path: "/contact", element: <Contact /> },
+                { path: "/dashboard", element: <UserDashboard /> },
+                { path: "/read/:documentId", element: <ReadDocument /> },
+                { path: "/profile", element: <Profile /> },
+            ],
+        },
 
-      path: "/login",
-      element: (<><Login /><ScrollToTop /></>),
-    },
-    {
-      path: "/register",
-      element: (<><Register /><ScrollToTop /></>),
-    },
-    {
-      path: "/forgot-password",
-      element: (<><ForgotPassword /><ScrollToTop /></>),
-    },
-    {
-      path: "/reset-password",
-      element: (<><ResetPassword /><ScrollToTop /></>),
-    },
-    // Main app routes (with header/footer)
-    {
-      path: "/",
-      element: (
+        // Admin routes
+        {
+            path: "/admin",
+            element: <Dashboard />,
+            children: [
+                { path: "accounts", element: <AccountManagement /> },
+                { path: "reading-passages", element: <ReadingPassageManagement /> },
+                { path: "categories", element: <CategoryManagement /> },
+                { path: "packages", element: <PackageManagement /> },
+            ],
+        },
+    ]);
+
+    return (
         <>
-          <ScrollToTop />
-          <Layout />
+            <LoadingAnimation isLoading={isLoading}>
+                <RouterProvider router={router} />
+            </LoadingAnimation>
         </>
-      ),
-      children: [
-        {
-          path: "",
-          element: <Home />,
-        },
-        {
-          path: "/about",
-          element: <About />,
-        },
-        {
-          path: "/services",
-          element: <Services />,
-        },
-
-        {
-          path: "/contact",
-          element: <Contact />,
-        },
-        {
-          path: "/dashboard",
-          element: <UserDashboard />,
-        },
-        {
-          path: "/read/:documentId",
-          element: <ReadDocument />,
-        },
-        {
-          path: "/profile",
-          element: <Profile />,
-        },
-      ],
-    },
-
-
-    {
-      path: "/admin",
-      element: <Dashboard />,
-      children: [
-        {
-          path: "accounts",
-          element: <AccountManagement />,
-        },
-        {
-          path: "reading-passages",
-          element: <ReadingPassageManagement />,
-        },
-        {
-          path: "categories",
-          element: <CategoryManagement />,
-        },
-        {
-          path: "packages",
-          element: <PackageManagement />,
-        },
-      ],
-    },
-  ]);
-
-  return (
-    <>
-      <LoadingAnimation isLoading={isLoading}>
-        <RouterProvider router={router} />
-      </LoadingAnimation>
-    </>
-  );
+    );
 }
 
 export default App;

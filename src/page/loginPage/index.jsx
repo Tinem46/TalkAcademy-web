@@ -103,30 +103,7 @@ const Login = () => {
               </Button>
             </div>
 
-            <div className="auth-divider" role="separator">
-              <span className="auth-divider__line" />
-              <span className="auth-divider__text">hoặc</span>
-              <span className="auth-divider__line" />
-            </div>
-
-            <div className="auth-form__actions" data-form="actions">
-              <Button
-                className="auth-button auth-button--google auth-button--block is-droplet"
-                onClick={() => {
-                  // Gắn luồng Google OAuth tại đây
-                  console.log("Login with Google clicked");
-                }}
-              >
-                <img
-                  src="https://developers.google.com/identity/images/g-logo.png"
-                  alt=""
-                  width={20}
-                  height={20}
-                  className="auth-button__icon"
-                />
-                <span className="auth-button__label">Đăng nhập với Google</span>
-              </Button>
-            </div>
+           
 
             <div className="auth-form__links" data-form="links">
               <p className="auth-text auth-text--muted">
