@@ -5,8 +5,8 @@ import {
     UserOutlined,
     TrophyOutlined,
     ClockCircleOutlined,
-    CheckCircleOutlined,
-    StarOutlined,
+    // CheckCircleOutlined, // <-- Đã xóa
+    // StarOutlined,         // <-- Đã xóa
     PhoneOutlined,
     MailOutlined,
     GlobalOutlined,
@@ -24,91 +24,14 @@ const { Title, Paragraph, Text } = Typography;
 
 const Services = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const [animatedCards, setAnimatedCards] = useState([]);
+    // const [animatedCards, setAnimatedCards] = useState([]); // <-- Đã xóa
 
     useEffect(() => {
         setIsVisible(true);
-        // Stagger card animations
-        const timer = setTimeout(() => {
-            setAnimatedCards([0, 1, 2, 3]);
-        }, 500);
-        return () => clearTimeout(timer);
+        // Phần timer cho animatedCards đã được xóa
     }, []);
 
-    const services = [
-        {
-            id: 1,
-            title: "AI Pronunciation Coach",
-            description: "Ứng dụng học phát âm tiếng Việt thông minh với công nghệ AI nhận diện giọng nói, giúp bạn cải thiện phát âm một cách chính xác và hiệu quả.",
-            icon: <SoundOutlined />,
-            gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-            features: ["AI phân tích phát âm", "Phản hồi tức thì", "Luyện tập cá nhân hóa", "Theo dõi tiến độ chi tiết", "Chế độ offline"],
-            price: "Miễn phí",
-            originalPrice: "199,000 VNĐ/tháng",
-            duration: "Vô thời hạn",
-            level: "Mọi cấp độ",
-            students: 15000,
-            rating: 4.9,
-            lessons: "Unlimited",
-            certificate: false,
-            liveSessions: 0,
-            support: "In-app"
-        },
-        {
-            id: 2,
-            title: "AI Voice Training",
-            description: "Luyện tập phát âm với các tình huống giao tiếp thực tế, AI sẽ đánh giá và đưa ra gợi ý cải thiện giọng nói của bạn.",
-            icon: <MessageOutlined />,
-            gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-            features: ["Tình huống giao tiếp thực tế", "AI đánh giá giọng nói", "Luyện tập hội thoại", "Phân tích ngữ điệu", "Chế độ luyện tập nhóm"],
-            price: "Miễn phí",
-            originalPrice: "299,000 VNĐ/tháng",
-            duration: "Vô thời hạn",
-            level: "Mọi cấp độ",
-            students: 12000,
-            rating: 4.8,
-            lessons: "Unlimited",
-            certificate: false,
-            liveSessions: 0,
-            support: "In-app"
-        },
-        {
-            id: 3,
-            title: "AI Accent Analyzer",
-            description: "Phân tích và cải thiện giọng điệu tiếng Việt của bạn với công nghệ AI tiên tiến, giúp bạn nói như người bản xứ.",
-            icon: <ThunderboltOutlined />,
-            gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-            features: ["Phân tích giọng điệu", "So sánh với người bản xứ", "Luyện tập chuyên sâu", "Báo cáo chi tiết", "Chế độ thử thách"],
-            price: "Miễn phí",
-            originalPrice: "399,000 VNĐ/tháng",
-            duration: "Vô thời hạn",
-            level: "Mọi cấp độ",
-            students: 8500,
-            rating: 4.7,
-            lessons: "Unlimited",
-            certificate: false,
-            liveSessions: 0,
-            support: "In-app"
-        },
-        {
-            id: 4,
-            title: "AI Speech Therapist",
-            description: "Trợ lý AI cá nhân hóa giúp bạn cải thiện giọng nói tiếng Việt với các bài tập được thiết kế riêng cho từng cá nhân.",
-            icon: <RobotOutlined />,
-            gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-            features: ["AI cá nhân hóa", "Bài tập riêng biệt", "Theo dõi tiến độ", "Lịch luyện tập thông minh", "Hỗ trợ 24/7"],
-            price: "Miễn phí",
-            originalPrice: "599,000 VNĐ/tháng",
-            duration: "Vô thời hạn",
-            level: "Mọi cấp độ",
-            students: 20000,
-            rating: 4.9,
-            lessons: "Unlimited",
-            certificate: false,
-            liveSessions: 0,
-            support: "AI Assistant"
-        }
-    ];
+    // Mảng 'services' đã được xóa
 
     const processSteps = [
         {
@@ -206,95 +129,8 @@ const Services = () => {
                 </div>
             </div>
 
-            {/* Services Section */}
-            <div className="services-section">
-                <div className="container">
-                    <Title level={2} className="section-title">
-                        Các khóa học của chúng tôi
-                    </Title>
-                    <Paragraph className="section-subtitle">
-                        Chọn khóa học phù hợp với trình độ và mục tiêu của bạn
-                    </Paragraph>
-
-                    <Row gutter={[32, 32]}>
-                        {services.map((service, index) => (
-                            <Col xs={24} lg={12} key={service.id}>
-                                <Card
-                                    className={`service-card ${animatedCards.includes(index) ? 'animate-card' : ''}`}
-                                    hoverable
-                                    style={{
-                                        animationDelay: `${index * 0.2}s`,
-                                        background: service.gradient
-                                    }}
-                                >
-                                    <div className="service-header">
-                                        <div className="service-icon pulse-animation">{service.icon}</div>
-                                        <div className="service-info">
-                                            <Title level={3}>{service.title}</Title>
-                                            <div className="price-section">
-                                                <Text className="service-price">{service.price}</Text>
-                                                <Text className="original-price">{service.originalPrice}</Text>
-                                            </div>
-                                            <div className="service-badges">
-                                                <Tag color="green">{service.level}</Tag>
-                                                <Tag color="blue">{service.duration}</Tag>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <Paragraph className="service-description">
-                                        {service.description}
-                                    </Paragraph>
-
-                                    <div className="service-features">
-                                        <Title level={5}>Tính năng:</Title>
-                                        <ul>
-                                            {service.features.map((feature, index) => (
-                                                <li key={index}>
-                                                    <CheckCircleOutlined className="feature-icon" />
-                                                    {feature}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-
-                                    <div className="service-stats">
-                                        <div className="stat-item">
-                                            <Text strong>{service.students.toLocaleString()}</Text>
-                                            <Text>học viên</Text>
-                                        </div>
-                                        <div className="stat-item">
-                                            <Text strong>{service.rating}</Text>
-                                            <Text>⭐ đánh giá</Text>
-                                        </div>
-                                        <div className="stat-item">
-                                            <Text strong>{service.lessons}</Text>
-                                            <Text>bài học</Text>
-                                        </div>
-                                    </div>
-
-                                    <div className="service-details">
-                                        <div className="detail-row">
-                                            <Text>📱 Ứng dụng: {service.certificate ? 'Có chứng chỉ' : 'Miễn phí'}</Text>
-                                        </div>
-                                        <div className="detail-row">
-                                            <Text>🤖 AI: {service.liveSessions === 0 ? 'Hỗ trợ 24/7' : service.liveSessions + ' buổi'}</Text>
-                                        </div>
-                                        <div className="detail-row">
-                                            <Text>🆘 Hỗ trợ: {service.support}</Text>
-                                        </div>
-                                    </div>
-
-                                    <Button type="primary" block className="service-button">
-                                        Tải ứng dụng
-                                    </Button>
-                                </Card>
-                            </Col>
-                        ))}
-                    </Row>
-                </div>
-            </div>
-
+            {/* ===== PHẦN SERVICES SECTION ĐÃ BỊ XÓA ===== */}
+            
             {/* Process Section */}
             <div className="process-section">
                 <div className="container">
