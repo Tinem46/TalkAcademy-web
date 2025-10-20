@@ -1,8 +1,20 @@
 {
   "name": "talkademy",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
+  "description": "Talkademy là ứng dụng học tiếng Việt hàng đầu, sử dụng công nghệ AI tiên tiến để giúp bạn tự tin giao tiếp và phát triển kỹ năng ngôn ngữ một cách hiệu quả nhất.",
+  "homepage": "https://github.com/Tinem46/TalkAcademy-web#readme",
+  "bugs": {
+    "url": "https://github.com/Tinem46/TalkAcademy-web/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tinem46/TalkAcademy-web.git"
+  },
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "eslint.config.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

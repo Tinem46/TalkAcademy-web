@@ -43,11 +43,11 @@ const Footer = () => {
               <div className="contact-info">
                 <div className="contact-item">
                   <span className="contact-icon">📍</span>
-                  <span className="contact-text">7 Đ. Đt. Long Thành Mỹ, Thủ Đức, Hồ Chí Minh 700000</span>
+                  <span className="contact-text">Lô E2a-7, Đường D1, Khu Công nghệ cao, Phường Tăng Nhơn Phú, TPHCM.</span>
                 </div>
                 <div className="contact-item">
                   <span className="contact-icon">📞</span>
-                  <span className="contact-text">028 7300 5588</span>
+                  <span className="contact-text">+84 946 51805</span>
                 </div>
                 <div className="contact-item">
                   <span className="contact-icon">✉️</span>

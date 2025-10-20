@@ -170,3 +170,79 @@ html {
     margin: 12px 0;
   }
 }
+/* =========================
+   Thiết lập Font chữ Toàn cục
+   ========================= */
+:root {
+  /* Đây là "font stack" ưu tiên các font hệ thống:
+    1. -apple-system (San Francisco trên macOS/iOS)
+    2. BlinkMacSystemFont (Chrome trên macOS)
+    3. "Segoe UI" (Windows)
+    4. Roboto (Android & ChromeOS)
+    5. "Helvetica Neue", Arial, "Noto Sans" (Các font dự phòng)
+  */
+  --font-global: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", 
+                 Arial, "Noto Sans", sans-serif, "Apple Color Emoji", 
+                 "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Các cài đặt tối ưu hiển thị:
+    - Ngăn trình duyệt tự ý 'làm giả' font in đậm/in nghiêng.
+    - Ưu tiên tốc độ và độ rõ nét khi render chữ.
+    - Khử răng cưa cho font chữ.
+  */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================
+   Áp dụng Global
+   ========================= */
+body {
+  margin: 0;
+  padding: 0;
+  
+  /* Áp dụng font chữ toàn cục cho trang web */
+  font-family: var(--font-global);
+  
+  /* Đặt màu nền và màu chữ cơ bản (bạn có thể đổi lại nếu muốn) */
+  background-color: #ffffff;
+  color: #2C3E50; 
+  line-height: 1.6; /* Tăng khoảng cách dòng cho dễ đọc */
+}
+
+/* Đảm bảo các thẻ input, button cũng kế thừa font chữ này
+*/
+input,
+button,
+textarea,
+select {
+  font-family: var(--font-global);
+}
+
+/* Tùy chọn: Làm cho các tiêu đề (h1, h2, ...) mỏng hơn một chút
+  để hợp với phong cách iOS.
+*/
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600; /* Trông hiện đại hơn font-weight: 700 (bold) mặc định */
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  color: #1a2b3c; /* Màu tiêu đề đậm hơn 1 chút */
+}
+
+/* Xóa bỏ style mặc định của list */
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Reset cơ bản cho link */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+h2 {
+  font-size: 35px;
+}

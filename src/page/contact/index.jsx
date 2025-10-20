@@ -87,43 +87,43 @@ const Contact = () => {
     const offices = [
         {
             city: "Hồ Chí Minh",
-            address: "123 Nguyễn Huệ, Quận 1, TP.HCM",
-            phone: "+84 28 1234 5678",
-            email: "hcm@talkademy.com"
+            address: "Lô E2a-7, Đường D1, Khu Công nghệ cao, Phường Tăng Nhơn Phú, TPHCM.  ",
+            phone: "+84 946541805  ",
+            email: "Talkademyfpt@gmail.com"
         },
         {
             city: "Hà Nội",
-            address: "456 Lê Lợi, Quận Hoàn Kiếm, Hà Nội",
-            phone: "+84 24 8765 4321",
-            email: "hanoi@talkademy.com"
+            address: "Khu Giáo dục và Đào tạo - Khu Công nghệ cao Hòa Lạc - Km29 Đại lộ Thăng Long, xã Hòa Lạc, TP. Hà Nội.  ",
+         phone: "+84 946541805  ",
+            email: "Talkademyfpt@gmail.com"
         },
         {
             city: "Đà Nẵng",
-            address: "789 Lê Duẩn, Quận Hải Châu, Đà Nẵng",
-            phone: "+84 236 9876 5432",
-            email: "danang@talkademy.com"
+            address: "Khu đô thị công nghệ FPT Đà Nẵng, phường Ngũ Hành Sơn, TP. Đà Nẵng.  ",
+        phone: "+84 946541805  ",
+            email: "Talkademyfpt@gmail.com"
         }
     ];
 
     const departments = [
         {
             name: "Hỗ trợ kỹ thuật",
-            email: "support@talkademy.com",
+              email: "Talkademyfpt@gmail.com",
             description: "Hỗ trợ về vấn đề kỹ thuật và sử dụng ứng dụng"
         },
         {
             name: "Tư vấn khóa học",
-            email: "admissions@talkademy.com",
+              email: "Talkademyfpt@gmail.com",
             description: "Tư vấn về các khóa học và chương trình học"
         },
         {
             name: "Hợp tác kinh doanh",
-            email: "partnership@talkademy.com",
+             email: "Talkademyfpt@gmail.com",
             description: "Cơ hội hợp tác và phát triển kinh doanh"
         },
         {
             name: "Truyền thông",
-            email: "media@talkademy.com",
+             email: "Talkademyfpt@gmail.com",
             description: "Thông tin báo chí và truyền thông"
         }
     ];
