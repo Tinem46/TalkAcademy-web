@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import { Col, Row, Divider } from "antd";
-import backgroundVideo from '../../assets/video/invideo-ai-1080 Bạn sẽ nói hay hơn chỉ sau 1 tuần_ 2025-10-02.mp4';
+// import backgroundVideo from '../../assets/video/invideo-ai-1080 Bạn sẽ nói hay hơn chỉ sau 1 tuần_ 2025-10-02.mp4';
 import mascot1 from '../../assets/Mascot/Asset 1logoFB.png';
 
 function AuthLayout({ children }) {
@@ -10,12 +10,12 @@ function AuthLayout({ children }) {
     <div
       className="auth-layout"
       style={{
-        backgroundColor: "",
+        backgroundColor: "white",
         height: "120vh",
         width: "100%",
       }}
     >
-      <video
+      {/* <video
         className="background-video"
         autoPlay
         loop
@@ -31,7 +31,7 @@ function AuthLayout({ children }) {
         }}
       >
         <source src={backgroundVideo} type="video/mp4" />
-      </video>
+      </video> */}
       <div className="video-overlay"></div>
       <div
         className="content-overlay"
