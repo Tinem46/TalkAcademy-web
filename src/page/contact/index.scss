@@ -1,1035 +1,510 @@
-/* ===== CONTACT PAGE ===== */
-$primary-blue: #AFE2FF;
-$secondary-blue: #87CEEB;
-$accent-pink: #FFFFFF;
-$light-blue: #AFE2FF;
-$white: #FFFFFF;
-$text-dark: #2C3E50;
-$text-light: #7F8C8D;
+/* ===== Trang Liên Hệ (Contact Page) - Thiết kế mới theo ảnh ===== */
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
 
+/* --- Biến màu (Theo thiết kế của bạn) --- */
+$primary-blue: #43B7FA;
+$dark-blue: #0A69DD; // Màu xanh đậm hơn cho gradient
+$text-dark: #2C3E50;
+$text-light: #5a6b80;
+$text-muted: #8a99aa;
+$background-page: #F8FBFF; // Nền xanh siêu nhạt của trang
+$white: #FFFFFF;
+$border-light: #E0EFFF; // Viền card
+$shadow-light: rgba(67, 183, 250, 0.1);
+$shadow-medium: rgba(67, 183, 250, 0.2);
+
+/* --- Mixin hiệu ứng --- */
+@mixin ios-water-drop-active {
+    // Hiệu ứng nhấn giữ
+    &:active {
+        transform: scale(0.97) translateY(0);
+        box-shadow: 0 5px 15px $shadow-light;
+        transition-duration: 0.1s;
+    }
+}
+
+/* --- Keyframes --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatMascot {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes floatBubbles {
+    0% { transform: translateY(0px); opacity: 0; }
+    50% { opacity: 0.5; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+/* --- Base Page --- */
 .contact-page {
-    font-family: 'Inter', sans-serif;
-    color: $text-dark;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background-color: $background-page;
+    overflow: hidden;
+    position: relative;
 
     .container {
-        max-width: 1200px;
+        max-width: 1100px;
         margin: 0 auto;
         padding: 0 20px;
+    }
+}
 
-        @media (max-width: 768px) {
-            padding: 0 16px;
-        }
+/* --- Hiệu ứng cuộn --- */
+.fade-in-card {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 
-        @media (max-width: 480px) {
-            padding: 0 12px;
-        }
+    &.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Hero Section --- */
+.contact-page__hero {
+    position: relative;
+    padding: 100px 0 200px 0; // Padding dưới lớn để tạo khoảng chờ cho card trắng
+    background: linear-gradient(135deg, $primary-blue 0%, $dark-blue 100%);
+    color: $white;
+    overflow: hidden;
+
+    .contact-page__hero-container {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
-    // Hero Section
-    .contact-hero {
-        background: linear-gradient(135deg, #AFE2FF 0%, #87CEEB 50%, #43B7FA 100%);
-        padding: 100px 0;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-
-        .hero-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-
-            .floating-shapes {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-
-                .shape {
-                    position: absolute;
-                    border-radius: 50%;
-                    background: rgba(255, 255, 255, 0.1);
-                    animation: float 6s ease-in-out infinite;
-
-                    &.shape-1 {
-                        width: 80px;
-                        height: 80px;
-                        top: 20%;
-                        left: 10%;
-                        animation-delay: 0s;
-                    }
-
-                    &.shape-2 {
-                        width: 120px;
-                        height: 120px;
-                        top: 60%;
-                        right: 15%;
-                        animation-delay: 2s;
-                    }
-
-                    &.shape-3 {
-                        width: 60px;
-                        height: 60px;
-                        top: 30%;
-                        right: 30%;
-                        animation-delay: 4s;
-                    }
-
-                    &.shape-4 {
-                        width: 100px;
-                        height: 100px;
-                        bottom: 20%;
-                        left: 20%;
-                        animation-delay: 1s;
-                    }
-                }
-            }
+    .contact-page__hero-text {
+        max-width: 550px;
+        .contact-page__hero-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            display: inline-block;
         }
-
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
+        .contact-page__hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: $white;
+            line-height: 1.2;
+        }
+        .contact-page__hero-subtitle {
+            font-size: 1.1rem;
+            color: rgba($white, 0.9);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .contact-page__hero-actions {
             display: flex;
-            align-items: center;
-            gap: 80px;
-
-            .hero-icon {
-                font-size: 4rem;
-                color: #43B7FA;
-                margin-bottom: 20px;
-                animation: bounceIn 1s ease-out;
-            }
-
-            .hero-title {
-                font-size: 3.5rem;
+            gap: 16px;
+            .hero-button-primary {
+                background: $white;
+                color: $dark-blue;
                 font-weight: 700;
-                color: $text-dark;
-                margin-bottom: 24px;
-                animation: slideInUp 1s ease-out 0.3s both;
-
-                @media (max-width: 768px) {
-                    font-size: 2.5rem;
-                }
-            }
-
-            .hero-subtitle {
-                font-size: 1.3rem;
-                color: rgba(44, 62, 80, 0.8);
-                line-height: 1.6;
-                margin-bottom: 40px;
-                animation: slideInUp 1s ease-out 0.6s both;
-            }
-
-            .hero-stats {
-                display: flex;
-                justify-content: center;
-                gap: 40px;
-                flex-wrap: wrap;
-                animation: slideInUp 1s ease-out 0.9s both;
-
-                .stat-item {
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    color: $text-dark;
-                    font-weight: 600;
-                    background: rgba(255, 255, 255, 0.8);
-                    padding: 12px 20px;
-                    border-radius: 25px;
-                    backdrop-filter: blur(10px);
-                    transition: all 0.3s ease;
-
-                    &:hover {
-                        transform: translateY(-3px);
-                        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-                    }
-
-                    .anticon {
-                        font-size: 1.2rem;
-                        color: #43B7FA;
-                    }
-                }
-
-                @media (max-width: 768px) {
-                    gap: 20px;
-
-                    .stat-item {
-                        padding: 8px 16px;
-                        font-size: 14px;
-                    }
-                }
-            }
-
-            .hero-text {
-                flex: 1;
-                text-align: left;
-            }
-
-            .hero-mascot {
-                flex: 0 0 400px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                .mascot-character {
-                    position: relative;
-                    animation: float 3.3s ease-in-out infinite;
-
-                    .mascot-image {
-                        width: 700px;
-                        height: 400px;
-                        max-width: 300%;
-                        filter: drop-shadow(0 8px 25px rgba(67, 183, 250, 0.3));
-                        transition: all 0.3s ease;
-
-                        &:hover {
-                            transform: scale(1.05) rotate(-1deg);
-                            filter: drop-shadow(0 12px 35px rgba(67, 183, 250, 0.4));
-                        }
-                    }
-
-                    &::before {
-                        content: '';
-                        position: absolute;
-                        bottom: -15px;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        width: 180px;
-                        height: 25px;
-                        background: rgba(67, 183, 250, 0.2);
-                        border-radius: 50%;
-                        filter: blur(12px);
-                        animation: shadowPulse 3.3s ease-in-out infinite;
-                    }
-                }
-            }
-        }
-    }
-
-    // Contact Info Section
-    .contact-info-section {
-        padding: 60px 0;
-        background: $white;
-
-        .info-card {
-            height: 100%;
-            text-align: center;
-            border: none;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            padding: 30px 20px;
-            opacity: 0;
-            transform: translateY(30px);
-
-            &.card-animate-in {
-                opacity: 1;
-                transform: translateY(0);
-                animation: slideInUp 0.6s ease-out;
-            }
-
-            &:hover {
-                transform: translateY(-8px) scale(1.02);
-                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-            }
-
-            .info-icon {
-                font-size: 3rem;
-                color: #43B7FA;
-                margin-bottom: 16px;
-                display: block;
-                transition: all 0.3s ease;
-
-                &.pulse-animation {
-                    animation: pulse 2s infinite;
-                }
-
-                &:hover {
-                    transform: scale(1.1) rotate(5deg);
-                }
-            }
-
-            .info-title {
-                color: $text-dark;
-                margin-bottom: 12px;
-            }
-
-            .info-content {
-                display: block;
-                color: #43B7FA;
-                font-weight: 600;
-                font-size: 1.1rem;
-                margin-bottom: 8px;
-            }
-
-            .info-description {
-                color: $text-light;
-                font-size: 14px;
-                margin-bottom: 8px;
-            }
-
-            .info-additional {
-                display: block;
-                color: #43B7FA;
-                font-size: 13px;
-                font-weight: 500;
-                margin-bottom: 8px;
-            }
-
-            .info-response {
-                display: block;
-                color: #52c41a;
-                font-size: 12px;
-                font-weight: 600;
-                background: #f6ffed;
-                padding: 4px 8px;
-                border-radius: 4px;
-                text-align: center;
-            }
-        }
-    }
-
-    // Main Content
-    .main-content {
-        padding: 80px 0;
-        background: linear-gradient(45deg, #AFE2FF 0%, #E6F3FF 100%);
-        position: relative;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
-            opacity: 0.3;
-            pointer-events: none;
-        }
-
-        .contact-form-card {
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            position: relative;
-            z-index: 2;
-
-            &.slide-in-left {
-                animation: slideInLeft 1s ease-out;
-            }
-
-            h2 {
-                color: $text-dark;
-                margin-bottom: 16px;
-            }
-
-            p {
-                color: $text-light;
-                margin-bottom: 32px;
-            }
-
-            .contact-form {
-
-                .ant-input,
-                .ant-select-selector,
-                .ant-input-affix-wrapper {
-                    border-radius: 8px;
-                    border-color: #d9d9d9;
-
-                    &:hover,
-                    &:focus {
-                        border-color: #43B7FA;
-                    }
-                }
-
-                .ant-input-affix-wrapper-focused,
-                .ant-select-focused .ant-select-selector {
-                    border-color: #43B7FA;
-                    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
-                }
-
-                .submit-button {
-                    background: #43B7FA;
-                    border-color: #43B7FA;
-                    height: 50px;
-                    font-size: 1.1rem;
-                    font-weight: 600;
-                    padding: 0 40px;
-
-                    &:hover {
-                        background: #2A9DE8;
-                        border-color: #357abd;
-                    }
-                }
-            }
-        }
-
-        .contact-details {
-            position: relative;
-            z-index: 2;
-
-            &.slide-in-right {
-                animation: slideInRight 1s ease-out 0.3s both;
-            }
-
-            .details-card,
-            .departments-card {
                 border: none;
-                border-radius: 16px;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-                margin-bottom: 24px;
-                transition: all 0.3s ease;
-
+                border-radius: 8px;
+                height: 48px;
+                padding: 0 30px;
+                transition: all 0.2s ease;
+                @include ios-water-drop-active;
                 &:hover {
                     transform: translateY(-3px);
-                    box-shadow: 0 8px 35px rgba(0, 0, 0, 0.12);
-                }
-
-                h3 {
-                    color: $text-dark;
-                    margin-bottom: 16px;
-                }
-
-                p {
-                    color: $text-light;
-                    margin-bottom: 24px;
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
                 }
             }
-
-            .offices-list {
-                .office-item {
-                    .office-details {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 8px;
-
-                        .office-address,
-                        .office-phone,
-                        .office-email {
-                            color: $text-light;
-                            font-size: 14px;
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-                        }
-                    }
-                }
-            }
-
-            .departments-list {
-                .department-item {
-                    margin-bottom: 20px;
-
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-
-                    h5 {
-                        color: $text-dark;
-                        margin-bottom: 8px;
-                    }
-
-                    .department-email {
-                        display: block;
-                        color: #43B7FA;
-                        font-weight: 600;
-                        margin-bottom: 4px;
-                    }
-
-                    .department-description {
-                        color: $text-light;
-                        font-size: 14px;
-                    }
+            .hero-button-secondary {
+                background: transparent;
+                color: $white;
+                font-weight: 700;
+                border: 2px solid rgba($white, 0.5);
+                border-radius: 8px;
+                height: 48px;
+                padding: 0 30px;
+                transition: all 0.2s ease;
+                @include ios-water-drop-active;
+                &:hover {
+                    background: rgba($white, 0.1);
+                    border-color: $white;
+                    transform: translateY(-3px);
                 }
             }
         }
     }
 
-    // FAQ Section
-    .faq-section {
-        padding: 80px 0;
-        background: $white;
+    .contact-page__hero-mascot {
+        animation: floatMascot 6s ease-in-out infinite;
+        .contact-page__hero-mascot-image {
+            width: 300px;
+        }
+    }
+    
+    // Bong bóng trang trí
+    .contact-page__hero-bubbles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
+        .bubble {
+            position: absolute;
+            bottom: -150px; // Bắt đầu từ dưới
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatBubbles 15s linear infinite;
+        }
+        .x1 { left: 10%; width: 80px; height: 80px; animation-duration: 12s; }
+        .x2 { left: 25%; width: 40px; height: 40px; animation-duration: 15s; animation-delay: 2s; }
+        .x3 { left: 50%; width: 60px; height: 60px; animation-duration: 10s; }
+        .x4 { left: 70%; width: 100px; height: 100px; animation-duration: 18s; animation-delay: 1s; }
+        .x5 { left: 85%; width: 50px; height: 50px; animation-duration: 13s; animation-delay: 3s; }
+    }
+}
+
+/* --- Main Content Section (Card trắng lớn) --- */
+.contact-page__main-section {
+    position: relative;
+    z-index: 20;
+    margin-top: -150px; // **Quan trọng: Kéo lên đè lên Hero Section**
+    margin-bottom: 80px; // Khoảng cách với section dưới
+
+    .contact-page__content-wrapper {
+        background: $white;
+        border-radius: 20px;
+        box-shadow: 0 25px 80px rgba(100, 150, 200, 0.25);
+        padding: 40px;
+    }
+
+    // Form bên trái
+    .contact-page__form-container {
+        padding-right: 24px;
+        border-right: 1px solid $border-light; // Đường kẻ dọc
+        .contact-page__form-title {
+            font-size: 1.8rem;
             font-weight: 700;
             color: $text-dark;
-            margin-bottom: 60px;
-
-            @media (max-width: 768px) {
-                font-size: 2rem;
+            margin-bottom: 24px;
+        }
+        .ant-form-item-label > label {
+            font-weight: 600;
+            color: $text-light;
+        }
+        .form-input, .form-textarea {
+            border-radius: 8px;
+            border: 1px solid #D9E2EC;
+            background: $background-page;
+            height: 48px;
+            font-size: 1rem;
+            &:focus, &:hover {
+                border-color: $primary-blue;
+                box-shadow: 0 0 0 2px rgba($primary-blue, 0.1);
             }
         }
-
-        .faq-card {
-            height: 100%;
+        .form-textarea {
+            height: auto;
+            min-height: 120px;
+            padding-top: 12px;
+        }
+        .contact-page__submit-button {
+            height: 50px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            width: 100%;
+            background: $primary-blue;
             border: none;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            @include ios-water-drop-active;
+            &:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgba($primary-blue, 0.3);
+            }
+        }
+    }
 
+    // Info bên phải
+    .contact-page__info-sidebar {
+        padding-left: 24px;
+        .contact-page__info-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: $text-dark;
+            margin-bottom: 24px;
+        }
+        .contact-page__info-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .contact-page__info-card {
+            background: $background-page;
+            border: 1px solid $border-light;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            @include ios-water-drop-active;
+            
             &:hover {
                 transform: translateY(-5px);
-                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+                box-shadow: 0 10px 30px $shadow-light;
+                border-color: $primary-blue;
             }
 
-            h4 {
-                color: $text-dark;
-                margin-bottom: 16px;
+            .contact-page__info-card-icon {
+                font-size: 1.8rem;
+                color: $primary-blue;
+                flex-shrink: 0;
             }
-
-            p {
-                color: $text-light;
-                line-height: 1.6;
-                margin: 0;
-            }
-        }
-    }
-
-    // CTA Section
-    .cta-section {
-        padding: 80px 0;
-        background: linear-gradient(135deg, #AFE2FF 0%, #87CEEB 100%);
-        position: relative;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .cta-card {
-            background: $white;
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            padding: 60px 40px;
-            position: relative;
-            z-index: 2;
-            animation: fadeInUp 1s ease-out;
-
-            .cta-content {
-                max-width: 600px;
-                margin: 0 auto;
-
-                h2 {
-                    color: $text-dark;
-                    margin-bottom: 16px;
-                }
-
-                p {
-                    color: $text-light;
-                    font-size: 1.1rem;
-                    margin-bottom: 40px;
-                }
-
-                .cta-buttons {
-                    display: flex;
-                    gap: 20px;
-                    justify-content: center;
-                    flex-wrap: wrap;
-
-                    .ant-btn {
-                        height: 50px;
-                        font-size: 1.1rem;
-                        font-weight: 600;
-                        padding: 0 30px;
-                        transition: all 0.3s ease;
-                        position: relative;
-                        overflow: hidden;
-
-                        &::before {
-                            content: '';
-                            position: absolute;
-                            top: 50%;
-                            left: 50%;
-                            width: 0;
-                            height: 0;
-                            background: rgba(255, 255, 255, 0.3);
-                            border-radius: 50%;
-                            transform: translate(-50%, -50%);
-                            transition: width 0.3s, height 0.3s;
-                        }
-
-                        &:hover::before {
-                            width: 300px;
-                            height: 300px;
-                        }
-
-                        &:hover {
-                            transform: translateY(-2px);
-                            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-                        }
-
-                        &.ant-btn-primary {
-                            background: #43B7FA;
-                            border-color: #43B7FA;
-
-                            &:hover {
-                                background: #2A9DE8;
-                                border-color: #357abd;
-                            }
-                        }
-
-                        &:not(.ant-btn-primary) {
-                            border-color: #43B7FA;
-                            color: #43B7FA;
-
-                            &:hover {
-                                background: #43B7FA;
-                                color: $white;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .cta-mascot {
+            .contact-page__info-card-content {
                 display: flex;
-                justify-content: center;
-                align-items: center;
-
-                .cta-mascot-image {
-                    width: 290px;
-                    height: auto;
-                    max-width: 100%;
-                    filter: drop-shadow(0 6px 20px rgba(67, 183, 250, 0.25));
-                    animation: float 4s ease-in-out infinite 0.8s;
-                    transition: all 0.3s ease;
-
-                    &:hover {
-                        transform: scale(1.07) rotate(4deg);
-                        filter: drop-shadow(0 10px 30px rgba(67, 183, 250, 0.35));
-                    }
+                flex-direction: column;
+                .info-card-title {
+                    font-weight: 700;
+                    font-size: 1rem;
+                    color: $text-dark;
+                }
+                .info-card-text {
+                    font-weight: 500;
+                    color: $text-light;
+                    font-size: 0.95rem;
+                }
+                .info-card-subtext {
+                    font-weight: 400;
+                    color: $text-muted;
+                    font-size: 0.85rem;
+                    margin-top: 2px;
                 }
             }
         }
     }
+}
 
-    // Responsive
-    @media (max-width: 768px) {
-        .contact-hero {
-            padding: 60px 0;
+/* --- Các Section Card chung --- */
+.contact-page__section-container {
+    padding: 60px 0;
+    .contact-page__section-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: $text-dark;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .contact-page__section-subtitle {
+        font-size: 1.1rem;
+        color: $text-light;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto 48px auto;
+        line-height: 1.6;
+    }
+    // Card cơ sở
+    .section-card {
+        background: $white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px $shadow-light;
+        border: 1px solid $border-light;
+        padding: 30px;
+        height: 100%;
+        transition: all 0.3s ease;
+        text-align: center;
+        cursor: pointer;
+        @include ios-water-drop-active;
 
-            .hero-content {
-                flex-direction: column;
-                gap: 40px;
-                text-align: center;
+        &:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px $shadow-medium;
+            border-color: $primary-blue;
+        }
 
-                .hero-text {
-                    text-align: center;
-                }
+        .card-icon-wrapper {
+            font-size: 2.5rem;
+            color: $primary-blue;
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: $text-dark;
+            margin-bottom: 12px;
+        }
+        .card-description {
+            font-size: 0.95rem;
+            color: $text-light;
+            line-height: 1.6;
+            min-height: 50px; // Cho đều
+        }
+    }
+}
 
-                .hero-mascot {
-                    flex: none;
-                    order: -1;
+/* --- Chi tiết từng Section --- */
+.contact-page__office-card {
+    text-align: left;
+    .card-title {
+        text-align: center;
+    }
+    .card-text {
+        font-size: 0.95rem;
+        color: $text-light;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 10px;
+        .anticon {
+            margin-top: 3px;
+            color: $primary-blue;
+        }
+    }
+}
 
-                    .mascot-character .mascot-image {
-                        width: 260px;
-                    }
-                }
+.contact-page__department-card {
+    .card-link-button {
+        font-weight: 600;
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+}
 
-                .hero-title {
-                    font-size: 2.5rem;
-                }
+.contact-page__faq-card {
+    text-align: left;
+}
 
-                .hero-subtitle {
-                    font-size: 1.1rem;
-                }
+/* --- CTA Section --- */
+.contact-page__cta-card {
+    padding: 40px;
+    text-align: left;
+    overflow: hidden;
+
+    .contact-page__cta-mascot-col {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .contact-page__cta-mascot-image {
+            width: 250px;
+            animation: floatMascot 6s ease-in-out infinite;
+        }
+    }
+    .contact-page__cta-content {
+        .contact-page__cta-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: $text-dark;
+            margin-bottom: 12px;
+        }
+        .contact-page__cta-subtitle {
+            font-size: 1.1rem;
+            color: $text-light;
+            margin-bottom: 24px;
+        }
+        .contact-page__cta-button {
+            height: 50px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            background: $primary-blue;
+            border: none;
+            transition: all 0.2s ease;
+            @include ios-water-drop-active;
+            &:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgba($primary-blue, 0.3);
             }
         }
+    }
+}
 
-        .cta-section {
-            .cta-card .ant-row {
-                flex-direction: column;
-                text-align: center;
-            }
 
-            .cta-mascot {
-                order: -1;
-                margin-bottom: 30px;
-
-                .cta-mascot-image {
-                    width: 220px;
-                }
-            }
-        }
-
-        .contact-info-section,
-        .main-content,
-        .faq-section,
-        .cta-section {
-            padding: 60px 0;
-        }
-
-        .contact-form-card {
-            padding: 24px !important;
-        }
-
-        .cta-buttons {
+/* --- Responsive --- */
+@media (max-width: 992px) {
+    .contact-page__hero {
+        padding: 80px 0 180px 0;
+        .contact-page__hero-container {
             flex-direction: column;
-            align-items: center;
-
-            .ant-btn {
-                width: 100%;
-                max-width: 300px;
+            text-align: center;
+            gap: 40px;
+        }
+        .contact-page__hero-text {
+            max-width: 100%;
+        }
+        .contact-page__hero-actions {
+            justify-content: center;
+        }
+        .contact-page__hero-mascot {
+            order: -1;
+            .contact-page__hero-mascot-image {
+                width: 250px;
             }
         }
     }
 
-    // Animation Keyframes
-    @keyframes shadowPulse {
-
-        0%,
-        100% {
-            opacity: 0.2;
-            transform: translateX(-50%) scale(1);
+    .contact-page__main-section {
+        .contact-page__form-container {
+            border-right: none;
+            padding-right: 0;
         }
-
-        50% {
-            opacity: 0.3;
-            transform: translateX(-50%) scale(1.1);
+        .contact-page__info-sidebar {
+            padding-left: 0;
+            border-top: 1px solid $border-light;
+            padding-top: 30px;
+            margin-top: 30px;
         }
     }
-
-    @keyframes float {
-
-        0%,
-        100% {
-            transform: translateY(0px);
+    
+    .contact-page__cta-card {
+        text-align: center;
+        .contact-page__cta-mascot-col {
+            order: -1;
         }
-
-        50% {
-            transform: translateY(-20px);
+        .contact-page__cta-content-col {
+            text-align: center;
         }
     }
+}
 
-    @keyframes bounceIn {
-        0% {
-            opacity: 0;
-            transform: scale(0.3) translateY(-50px);
+@media (max-width: 768px) {
+    .contact-page__section-container {
+        padding: 40px 0;
+    }
+    .contact-page__main-section {
+        margin-bottom: 40px;
+    }
+    .contact-page__hero {
+        padding: 60px 0 160px 0;
+        .contact-page__hero-title {
+            font-size: 2.5rem;
         }
-
-        50% {
-            opacity: 1;
-            transform: scale(1.05);
-        }
-
-        70% {
-            transform: scale(0.9);
-        }
-
-        100% {
-            opacity: 1;
-            transform: scale(1) translateY(0);
+        .contact-page__hero-subtitle {
+            font-size: 1rem;
         }
     }
+}
 
-    @keyframes slideInUp {
-        0% {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
+@media (max-width: 576px) {
+    .contact-page__main-section .contact-page__content-wrapper {
+        padding: 25px;
     }
-
-    @keyframes slideInLeft {
-        0% {
-            opacity: 0;
-            transform: translateX(-50px);
-        }
-
-        100% {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    @keyframes slideInRight {
-        0% {
-            opacity: 0;
-            transform: translateX(50px);
-        }
-
-        100% {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    @keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-        }
-
-        50% {
-            transform: scale(1.05);
-        }
-
-        100% {
-            transform: scale(1);
-        }
-    }
-
-    @keyframes wiggle {
-
-        0%,
-        7% {
-            transform: rotateZ(0);
-        }
-
-        15% {
-            transform: rotateZ(-15deg);
-        }
-
-        20% {
-            transform: rotateZ(10deg);
-        }
-
-        25% {
-            transform: rotateZ(-10deg);
-        }
-
-        30% {
-            transform: rotateZ(6deg);
-        }
-
-        35% {
-            transform: rotateZ(-4deg);
-        }
-
-        40%,
-        100% {
-            transform: rotateZ(0);
-        }
-    }
-
-    // Additional Interactive Effects
-    .submit-button {
-        position: relative;
-        overflow: hidden;
-
-        &:active {
-            transform: scale(0.98);
-        }
-
-        &.loading {
-            animation: pulse 1.5s infinite;
-        }
-    }
-
-    .faq-card {
-        &:hover {
-            .ant-typography {
-                color: #43B7FA;
-            }
-        }
-    }
-
-    // Scroll-triggered animations
-    .animated-card {
-        transition: all 0.6s ease-out;
-    }
-
-    // Form focus effects
-    .contact-form {
-
-        .ant-input:focus,
-        .ant-input-focused,
-        .ant-select-focused .ant-select-selector {
-            animation: wiggle 0.5s ease-in-out;
-        }
-    }
-
-    // Form interaction effects
-    .contact-form-card {
-        &.form-active {
-            box-shadow: 0 8px 30px rgba(67, 183, 250, 0.2);
-            transform: scale(1.01);
-        }
-    }
-
-    // Hover effects for office and department items
-    .hover-effect {
-        transition: all 0.3s ease;
-        border-radius: 8px;
-        padding: 8px;
-        margin: -8px;
-
-        &:hover {
-            background: rgba(67, 183, 250, 0.05);
-            transform: translateX(5px);
-        }
-    }
-
-    .hover-item {
-        transition: all 0.3s ease;
-
-        &:hover {
-            color: #43B7FA !important;
-            transform: translateX(3px);
-        }
-    }
-
-    .icon-bounce {
-        transition: all 0.3s ease;
-
-        &:hover {
-            animation: bounceSmall 0.6s ease-in-out;
-        }
-    }
-
-    // CTA Button effects
-    .cta-btn-primary,
-    .cta-btn-secondary {
-        position: relative;
-        overflow: hidden;
-        transition: all 0.3s ease;
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.4s, height 0.4s;
-        }
-
-        &:hover::after {
-            width: 200px;
-            height: 200px;
-        }
-
-        &:active {
-            transform: scale(0.96);
-        }
-    }
-
-    // Additional micro-animations
-    @keyframes bounceSmall {
-
-        0%,
-        20%,
-        50%,
-        80%,
-        100% {
-            transform: translateY(0);
-        }
-
-        40% {
-            transform: translateY(-3px);
-        }
-
-        60% {
-            transform: translateY(-2px);
-        }
-    }
-
-    @keyframes shimmer {
-        0% {
-            background-position: -468px 0;
-        }
-
-        100% {
-            background-position: 468px 0;
-        }
-    }
-
-    // Loading state enhancements
-    .submit-button.loading {
-        position: relative;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+    .contact-page__hero-actions {
+        flex-direction: column;
+        .hero-button-primary, .hero-button-secondary {
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg,
-                    transparent,
-                    rgba(255, 255, 255, 0.2),
-                    transparent);
-            animation: shimmer 2s infinite;
         }
     }
-
-    // Enhanced FAQ cards
-    .faq-card {
-        position: relative;
-        overflow: hidden;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #43B7FA, transparent);
-            transition: left 0.5s ease;
-        }
-
-        &:hover::before {
-            left: 100%;
-        }
-
-        &:hover {
-            .ant-typography h4 {
-                color: #43B7FA;
-                transform: translateX(5px);
-            }
-        }
-    }
-
-    // Responsive enhancements
-    @media (max-width: 768px) {
-        .floating-shapes {
-            display: none;
-        }
-
-        .hero-stats {
-            .stat-item {
-                animation: none;
-            }
-        }
-
-        .animated-card {
-            animation: none !important;
-            opacity: 1 !important;
-            transform: none !important;
-        }
-    }
-
 }

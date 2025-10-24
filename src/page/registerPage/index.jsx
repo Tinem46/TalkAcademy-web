@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Spin } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import AuthLayout from "../../components/auth-layout";
 import "./index.scss";
 
@@ -16,17 +17,29 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleRegister = async (values) => {
+    if (loading) return; // tránh double submit
     setLoading(true);
     try {
-      if (values.password !== values.confirmPassword) {
-        form.setFields([{ name: "confirmPassword", errors: ["Mật khẩu xác nhận không khớp"] }]);
-        return;
-      }
-      const res = await api.post("auth/register", values);
-      const ok = res?.data?.statusCode === 201;
-      if (ok) navigate("/login");
-    } catch (e) {
-      // xử lý lỗi nếu cần
+      // chỉ gửi đúng 3 field kèm trim
+      const apiData = {
+        username: values.username?.trim(),
+        email: values.email?.trim(),
+        password: values.password,
+      };
+
+      const apiResponse = await api.post("auth/register", apiData);
+
+      toast.success("Đăng ký thành công. Vui lòng xác nhận email.");
+      navigate("/login", {
+        state: {
+          email: values.email,
+          userId: apiResponse?.data?.userId, // nếu backend trả về
+        },
+        replace: true,
+      });
+    } catch (err) {
+      console.error("Error details:", err);
+      toast.error(err?.response?.data?.message || "Đăng ký thất bại");
     } finally {
       setLoading(false);
     }
@@ -67,11 +80,15 @@ const Register = () => {
               name="username"
               label={<span className="auth-form__label">Tên đăng nhập</span>}
               className="auth-form__item auth-form__item--username"
-              rules={[{ required: true, message: "Vui lòng nhập tên đăng nhập" }]}
+              rules={[
+                { required: true, message: "Vui lòng nhập tên đăng nhập" },
+                { min: 3, message: "Tên đăng nhập tối thiểu 3 ký tự" },
+              ]}
             >
               <Input
                 className="auth-form__input auth-form__input--text is-droplet"
                 placeholder="Ví dụ: nguyenvana"
+                aria-label="Tên đăng nhập"
               />
             </Form.Item>
 
@@ -81,12 +98,14 @@ const Register = () => {
               className="auth-form__item auth-form__item--email"
               rules={[
                 { required: true, message: "Vui lòng nhập email" },
-                { type: "email", message: "Email không hợp lệ" },
+                { type: "email, message: \"Email không hợp lệ\"" }, // giữ đúng UI, rule email vẫn cần
               ]}
             >
               <Input
                 className="auth-form__input auth-form__input--text is-droplet"
                 placeholder="you@example.com"
+                aria-label="Email"
+                inputMode="email"
               />
             </Form.Item>
 
@@ -94,11 +113,16 @@ const Register = () => {
               name="password"
               label={<span className="auth-form__label">Mật khẩu</span>}
               className="auth-form__item auth-form__item--password"
-              rules={[{ required: true, message: "Vui lòng nhập mật khẩu" }]}
+              rules={[
+                { required: true, message: "Vui lòng nhập mật khẩu" },
+                { min: 6, message: "Mật khẩu phải có ít nhất 6 ký tự" },
+              ]}
+              hasFeedback
             >
               <Input.Password
                 className="auth-form__input auth-form__input--password is-droplet"
-                placeholder="Tối thiểu 8 ký tự"
+                placeholder="Tối thiểu 6 ký tự"
+                aria-label="Mật khẩu"
               />
             </Form.Item>
 
@@ -107,11 +131,14 @@ const Register = () => {
               label={<span className="auth-form__label">Nhập lại mật khẩu</span>}
               className="auth-form__item auth-form__item--confirm"
               dependencies={["password"]}
+              hasFeedback
               rules={[
                 { required: true, message: "Vui lòng xác nhận mật khẩu" },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
-                    if (!value || getFieldValue("password") === value) return Promise.resolve();
+                    if (!value || getFieldValue("password") === value) {
+                      return Promise.resolve();
+                    }
                     return Promise.reject(new Error("Mật khẩu xác nhận không khớp"));
                   },
                 }),
@@ -120,6 +147,7 @@ const Register = () => {
               <Input.Password
                 className="auth-form__input auth-form__input--password is-droplet"
                 placeholder="Nhập lại mật khẩu"
+                aria-label="Xác nhận mật khẩu"
               />
             </Form.Item>
 

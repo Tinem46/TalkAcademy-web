@@ -1,0 +1,804 @@
+/* ===== TALKADEMY DOWNLOAD PAGE ===== */
+/* (Bao gồm style của About và style mới) */
+
+$primary-blue: #AFE2FF;
+$secondary-blue: #87CEEB;
+$accent-pink: #FFFFFF;
+$light-blue: #AFE2FF;
+$white: #FFFFFF;
+$text-dark: #2C3E50;
+$text-light: #6c7677;
+
+// Keyframe animations
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes titleGlow {
+
+    0%,
+    100% {
+        filter: brightness(1) contrast(1);
+        transform: scale(1);
+    }
+
+    50% {
+        filter: brightness(1.1) contrast(1.1);
+        transform: scale(1.02);
+    }
+}
+
+@keyframes titleBackground {
+
+    0%,
+    100% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes titlePulse {
+
+    0%,
+    100% {
+        opacity: 0.1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+@keyframes shadowPulse {
+
+    0%,
+    100% {
+        opacity: 0.1;
+        transform: translateX(-50%) scale(1);
+    }
+
+    50% {
+        opacity: 0.2;
+        transform: translateX(-50%) scale(1.1);
+    }
+}
+
+@keyframes particleFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px) translateX(0px);
+    }
+
+    25% {
+        transform: translateY(-20px) translateX(10px);
+    }
+
+    50% {
+        transform: translateY(-10px) translateX(-5px);
+    }
+
+    75% {
+        transform: translateY(-15px) translateX(5px);
+    }
+}
+
+// Đổi tên class gốc thành .talkademy-download
+.talkademy-download {
+    padding: 0;
+
+    /* ===== STYLE KẾ THỪA TỪ TRANG ABOUT ===== */
+    .about-hero {
+        background: linear-gradient(135deg, #AFE2FF 0%, #87CEEB 50%, #43B7FA 100%);
+        padding: 80px 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+
+            .floating-elements {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+
+                .floating-icon {
+                    position: absolute;
+                    font-size: 2rem;
+                    color: rgba(255, 255, 255, 0.1);
+                    animation: float 3s ease-in-out infinite;
+
+                    &.icon-1 {
+                        top: 15%;
+                        left: 8%;
+                        animation-delay: 0s;
+                    }
+
+                    &.icon-2 {
+                        top: 25%;
+                        right: 12%;
+                        animation-delay: 1s;
+                    }
+
+                    &.icon-3 {
+                        bottom: 35%;
+                        left: 15%;
+                        animation-delay: 2s;
+                    }
+
+                    &.icon-4 {
+                        bottom: 25%;
+                        right: 8%;
+                        animation-delay: 1.5s;
+                    }
+
+                    &.icon-5 {
+                        top: 40%;
+                        left: 5%;
+                        animation-delay: 0.5s;
+                    }
+
+                    &.icon-6 {
+                        top: 60%;
+                        right: 20%;
+                        animation-delay: 2.5s;
+                    }
+                }
+            }
+
+            .hero-particles {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+
+                .particle {
+                    position: absolute;
+                    width: 3px;
+                    height: 3px;
+                    border-radius: 50%;
+                    animation: particleFloat 8s ease-in-out infinite;
+
+                    &.particle-0 {
+                        background: rgba(102, 126, 234, 0.6);
+                        top: 20%;
+                        left: 25%;
+                        animation-delay: 0s;
+                    }
+
+                    &.particle-1 {
+                        background: rgba(240, 147, 251, 0.6);
+                        top: 60%;
+                        right: 30%;
+                        animation-delay: 2s;
+                    }
+
+                    &.particle-2 {
+                        background: rgba(79, 172, 254, 0.6);
+                        bottom: 40%;
+                        left: 40%;
+                        animation-delay: 4s;
+                    }
+                }
+            }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 80px;
+
+            .hero-ai-icon {
+                font-size: 4rem;
+                color: #43B7FA;
+                margin-bottom: 20px;
+                opacity: 0;
+                transform: translateY(30px);
+                animation: pulse 2s ease-in-out infinite;
+                filter: drop-shadow(0 4px 12px rgba(67, 183, 250, 0.3));
+
+                &.animate-in {
+                    animation: fadeInUp 1s ease-out forwards, pulse 2s ease-in-out infinite 1s;
+                }
+
+                @media (max-width: 768px) {
+                    font-size: 3rem;
+                }
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+                font-weight: 700;
+                color: #2C3E50;
+                margin-bottom: 24px;
+                opacity: 0;
+                transform: translateY(30px);
+
+                &.animate-in {
+                    animation: fadeInUp 1s ease-out forwards;
+                }
+
+                @media (max-width: 768px) {
+                    font-size: 2.5rem;
+                }
+            }
+
+            .hero-subtitle {
+                font-size: 1.3rem;
+                color: rgba(44, 62, 80, 0.8);
+                margin-bottom: 40px;
+                line-height: 1.6;
+                opacity: 0;
+                transform: translateY(30px);
+
+                &.animate-in {
+                    animation: fadeInUp 1s ease-out forwards;
+
+                    &.delay-1 {
+                        animation-delay: 0.3s;
+                    }
+                }
+            }
+
+            .cta-button {
+                background: #43B7FA;
+                border-color: #43B7FA;
+                height: 50px;
+                font-size: 1.2rem;
+                font-weight: 600;
+                padding: 0 40px;
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.3s ease;
+
+                &.animate-in {
+                    animation: fadeInUp 1s ease-out forwards;
+
+                    &.delay-2 {
+                        animation-delay: 0.6s;
+                    }
+                }
+
+                &:hover {
+                    background: #2A9DE8;
+                    border-color: #357abd;
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 25px rgba(67, 183, 250, 0.4);
+                }
+
+                /* ===== HIỆU ỨNG GIỌT NƯỚC (iOS) CHO CTA BUTTON ===== */
+                &:active {
+                    transform: scale(0.95);
+                    box-shadow: 0 2px 10px rgba(67, 183, 250, 0.3);
+                    transition-duration: 0.1s;
+                }
+            }
+
+            @media (max-width: 768px) {
+                flex-direction: column;
+                gap: 40px;
+                text-align: center;
+                padding: 0 20px;
+            }
+
+            @media (max-width: 480px) {
+                gap: 30px;
+                padding: 0 16px;
+            }
+
+            .hero-badge {
+                display: inline-block;
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 50px;
+                padding: 8px 20px;
+                margin-bottom: 24px;
+                font-size: 14px;
+                font-weight: 600;
+                color: $white;
+                animation: pulse 2s infinite;
+            }
+
+            .hero-title {
+                background: linear-gradient(135deg, #0a69dd 0%, #085286 30%, #0b2947 60%, #031829 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 80px;
+                font-size: 56px;
+                font-weight: 800;
+                white-space: nowrap;
+                text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                animation: fadeInUp 1s ease-out 0.2s both, titleGlow 3s ease-in-out infinite;
+                position: relative;
+                display: inline-block;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: -10px;
+                    left: -10px;
+                    right: -10px;
+                    bottom: -10px;
+                    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(175, 226, 255, 0.2), rgba(135, 206, 235, 0.1));
+                    border-radius: 20px;
+                    z-index: -1;
+                    opacity: 0;
+                    animation: titleBackground 3s ease-in-out infinite;
+                }
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 120%;
+                    height: 120%;
+                    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+                    transform: translate(-50%, -50%);
+                    z-index: -2;
+                    animation: titlePulse 2s ease-in-out infinite;
+                }
+            }
+
+            .hero-description {
+                color: rgba(255, 255, 255, 0.95);
+                font-size: 22px;
+                line-height: 1.7;
+                margin-bottom: 40px;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+                animation: fadeInUp 1s ease-out 0.4s both;
+            }
+
+            .hero-stats {
+                display: flex;
+                justify-content: center;
+                gap: 40px;
+                animation: fadeInUp 1s ease-out 0.6s both;
+
+                .hero-stat {
+                    text-align: center;
+
+                    .stat-number {
+                        display: block;
+                        font-size: 32px;
+                        font-weight: 800;
+                        color: $white;
+                        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+                    }
+
+                    .stat-label {
+                        display: block;
+                        font-size: 14px;
+                        color: rgba(255, 255, 255, 0.8);
+                        margin-top: 4px;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    }
+                }
+            }
+
+            .hero-text {
+                flex: 1;
+                text-align: left;
+            }
+
+            .hero-mascot {
+                flex: 0 0 400px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .mascot-character {
+                    position: relative;
+                    animation: float 3s ease-in-out infinite;
+
+                    .mascot-image {
+                        width: 700px;
+                        height: 400px;
+                        max-width: 300%;
+                        filter: drop-shadow(0 8px 25px rgba(67, 183, 250, 0.3));
+                        transition: all 0.3s ease;
+
+                        &:hover {
+                            transform: scale(1.05) rotate(2deg);
+                            filter: drop-shadow(0 12px 35px rgba(67, 183, 250, 0.4));
+                        }
+                    }
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        bottom: -15px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 180px;
+                        height: 25px;
+                        background: rgba(67, 183, 250, 0.2);
+                        border-radius: 50%;
+                        filter: blur(12px);
+                        animation: shadowPulse 3s ease-in-out infinite;
+                    }
+                }
+            }
+        }
+    }
+
+    .values-section {
+        position: relative;
+        padding: 40px 24px;
+
+        .values-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23AFE2FF" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%234A90E2" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+
+        .values-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: $secondary-blue;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .value-card {
+            height: 100%;
+            border-radius: 24px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            border: none;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+            padding: 40px 24px;
+            position: relative;
+            overflow: hidden;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, $primary-blue, #4A90E2, #2196F3);
+                transform: scaleX(0);
+                transition: transform 0.4s ease;
+            }
+
+            &:hover {
+                transform: translateY(-15px) scale(1.02);
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+
+                &:before {
+                    transform: scaleX(1);
+                }
+
+                .value-icon {
+                    animation: float 2s ease-in-out infinite;
+                }
+            }
+            
+            /* ===== HIỆU ỨNG GIỌT NƯỚC (iOS) CHO VALUE CARD ===== */
+            &:active {
+                transform: translateY(-8px) scale(0.98); // Vừa nâng lên vừa co lại
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                transition-duration: 0.1s;
+            }
+
+            .value-icon {
+                margin-bottom: 24px;
+                padding: 20px;
+                background: linear-gradient(135deg, rgba(175, 226, 255, 0.1), rgba(74, 144, 226, 0.1));
+                border-radius: 50%;
+                display: inline-block;
+                transition: all 0.3s ease;
+
+                .anticon {
+                    font-size: 48px;
+                    color: $primary-blue;
+                }
+            }
+
+            .ant-typography {
+                margin-bottom: 16px;
+                color: $text-dark;
+            }
+
+            .values-mascot {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .values-mascot-image {
+                    width: 300px;
+                    height: auto;
+                    max-width: 100%;
+                    filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.15));
+                    animation: float 4s ease-in-out infinite;
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        transform: scale(1.05) rotate(5deg);
+                        filter: drop-shadow(0 12px 35px rgba(0, 0, 0, 0.25));
+                    }
+                }
+            }
+        }
+    }
+
+    /* ===== STYLE MỚI CHO TRANG DOWNLOAD ===== */
+    .download-links-section {
+        position: relative;
+        padding: 60px 24px;
+        background: $white; // Nền trắng đơn giản
+
+        .download-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: $text-dark;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .download-card {
+            height: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+            text-align: center;
+            padding: 2rem 1rem;
+            cursor: pointer;
+
+            &:hover {
+                transform: translateY(-12px) scale(1.03);
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            }
+            
+            /* ===== HIỆU ỨNG GIỌT NƯỚC (iOS) CHO DOWNLOAD CARD ===== */
+            &:active {
+                transform: translateY(-5px) scale(0.97); // Hiệu ứng nhấn
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+                transition-duration: 0.1s; // Nhấn xuống nhanh hơn
+            }
+
+            .download-card-icon {
+                font-size: 5rem;
+                margin-bottom: 1.5rem;
+                transition: transform 0.3s ease;
+                
+                &.ios {
+                    color: #000000; // Màu Apple
+                }
+                &.android {
+                    color: #3DDC84; // Màu Android
+                }
+            }
+            
+            &:hover .download-card-icon {
+                transform: scale(1.1);
+            }
+
+            .ant-typography {
+                margin-bottom: 1rem;
+            }
+            
+            p.ant-typography {
+                min-height: 60px; // Giữ chiều cao đều nhau
+                color: $text-light;
+            }
+
+            .download-button {
+                width: 80%;
+                height: 50px;
+                font-size: 1.1rem;
+                font-weight: 600;
+                background: $primary-blue;
+                border-color: $primary-blue;
+                color: $text-dark;
+                transition: all 0.3s ease; // Thêm transition cho nút
+
+                &:hover {
+                    background: $secondary-blue;
+                    border-color: $secondary-blue;
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 25px rgba(67, 183, 250, 0.4);
+                }
+
+                /* ===== HIỆU ỨNG GIỌT NƯỚC (iOS) CHO DOWNLOAD BUTTON ===== */
+                &:active {
+                    transform: scale(0.95);
+                    box-shadow: 0 2px 10px rgba(67, 183, 250, 0.3);
+                    transition-duration: 0.1s;
+                }
+            }
+        }
+    }
+
+
+    /* ===== RESPONSIVE KẾ THỪA TỪ ABOUT ===== */
+    @media (max-width: 768px) {
+        .about-hero {
+            padding: 60px 0;
+
+            .hero-content {
+                flex-direction: column;
+                gap: 40px;
+                text-align: center;
+
+                .hero-text {
+                    text-align: center;
+                }
+
+                .hero-mascot {
+                    flex: none;
+                    order: -1;
+
+                    .mascot-character .mascot-image {
+                        width: 250px;
+                        height: 200px;
+                    }
+                }
+
+                .hero-title {
+                    font-size: 2.5rem;
+                }
+
+                .hero-subtitle {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+
+        .values-section {
+            .values-container {
+                .ant-row {
+                    flex-direction: column-reverse;
+                }
+
+                .values-mascot {
+                    margin-bottom: 30px;
+
+                    .values-mascot-image {
+                        width: 200px;
+                    }
+                }
+            }
+        }
+
+        .mission-section {
+            .mission-container {
+                .ant-row {
+                    flex-direction: column;
+                }
+
+                .mission-mascot {
+                    margin-bottom: 30px;
+
+                    .mission-mascot-image {
+                        width: 220px;
+                    }
+                }
+            }
+        }
+
+        .history-section,
+        .features-section,
+        .values-section,
+        .mission-section,
+        .stats-section,
+        .timeline-section,
+        .team-section,
+        .contact-section,
+        .download-links-section { // Thêm class mới vào responsive
+            padding: 40px 16px;
+        }
+
+        .stat-card {
+            margin-bottom: 16px;
+        }
+
+        .team-card {
+            margin-bottom: 16px;
+        }
+
+        // Thêm responsive cho download-card
+        .download-links-section {
+            .download-card {
+                margin-bottom: 16px;
+            }
+        }
+    }
+}

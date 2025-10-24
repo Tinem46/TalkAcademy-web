@@ -1,251 +1,296 @@
 .pricingSection {
-    min-height: 100vh;
-    background: #AFE2FF;
-    padding: 4rem 1rem;
+  min-height: 100vh;
+  background: #AFE2FF;
+  padding: 4rem 1rem;
+  position: relative;
+  overflow: hidden;
+
+  .pricingSection__stripes {
+    position: absolute;
+    inset: 0;
+    opacity: 0.3;
+    z-index: 0;
+    
+    // Thêm style cho các sọc (bị thiếu trong code gốc của bạn)
+    .pricingSection__stripe {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: rgba(255, 255, 255, 0.5);
+      transform: skewX(-15deg);
+    }
+  }
+
+  .pricingSection__container {
+    max-width: 1200px;
+    margin: 0 auto;
     position: relative;
-    overflow: hidden;
+    z-index: 10;
 
-    .stripedBackground {
-        position: absolute;
-        inset: 0;
-        opacity: 0.3;
-        z-index: 0;
+    .pricingSection__header {
+      text-align: center;
+      margin-bottom: 3rem;
 
+      @media (max-width: 768px) {
+        margin-bottom: 2rem;
+      }
+      @media (max-width: 480px) {
+        margin-bottom: 1.5rem;
+      }
 
+      .pricingSection__headerTitle {
+        font-size: 32px;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 0.75rem;
+
+        @media (max-width: 768px) {
+          font-size: 28px;
+        }
+        @media (max-width: 480px) {
+          font-size: 24px;
+        }
+      }
+
+      .pricingSection__headerSubtitle {
+        color: #4b5563;
+        font-size: 20px;
+
+        @media (max-width: 768px) {
+          font-size: 18px;
+        }
+        @media (max-width: 480px) {
+          font-size: 16px;
+        }
+      }
     }
 
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 10;
+    .pricingSection__grid {
+      display: grid;
+      // Cập nhật lên 3 cột
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1100px; // Tăng max-width cho 3 cột
+      margin: 0 auto;
 
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
+      @media (max-width: 992px) {
+        // Cho 2 cột ở tablet
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 700px;
+      }
+      
+      @media (max-width: 768px) {
+        // 1 cột ở mobile
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        max-width: 400px;
+      }
 
-            @media (max-width: 768px) {
-                margin-bottom: 2rem;
+      @media (max-width: 480px) {
+        gap: 1rem;
+        max-width: 320px;
+      }
+
+      .pricingSection__card {
+        background: linear-gradient(to bottom right, #fdf2f8, #eff6ff);
+        border-radius: 1.5rem;
+        padding: 2rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        @media (max-width: 768px) {
+          padding: 1.5rem;
+          border-radius: 1rem;
+        }
+        @media (max-width: 480px) {
+          padding: 1rem;
+          border-radius: 0.8rem;
+        }
+        
+        // Thêm style cho gói được gợi ý
+        &--recommended {
+            transform: scale(1.05);
+            border: 3px solid #60a5fa;
+            z-index: 10;
+            
+            @media (max-width: 992px) {
+              // Bỏ phóng to ở tablet/mobile để không vỡ layout
+              transform: scale(1);
+            }
+        }
+
+        &:hover {
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+          transform: translateY(-5px);
+          
+          &.pricingSection__card--recommended {
+             transform: translateY(-5px) scale(1.05);
+             @media (max-width: 992px) {
+               transform: translateY(-5px) scale(1);
+             }
+          }
+        }
+
+        .pricingSection__cardHeader {
+          text-align: center;
+          margin-bottom: 1.5rem;
+
+          .pricingSection__planTitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+          }
+
+          .pricingSection__priceContainer {
+            margin-bottom: 1.5rem;
+
+            .pricingSection__price {
+              font-size: 3rem;
+              font-weight: 700;
+              color: #60a5fa;
             }
 
-            @media (max-width: 480px) {
-                margin-bottom: 1.5rem;
+            .pricingSection__priceUnit {
+              color: #4b5563;
+              margin-left: 0.5rem;
+              font-size: 1rem;
             }
+          }
+        }
 
-            .title {
-                font-size: 32px;
-                font-weight: 700;
+        .pricingSection__featuresList {
+          margin-bottom: 1.5rem;
+          flex: 1; // Đẩy nút bấm xuống dưới
+
+          .pricingSection__featureItem {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+
+            .pricingSection__featureIconWrapper {
+              flex-shrink: 0;
+              width: 1.5rem;
+              height: 1.5rem;
+              border-radius: 50%;
+              border: 2px solid #1f2937;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              .pricingSection__featureIcon {
+                width: 1rem;
+                height: 1rem;
                 color: #1f2937;
-                margin-bottom: 0.75rem;
-
-                @media (max-width: 768px) {
-                    font-size: 28px;
-                }
-
-                @media (max-width: 480px) {
-                    font-size: 24px;
-                }
+              }
             }
 
-            .subtitle {
-                color: #4b5563;
-                font-size: 20px;
-
-                @media (max-width: 768px) {
-                    font-size: 18px;
-                }
-
-                @media (max-width: 480px) {
-                    font-size: 16px;
-                }
+            .pricingSection__featureText {
+              color: #374151;
+              font-size: 0.875rem;
             }
+          }
         }
 
-        .cardsGrid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            max-width: 900px;
-            margin: 0 auto;
+        .pricingSection__upgradeSection {
+          border-top: 1px solid #d1d5db;
+          margin-top: 1rem; // Tách biệt với list trên
+          margin-bottom: 1.5rem;
+          padding-top: 1.5rem;
 
-            @media (max-width: 768px) {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                max-width: 400px;
-            }
+          .pricingSection__upgradeDivider {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+          }
 
-            @media (max-width: 480px) {
-                gap: 1rem;
-                max-width: 320px;
-            }
+          .pricingSection__extraFeaturesList {
+            .pricingSection__featureItem {
+              display: flex;
+              align-items: center;
+              gap: 0.75rem;
+              margin-bottom: 0.75rem;
 
-            .card {
-                background: linear-gradient(to bottom right, #fdf2f8, #eff6ff);
-                border-radius: 1.5rem;
-                padding: 2rem;
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-                transition: all 0.3s ease;
+              .pricingSection__featureIconWrapper {
+                flex-shrink: 0;
+                width: 1.5rem;
+                height: 1.5rem;
+                border-radius: 50%;
+                border: 2px solid #1f2937;
                 display: flex;
-                flex-direction: column;
-                height: 100%;
+                align-items: center;
+                justify-content: center;
 
-                @media (max-width: 768px) {
-                    padding: 1.5rem;
-                    border-radius: 1rem;
+                .pricingSection__featureIcon {
+                  width: 1rem;
+                  height: 1rem;
+                  color: #1f2937;
                 }
+              }
 
-                @media (max-width: 480px) {
-                    padding: 1rem;
-                    border-radius: 0.8rem;
-                }
-
-                &:hover {
-                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-                    transform: translateY(-5px);
-                }
-
-                .cardHeader {
-                    text-align: center;
-                    margin-bottom: 1.5rem;
-
-                    .planTitle {
-                        font-size: 1.5rem;
-                        font-weight: 600;
-                        color: #1f2937;
-                        margin-bottom: 1rem;
-                    }
-
-                    .priceContainer {
-                        margin-bottom: 1.5rem;
-
-                        .price {
-                            font-size: 3rem;
-                            font-weight: 700;
-                            color: #60a5fa;
-                        }
-
-                        .priceUnit {
-                            color: #4b5563;
-                            margin-left: 0.5rem;
-                            font-size: 1rem;
-                        }
-                    }
-                }
-
-                .features {
-                    margin-bottom: 1.5rem;
-                    flex: 1;
-
-                    .featureItem {
-                        display: flex;
-                        align-items: center;
-                        gap: 0.75rem;
-                        margin-bottom: 0.75rem;
-
-                        .iconWrapper {
-                            flex-shrink: 0;
-                            width: 1.5rem;
-                            height: 1.5rem;
-                            border-radius: 50%;
-                            border: 2px solid #1f2937;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-
-                            svg {
-                                width: 1rem;
-                                height: 1rem;
-                                color: #1f2937;
-                            }
-                        }
-
-                        .featureText {
-                            color: #374151;
-                            font-size: 0.875rem;
-                        }
-                    }
-                }
-
-                .upgradeSection {
-                    border-top: 1px solid #d1d5db;
-                    margin-top: auto;
-                    margin-bottom: 1.5rem;
-                    padding-top: 1.5rem;
-
-                    .upgradeDivider {
-                        text-align: center;
-                        color: #6b7280;
-                        font-size: 0.875rem;
-                        margin-bottom: 1rem;
-                    }
-
-                    .extraFeatures {
-                        .featureItem {
-                            display: flex;
-                            align-items: center;
-                            gap: 0.75rem;
-                            margin-bottom: 0.75rem;
-
-                            .iconWrapper {
-                                flex-shrink: 0;
-                                width: 1.5rem;
-                                height: 1.5rem;
-                                border-radius: 50%;
-                                border: 2px solid #1f2937;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-
-                                svg {
-                                    width: 1rem;
-                                    height: 1rem;
-                                    color: #1f2937;
-                                }
-                            }
-
-                            .featureText {
-                                color: #374151;
-                                font-size: 0.875rem;
-                            }
-                        }
-                    }
-                }
-
-                .button {
-                    width: 100%;
-                    margin-bottom: 0;
-                    margin-top: auto;
-                    background-color: #43B7FA;
-                    color: #1f2937;
-                    font-weight: 600;
-                    padding: 0.75rem 1.5rem;
-                    border-radius: 9999px;
-                    border: none;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                    font-size: 1rem;
-
-
-
-
-                    &:hover {
-                        background-color: #60a5fa;
-                        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-                        transform: translateY(-2px);
-                    }
-
-                    &:active {
-                        transform: translateY(0);
-                    }
-                }
+              .pricingSection__featureText {
+                color: #374151;
+                font-size: 0.875rem;
+              }
             }
+          }
         }
+
+        .pricingSection__button {
+          width: 100%;
+          margin-bottom: 0;
+          margin-top: auto; // Đẩy nút xuống dưới cùng của card
+          color: #1f2937;
+          font-weight: 600;
+          padding: 0.75rem 1.5rem;
+          border-radius: 9999px;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          font-size: 1rem;
+          
+          // Style cho nút Free
+          background-color: #ffffff;
+          border: 2px solid #43B7FA;
+
+          // Style cho nút Pro (Gói tháng, Gói năm)
+          &--pro {
+            background-color: #43B7FA;
+            color: #1f2937;
+            border: none;
+          }
+          
+          // Style cho nút được Gợi ý
+          &--recommended {
+            background-color: #3b82f6; // Màu xanh đậm hơn
+            color: #ffffff;
+          }
+
+          &:hover {
+            background-color: #60a5fa;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+            
+             &.pricingSection__button--recommended {
+                background-color: #2563eb;
+             }
+          }
+
+          // **HIỆU ỨNG NHẤN NÚT (WATER DROP)**
+          &:active {
+            transform: translateY(0) scale(0.95); // Thu nhỏ nút lại
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Giảm bóng
+            transition-duration: 0.1s; // Làm cho hiệu ứng nhấn nhanh hơn
+          }
+        }
+      }
     }
-}
-
-.buttonContainer {
-    display: flex;
-    justify-content: flex-end;
-
+  }
 }

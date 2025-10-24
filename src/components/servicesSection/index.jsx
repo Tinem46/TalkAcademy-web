@@ -52,7 +52,7 @@ const ServicesSection = () => {
             </div>
             
             <div className="services-section__container">
-                <Title level={2} className="services-section__title" data-aos="fade-up" data-aos-delay="100">
+                <Title level={1} className="services-section__title" data-aos="fade-up" data-aos-delay="100">
                     Dịch Vụ
                 </Title>
                 <Paragraph className="services-section__subtitle" data-aos="fade-up" data-aos-delay="200">
