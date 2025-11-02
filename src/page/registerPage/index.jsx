@@ -106,6 +106,7 @@ const Register = () => {
             >
               <Input
                 className="auth-form__input auth-form__input--text is-droplet"
+                variant="filled"
                 placeholder="Ví dụ: nguyenvana"
                 aria-label="Tên đăng nhập"
               />
@@ -122,6 +123,7 @@ const Register = () => {
             >
               <Input
                 className="auth-form__input auth-form__input--text is-droplet"
+                variant="filled"
                 placeholder="you@example.com"
                 aria-label="Email"
                 inputMode="email"
@@ -140,6 +142,7 @@ const Register = () => {
             >
               <Input.Password
                 className="auth-form__input auth-form__input--password is-droplet"
+                variant="filled"
                 placeholder="Tối thiểu 6 ký tự"
                 aria-label="Mật khẩu"
               />
@@ -163,6 +166,7 @@ const Register = () => {
             >
               <Input.Password
                 className="auth-form__input auth-form__input--password is-droplet"
+                variant="filled"
                 placeholder="Nhập lại mật khẩu"
                 aria-label="Xác nhận mật khẩu"
               />

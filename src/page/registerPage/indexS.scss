@@ -200,3 +200,21 @@
   backdrop-filter: blur(4px) saturate(120%);
   -webkit-backdrop-filter: blur(4px) saturate(120%); /* Safari */
 }
+input:where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-status-error:not(.ant-input-disabled) {
+  color: white !important;
+}
+input:where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-status-error:not(.ant-input-disabled) {
+  color: white !important;
+}
+input:where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-status-error:not(.ant-input-disabled), :where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-status-error:not(.ant-input-disabled) input, textarea:where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-status-error:not(.ant-input-disabled), :where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-status-error:not(.ant-input-disabled) textarea {
+    /* color: #ff4d4f; */
+    color: white !important;
+}
+.ant-form-item .ant-form-item-explain-error {
+   color: #FFD54F !important;          /* vàng */
+  font-size: calc(8px + var(--auth-font-bump)); /* to hơn, đồng bộ biến của bạn */
+                     /* đậm */
+  letter-spacing: .01em;
+  
+  padding-top: 5px;
+}

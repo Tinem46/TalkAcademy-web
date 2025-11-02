@@ -74,21 +74,27 @@ const EmailOtpModal = ({ open, onClose, initialEmail = "", onVerified }) => {
           />
         </Form.Item>
 
-        <Form.Item
-          name="otp"
-          label={<span className="auth-form__label">Mã OTP</span>}
-          rules={[
-            { required: true, message: "Vui lòng nhập mã OTP" },
-            { len: 6, message: "Mã OTP gồm 6 ký tự" },
-          ]}
-        >
-          <Input
-            className="auth-form__input auth-form__input--text is-droplet"
-            placeholder="Nhập mã OTP 6 số"
-            inputMode="numeric"
-            maxLength={6}
-          />
-        </Form.Item>
+       <Form.Item
+  name="otp"
+  label={<span className="auth-form__label">Mã OTP</span>}
+  // Chỉ giữ lại số và giới hạn 6 ký tự, xử lý cả gõ & dán
+  getValueFromEvent={({ target }) =>
+    (target.value || "").replace(/\D/g, "").slice(0, 6)
+  }
+  rules={[
+    { required: true, message: "Vui lòng nhập mã OTP" },
+    { len: 6, message: "Mã OTP gồm 6 ký tự" },
+  ]}
+>
+  <Input
+    className="auth-form__input auth-form__input--text is-droplet"
+    placeholder="Nhập mã OTP 6 số"
+    inputMode="numeric"          // gợi ý bàn phím số trên mobile
+    pattern="[0-9]*"             // hint cho trình duyệt
+    autoComplete="one-time-code" // tối ưu auto-fill OTP
+    maxLength={6}
+  />
+</Form.Item>
 
         <div className="auth-form__actions" data-form="actions">
           <Button

@@ -35,3 +35,10 @@
   
   padding-top: 5px;
 }
+:where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-status-error:not(.ant-input-disabled) {
+  background: none !important;
+}
+:where(.css-dev-only-do-not-override-vrrzze).ant-input-outlined.ant-input-status-error:not(.ant-input-disabled) {
+  background: none !important;
+}
+

@@ -153,7 +153,8 @@ const Login = () => {
             >
               <Input
                 className="auth-form__input auth-form__input--text is-droplet"
-                placeholder="Nhập tên đăng nhập hoặc email"
+                variant="filled"
+                placeholder="Nhập tên đăng nhập hoặc email"s
               />
             </Form.Item>
 
@@ -166,6 +167,7 @@ const Login = () => {
               <Input.Password
                 className="auth-form__input auth-form__input--password is-droplet"
                 placeholder="Nhập mật khẩu"
+                variant="filled"
                 onKeyDown={(e) => {
                   if (loading && e.key === "Enter") e.preventDefault(); // chặn Enter khi đang loading
                 }}
