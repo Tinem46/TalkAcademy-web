@@ -1,0 +1,202 @@
+/* Core ở components/auth-layout/index.scss đã bao gồm mọi thứ */
+
+/* Padding mềm cho inputs */
+.auth-form--register .auth-form__item .auth-form__input.is-droplet {
+  padding: 12px 14px;
+}
+.auth-form--register .auth-form__item .ant-input-affix-wrapper.is-droplet {
+  padding: 10px 12px;
+}
+
+/* label antd sáng */
+.auth-card--form .ant-form-item-label > label { color: var(--auth-text); }
+
+/* đề phòng CSS khác vô tình ẩn brand */
+.auth-card--brand { display: block !important; visibility: visible !important; }
+.brand__title{
+    color: #43B7FA;
+    font-size: 45px;
+}
+.brand__subtitle{
+    color: white;
+    font-size: 35px;
+}
+
+/* =========================
+   OTP Modal – Droplet style (khớp auth styles)
+   ========================= */
+
+/* Nếu bạn set className="auth-otp-modal" cho <Modal /> */
+.auth-otp-modal {
+  /* Khung content */
+  :where(.ant-modal-content) {
+    position: relative;
+    border-radius: var(--auth-radius);
+    border: 1px solid var(--auth-card-border);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.12)),
+      var(--auth-card-bg);
+    color: var(--auth-text);
+    padding: 20px 20px 24px;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.25),
+      inset 0 -1px 10px rgba(255,255,255,0.14),
+      0 14px 36px rgba(0,0,0,0.35);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    animation: authModalPop .22s ease-out both;
+
+    /* highlight trên như giọt nước */
+    &::before {
+      content: "";
+      position: absolute;
+      top: 8px; left: 12px; right: 12px;
+      height: 10px; border-radius: 999px;
+      background: radial-gradient(ellipse at top, rgba(255,255,255,0.85), rgba(255,255,255,0));
+      opacity: .6; pointer-events: none;
+    }
+  }
+
+  /* Header & tiêu đề */
+  :where(.ant-modal-header) {
+    background: transparent;
+    border-bottom: 1px dashed rgba(255,255,255,0.25);
+    padding: 8px 4px 14px;
+    margin: 0 12px 12px;
+  }
+  :where(.ant-modal-title) {
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: .02em;
+    font-size: calc(18px + var(--auth-font-bump));
+  }
+
+  /* Nút đóng (x) */
+  :where(.ant-modal-close) {
+    top: 10px; right: 10px;
+    width: 36px; height: 36px;
+    border-radius: 999px;
+    display: grid; place-items: center;
+    color: #fff;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.08)),
+      rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.65),
+      inset 0 -4px 12px rgba(255,255,255,0.25),
+      0 8px 20px rgba(0,0,0,0.35);
+    backdrop-filter: blur(8px) saturate(140%);
+    -webkit-backdrop-filter: blur(8px) saturate(140%);
+    transition: transform .12s ease, box-shadow .16s ease, filter .16s ease;
+
+    &:hover {
+      filter: brightness(1.03);
+      box-shadow:
+        inset 0 2px 0 rgba(255,255,255,0.75),
+        inset 0 -6px 14px rgba(255,255,255,0.3),
+        0 12px 26px rgba(0,0,0,0.4);
+      transform: translateY(-1px);
+    }
+    &:active {
+      transform: translateY(0);
+      box-shadow:
+        inset 0 0 0 rgba(255,255,255,0.65),
+        inset 0 -2px 8px rgba(0,0,0,0.2),
+        0 6px 16px rgba(0,0,0,0.35);
+    }
+  }
+
+  /* Body */
+  :where(.ant-modal-body) {
+    padding: 4px 0 0;
+
+    .auth-text--muted {
+      color: black !important;
+      font-size: calc(12px + var(--auth-font-bump));
+      margin-bottom: 14px;
+    }
+
+    /* Form OTP – khớp droplet inputs */
+    .auth-form--verify {
+      .auth-form__label {
+        color: black;
+        font-weight: 700;
+        font-size: calc(12px + var(--auth-font-bump));
+      }
+
+      .auth-form__input.is-droplet,
+      .ant-input.is-droplet {
+        padding: 12px 14px;
+        letter-spacing: 0.12em;
+        text-align: center;
+      }
+
+      .ant-input, .ant-input-affix-wrapper {
+        border: 0 !important;
+        background: transparent;
+        color: var(--auth-text);
+        &::placeholder { color: rgba(255,255,255,.7); }
+      }
+    }
+  }
+
+  /* Nút submit */
+  .auth-button--primary {
+    height: 50px;
+    font-weight: 800;
+    font-size: calc(15px + var(--auth-font-bump));
+    background: var(--auth-accent) !important;
+    color: #fff !important;
+    border-color: transparent !important;
+
+    &.is-droplet {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06)),
+        var(--auth-accent) !important;
+      border: 1px solid rgba(255,255,255,0.28) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.7),
+        inset 0 -4px 12px rgba(255,255,255,0.35),
+        0 10px 24px rgba(0,0,0,0.35);
+
+      &:hover {
+        filter: brightness(1.02);
+        transform: translateY(-0.5px);
+        transition: transform 120ms ease, filter 120ms ease;
+      }
+      &:active {
+        transform: translateY(1px);
+        box-shadow:
+          inset 0 0 0 rgba(255,255,255,0.7),
+          inset 0 -1px 6px rgba(0,0,0,0.15),
+          0 6px 16px rgba(0,0,0,0.35);
+      }
+    }
+  }
+
+  /* Responsive tinh chỉnh */
+  @media (max-width: 576px) {
+    :where(.ant-modal-content) { padding: 16px; }
+    :where(.ant-modal-title) { font-size: calc(16px + var(--auth-font-bump)); }
+    .auth-text--muted { font-size: calc(11px + var(--auth-font-bump)); }
+  }
+}
+
+/* Nếu bạn dùng rootClassName="auth-otp-modal" trên <Modal /> thì mask sẽ được blur */
+:where(.auth-otp-modal) .ant-modal-mask {
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px) saturate(120%);
+  -webkit-backdrop-filter: blur(4px) saturate(120%);
+}
+
+:where(.css-dev-only-do-not-override-vrrzze).ant-modal .ant-modal-title {
+  font-size: 25px;
+  text-align: center;
+}
+
+:where(.auth-otp-modal) .ant-modal-mask {
+  background: rgba(0,0,0,0.55);          /* cần có alpha để backdrop-filter thấy hiệu ứng */
+  backdrop-filter: blur(4px) saturate(120%);
+  -webkit-backdrop-filter: blur(4px) saturate(120%); /* Safari */
+}

@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Form, Input, Button, Spin } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import AuthLayout from "../../components/auth-layout";
-import "./index.scss";
 
+import AuthLayout from "../../components/auth-layout";
+import EmailOtpModal from "../../components/EmailOtpModal"; // <— nhớ tạo component này
+import "./indexS.scss";
 import api from "../../config/api";
 
 /* Ảnh (đổi path nếu dự án bạn khác) */
@@ -14,41 +15,59 @@ import BackgroudSignupLogin from "../../assets/Pictrure/BackgroudSignupLogin.png
 const Register = () => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
+
+  const [otpModalVisible, setOtpModalVisible] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState("");
+  const [registeredUserId, setRegisteredUserId] = useState(null);
+
   const navigate = useNavigate();
 
   const handleRegister = async (values) => {
-    if (loading) return; // tránh double submit
+    if (loading) return;
     setLoading(true);
     try {
-      // chỉ gửi đúng 3 field kèm trim
       const apiData = {
         username: values.username?.trim(),
         email: values.email?.trim(),
         password: values.password,
       };
 
-      const apiResponse = await api.post("auth/register", apiData);
+      const res = await api.post("auth/register", apiData);
+
+      const trimmedEmail = values.email?.trim();
+      const msg = String(res?.data?.data?.message || res?.data?.message || "").toLowerCase();
+      const userId = res?.data?.userId ?? null;
 
       toast.success("Đăng ký thành công. Vui lòng xác nhận email.");
-      navigate("/login", {
-        state: {
-          email: values.email,
-          userId: apiResponse?.data?.userId, // nếu backend trả về
-        },
-        replace: true,
-      });
+
+      if (msg.includes("otp")) {
+        setRegisteredEmail(trimmedEmail || "");
+        setRegisteredUserId(userId);
+        setOtpModalVisible(true);
+        return;
+      }
+
+      navigate("/login", { state: { email: trimmedEmail, userId }, replace: true });
     } catch (err) {
-      console.error("Error details:", err);
+      console.error("Register error:", err);
       toast.error(err?.response?.data?.message || "Đăng ký thất bại");
     } finally {
       setLoading(false);
     }
   };
 
+  const handleOtpVerified = () => {
+    toast.success("Xác minh email thành công.");
+    setOtpModalVisible(false);
+    navigate("/login", { state: { email: registeredEmail, userId: registeredUserId }, replace: true });
+    setRegisteredEmail("");
+    setRegisteredUserId(null);
+  };
+
   return (
     <AuthLayout bgImage={BackgroudSignupLogin} overlayOpacity={0.45}>
       <section className="auth__grid auth__grid--2cols" data-auth="grid">
-        {/* BRAND (luôn hiển thị) */}
+        {/* BRAND */}
         <aside className="auth-card auth-card--brand" data-auth="brand">
           <div className="brand brand--stack" data-brand="container">
             <img className="brand__logo" src={mascot1} alt="Logo" />
@@ -98,7 +117,7 @@ const Register = () => {
               className="auth-form__item auth-form__item--email"
               rules={[
                 { required: true, message: "Vui lòng nhập email" },
-                { type: "email, message: \"Email không hợp lệ\"" }, // giữ đúng UI, rule email vẫn cần
+                { type: "email", message: "Email không hợp lệ" },
               ]}
             >
               <Input
@@ -136,9 +155,7 @@ const Register = () => {
                 { required: true, message: "Vui lòng xác nhận mật khẩu" },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
-                    if (!value || getFieldValue("password") === value) {
-                      return Promise.resolve();
-                    }
+                    if (!value || getFieldValue("password") === value) return Promise.resolve();
                     return Promise.reject(new Error("Mật khẩu xác nhận không khớp"));
                   },
                 }),
@@ -164,15 +181,20 @@ const Register = () => {
 
             <div className="auth-form__links" data-form="links">
               <p className="auth-text auth-text--muted">
-                Đã có tài khoản?{" "}
-                <Link className="auth-link" to="/login">
-                  Đăng nhập
-                </Link>
+                Đã có tài khoản? <Link className="auth-link" to="/login">Đăng nhập</Link>
               </p>
             </div>
           </Form>
         </main>
       </section>
+
+      {/* Popup xác minh email */}
+      <EmailOtpModal
+        open={otpModalVisible}
+        onClose={() => setOtpModalVisible(false)}
+        initialEmail={registeredEmail}
+        onVerified={handleOtpVerified}
+      />
     </AuthLayout>
   );
 };

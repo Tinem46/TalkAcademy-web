@@ -2,49 +2,126 @@ import React, { useState } from "react";
 import { Form, Input, Button, Spin } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import AuthLayout from "../../components/auth-layout";
+import EmailOtpModal from "../../components/EmailOtpModal";
 import "./index.scss";
 
 import api from "../../config/api";
 import { loginSuccess, loginFailure } from "../../redux/slices/authSlice";
 import { getUserFromToken } from "../../utils/jwtUtils";
 
-/* ảnh nền (giữ đúng theo dự án của bạn) */
+/* Ảnh nền */
 import BackgroudSignupLogin from "../../assets/Pictrure/BackgroudSignupLogin.png";
 
+
+
 const Login = () => {
+  const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+
+  // Popup OTP khi account chưa verify
+  const [otpOpen, setOtpOpen] = useState(false);
+  const [prefillEmail, setPrefillEmail] = useState("");
+  const [lastCredentials, setLastCredentials] = useState(null); // lưu credentials để auto-login sau verify
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const finishLoginSuccess = (data) => {
+    const token = data?.data?.accessToken;
+    const refreshToken = data?.data?.refreshToken;
+    const userInfo = getUserFromToken(token || "") || {};
+    const role = userInfo?.role || "CUSTOMER";
+    const userId = userInfo?.id;
+
+    if (token) localStorage.setItem("token", token);
+    if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
+    if (role) localStorage.setItem("role", role);
+    if (userId) localStorage.setItem("userId", String(userId));
+
+    dispatch(loginSuccess({ token, refreshToken, role, userId, user: userInfo }));
+
+    if (["ADMIN", "MANAGER", "STAFF"].includes(role)) navigate("/admin");
+    else navigate("/");
+
+    setLastCredentials(null);
+  };
 
   const handleLogin = async (values) => {
     setLoading(true);
     try {
-      const res = await api.post("auth/login", values);
+      setLastCredentials(values);
+
+      // cờ _skip401Handler để interceptor KHÔNG reload/redirect
+      const res = await api.post("/auth/login", values, { _skip401Handler: true });
       const data = res?.data;
-      const ok = data?.statusCode === 201;
-      const token = data?.data?.accessToken;
-      const refreshToken = data?.data?.refreshToken;
-      const userInfo = getUserFromToken(token) || {};
 
-      if (ok && token) {
-        const role = userInfo?.role || "CUSTOMER";
-        const userId = userInfo?.id;
-
-        localStorage.setItem("token", token);
-        localStorage.setItem("refreshToken", refreshToken);
-        localStorage.setItem("role", role);
-        localStorage.setItem("userId", userId);
-
-        dispatch(loginSuccess({ token, refreshToken, role, userId, user: userInfo }));
-
-        if (["ADMIN", "MANAGER", "STAFF"].includes(role)) navigate("/admin");
-        else navigate("/");
+      if (data?.statusCode === 201 && data?.data?.accessToken) {
+        finishLoginSuccess(data);
       } else {
-        dispatch(loginFailure(data?.message || "Đăng nhập thất bại"));
+        // chuẩn hoá hiển thị lỗi
+        const backendMsg = (data?.message || "").toString();
+        const looksLikeInvalid =
+          /(invalid|incorrect|unauthorized|sai|không đúng)/i.test(backendMsg);
+        const show = looksLikeInvalid ? "Sai tên đăng nhập hoặc mật khẩu" : "Đăng nhập thất bại";
+        form.setFields([{ name: "password", errors: [show] }]);
+        dispatch(loginFailure(show));
       }
     } catch (e) {
-      dispatch(loginFailure(e?.response?.data?.message || "Lỗi kết nối"));
+      const msg = e?.response?.data?.message || "";
+      const status = e?.response?.status || e?.response?.data?.statusCode;
+
+      // Nếu chưa xác minh → mở popup, không reload
+      const isUnverified =
+        Number(status) === 401 &&
+        /(account not verified|verify your email|chưa.*xác minh)/i.test(msg || "");
+
+      if (isUnverified) {
+        const maybeEmail = (form.getFieldValue("username") || "").toString();
+        const emailToUse = maybeEmail.includes("@") ? maybeEmail : "";
+        setPrefillEmail(emailToUse);
+        setOtpOpen(true);
+      } else {
+        // Các lỗi còn lại: 400/401 coi như sai thông tin; 5xx/mạng -> lỗi kết nối
+        const isInvalidCreds =
+          Number(status) === 400 ||
+          Number(status) === 401 ||
+          /(invalid|incorrect|unauthorized|sai|không đúng)/i.test(msg || "");
+        const show = isInvalidCreds ? "Sai tên đăng nhập hoặc mật khẩu" : (msg || "Lỗi kết nối");
+        form.setFields([{ name: "password", errors: [show] }]);
+        dispatch(loginFailure(show));
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleOtpVerified = async ({ email }) => {
+    try {
+      setOtpOpen(false);
+      if (email) form.setFieldsValue({ username: email });
+
+      // Auto-login lại bằng credentials cũ
+      if (lastCredentials) {
+        setLoading(true);
+        const res = await api.post("/auth/login", lastCredentials, { _skip401Handler: true });
+        const data = res?.data;
+        if (data?.statusCode === 201 && data?.data?.accessToken) {
+          finishLoginSuccess(data);
+          return;
+        }
+        const backendMsg = (data?.message || "").toString();
+        const looksLikeInvalid =
+          /(invalid|incorrect|unauthorized|sai|không đúng)/i.test(backendMsg);
+        const show = looksLikeInvalid ? "Sai tên đăng nhập hoặc mật khẩu" : "Đăng nhập thất bại";
+        form.setFields([{ name: "password", errors: [show] }]);
+        dispatch(loginFailure(show));
+      }
+    } catch (e) {
+      const msg = e?.response?.data?.message || "Lỗi kết nối";
+      form.setFields([{ name: "password", errors: [msg] }]);
+      dispatch(loginFailure(msg));
     } finally {
       setLoading(false);
     }
@@ -52,7 +129,6 @@ const Login = () => {
 
   return (
     <AuthLayout bgImage={BackgroudSignupLogin} overlayOpacity={0.45}>
-      {/* 1 card → single grid để căn giữa */}
       <section className="auth__grid auth__grid--single" data-auth="grid">
         <main className="auth-card auth-card--form" data-auth="form">
           <header className="auth-form__header" data-form="header">
@@ -61,6 +137,7 @@ const Login = () => {
           </header>
 
           <Form
+            form={form}
             layout="vertical"
             className="auth-form auth-form--login"
             data-form="login"
@@ -76,7 +153,7 @@ const Login = () => {
             >
               <Input
                 className="auth-form__input auth-form__input--text is-droplet"
-                placeholder="Nhập tên đăng nhập"
+                placeholder="Nhập tên đăng nhập hoặc email"
               />
             </Form.Item>
 
@@ -89,6 +166,9 @@ const Login = () => {
               <Input.Password
                 className="auth-form__input auth-form__input--password is-droplet"
                 placeholder="Nhập mật khẩu"
+                onKeyDown={(e) => {
+                  if (loading && e.key === "Enter") e.preventDefault(); // chặn Enter khi đang loading
+                }}
               />
             </Form.Item>
 
@@ -101,9 +181,23 @@ const Login = () => {
               >
                 {loading ? <Spin size="small" /> : "Đăng nhập"}
               </Button>
-            </div>
 
-           
+              {/* Nút mở popup xác minh email */}
+              <Button
+                type="default"
+                htmlType="button"
+                className="auth-button auth-button--block is-droplet"
+                style={{ marginTop: 10 }}
+                onClick={() => {
+                  const maybeEmail = (form.getFieldValue("username") || "").toString();
+                  const emailToUse = maybeEmail.includes("@") ? maybeEmail : "";
+                  setPrefillEmail(emailToUse);
+                  setOtpOpen(true);
+                }}
+              >
+                Xác minh email (nhập OTP)
+              </Button>
+            </div>
 
             <div className="auth-form__links" data-form="links">
               <p className="auth-text auth-text--muted">
@@ -122,6 +216,14 @@ const Login = () => {
           </Form>
         </main>
       </section>
+
+      {/* Popup xác minh khi account chưa verify */}
+      <EmailOtpModal
+        open={otpOpen}
+        onClose={() => setOtpOpen(false)}
+        initialEmail={prefillEmail}
+        onVerified={handleOtpVerified}
+      />
     </AuthLayout>
   );
 };

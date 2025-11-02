@@ -1,18 +1,19 @@
+// src/config/gemini.js
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// API Key - sử dụng trực tiếp để tránh vấn đề environment variables
-const API_KEY = 'AIzaSyDAou0lcUSAPHTUCI6YH4RQ2QUa-BLFs-o';
+/**
+ * LƯU Ý CẤU HÌNH:
+ * - Tạo file .env (hoặc .env.local) và đặt: VITE_GEMINI_API_KEY=YOUR_KEY
+ * - Với Vite, biến môi trường được truy cập qua import.meta.env.*
+ */
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+if (!API_KEY) {
+  throw new Error('Thiếu biến môi trường VITE_GEMINI_API_KEY. Hãy cấu hình trong .env');
+}
 
-console.log('🔑 Using hardcoded API Key:', API_KEY.substring(0, 10) + '...');
-console.log('✅ Gemini API Key đã được cấu hình trực tiếp');
-
-// Khởi tạo Gemini AI
+// Khởi tạo Gemini + Model (singleton)
 const genAI = new GoogleGenerativeAI(API_KEY);
-
-// Cấu hình model đơn giản
-const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash-exp"
-});
+const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
 
 // System prompt cho Talkademy
 const SYSTEM_PROMPT = `
@@ -50,25 +51,20 @@ HƯỚNG DẪN TRẢ LỜI:
 - Giữ câu trả lời ngắn gọn (dưới 150 từ)
 `;
 
-// Hàm gọi Gemini API
+/**
+ * Gọi Gemini để tạo câu trả lời.
+ * @param {string} userMessage - Tin nhắn người dùng
+ * @param {Array<{type:'user'|'assistant', content:string}>} conversationHistory - lịch sử hội thoại (tùy chọn)
+ * @returns {Promise<string>}
+ */
 export const getGeminiResponse = async (userMessage, conversationHistory = []) => {
-    console.log('🤖 Starting Gemini API call...');
-    console.log('📝 User message:', userMessage);
-    console.log('📚 Conversation history length:', conversationHistory.length);
+  try {
+    const context = conversationHistory
+      .slice(-5)
+      .map((msg) => `${msg.type === 'user' ? 'Người dùng' : 'AI'}: ${msg.content}`)
+      .join('\n');
 
-    console.log('🔑 Using API Key:', API_KEY.substring(0, 10) + '...');
-
-    try {
-     
-        const context = conversationHistory
-            .slice(-5) // Chỉ lấy 5 tin nhắn gần nhất
-            .map(msg => `${msg.type === 'user' ? 'Người dùng' : 'AI'}: ${msg.content}`)
-            .join('\n');
-
-        console.log('🔗 Context created, length:', context.length);
-
-        
-        const fullPrompt = `${SYSTEM_PROMPT}
+    const fullPrompt = `${SYSTEM_PROMPT}
 
 LỊCH SỬ HỘI THOẠI:
 ${context}
@@ -77,47 +73,32 @@ NGƯỜI DÙNG VỪA HỎI: ${userMessage}
 
 HÃY TRẢ LỜI:`;
 
-        console.log('📤 Sending request to Gemini...');
+    // Timeout thủ công 30s
+    const result = await Promise.race([
+      // Bạn có thể truyền string trực tiếp cho generateContent
+      model.generateContent(fullPrompt),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('timeout')), 30_000)
+      ),
+    ]);
 
-       
-        const tempAI = new GoogleGenerativeAI(API_KEY);
-        const tempModel = tempAI.getGenerativeModel({
-            model: "gemini-2.0-flash-exp"
-        });
+    const response = await result.response;
+    const text = response.text();
+    return (text || '').trim();
+  } catch (error) {
+    const msg = (error && error.message) || '';
 
-      
-        const result = await Promise.race([
-            tempModel.generateContent(fullPrompt),
-            new Promise((_, reject) =>
-                setTimeout(() => reject(new Error('Request timeout')), 30000)
-            )
-        ]);
-
-        console.log('📥 Received response from Gemini');
-        const response = await result.response;
-        const text = response.text();
-
-        console.log('✅ Gemini API response:', text.substring(0, 100) + '...');
-        return text.trim();
-    } catch (error) {
-        console.error('❌ Gemini API Error details:', {
-            message: error.message,
-            name: error.name,
-            stack: error.stack?.substring(0, 200)
-        });
-
-        // Throw với thông tin chi tiết hơn
-        if (error.message.includes('API_KEY')) {
-            throw new Error('API Key không hợp lệ hoặc đã hết hạn');
-        } else if (error.message.includes('quota')) {
-            throw new Error('Đã vượt quá giới hạn sử dụng API');
-        } else if (error.message.includes('timeout')) {
-            throw new Error('Kết nối quá chậm, vui lòng thử lại');
-        } else {
-            throw new Error('Có lỗi xảy ra với dịch vụ AI');
-        }
+    if (msg.includes('API_KEY')) {
+      throw new Error('API Key không hợp lệ hoặc đã hết hạn');
     }
+    if (msg.toLowerCase().includes('quota')) {
+      throw new Error('Đã vượt quá giới hạn sử dụng API');
+    }
+    if (msg.toLowerCase().includes('timeout')) {
+      throw new Error('Kết nối quá chậm, vui lòng thử lại');
+    }
+    throw new Error('Có lỗi xảy ra với dịch vụ AI');
+  }
 };
-
 
 export default { getGeminiResponse };

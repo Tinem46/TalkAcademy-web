@@ -19,3 +19,19 @@
 .auth-form__hint{
   font-size: 25px;
 }
+.auth-form--login .auth-form__item--password .ant-form-item-explain-error  {
+  color: #FFD54F !important;          /* vàng */
+  font-size: calc(8px + var(--auth-font-bump)); /* to hơn, đồng bộ biến của bạn */
+                     /* đậm */
+  letter-spacing: .01em;
+
+  padding-top: 5px;
+}
+.auth-form--login .auth-form__item--username .ant-form-item-explain-error{
+    color: #FFD54F !important;          /* vàng */
+  font-size: calc(8px + var(--auth-font-bump)); /* to hơn, đồng bộ biến của bạn */
+                     /* đậm */
+  letter-spacing: .01em;
+  
+  padding-top: 5px;
+}
