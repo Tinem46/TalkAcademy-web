@@ -235,4 +235,91 @@ input:where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-sta
     
     background: none !important;
     color: white !important;
+
+}
+/* Đặt CUỐI file SCSS để thắng thứ tự */
+.auth-card--form .auth-form__item {
+  /* Base luôn trong suốt & text trắng */
+  .ant-input,
+  .ant-input-affix-wrapper,
+  .ant-input-password,
+  .ant-input-textarea,
+  .ant-input-number,
+  .ant-input-number-in-form-item {
+    background: transparent !important;
+    color: #fff !important;
+    border-color: rgba(255,255,255,.28) !important;
+  }
+
+  /* Inner input trong wrappers */
+  .ant-input-affix-wrapper input,
+  .ant-input-number-input,
+  .ant-input-textarea textarea {
+    background: transparent !important;
+    color: #fff !important;
+  }
+
+  /* Variant filled/outlined vẫn phải trong suốt */
+  .ant-input-filled,
+  .ant-input-outlined,
+  .ant-input-affix-wrapper.ant-input-filled,
+  .ant-input-affix-wrapper.ant-input-outlined {
+    background: none !important;
+  }
+
+  /* === TRẠNG THÁI LỖI: bắt buộc trong suốt === */
+  .ant-input-status-error,
+  .ant-input-status-error .ant-input,
+  .ant-input-affix-wrapper-status-error,
+  .ant-input-affix-wrapper-status-error input,
+  .ant-input-number-status-error,
+  .ant-input-number-status-error .ant-input-number-input,
+  textarea.ant-input-status-error,
+  .ant-input-filled.ant-input-status-error,
+  .ant-input-outlined.ant-input-status-error,
+  .ant-input-affix-wrapper.ant-input-filled.ant-input-status-error,
+  .ant-input-affix-wrapper.ant-input-outlined.ant-input-status-error {
+    background: none !important;
+    color: #fff !important;
+  }
+
+  /* Placeholder */
+  .ant-input::placeholder,
+  .ant-input-affix-wrapper input::placeholder,
+  .ant-input-number-input::placeholder,
+  .ant-input-textarea textarea::placeholder {
+    color: rgba(255,255,255,.7) !important;
+    opacity: 1;
+  }
+
+  /* Hover/Focus (giữ border/halo theo accent) */
+  .ant-input:hover,
+  .ant-input-affix-wrapper:hover,
+  .ant-input-number:hover,
+  .ant-input-textarea:hover {
+    border-color: var(--auth-accent) !important;
+  }
+  .ant-input:focus,
+  .ant-input-affix-wrapper-focused,
+  .ant-input-number-focused {
+    border-color: var(--auth-accent) !important;
+    box-shadow: 0 0 0 2px rgba(67,183,250,.25) !important;
+  }
+
+  /* Disabled */
+  .ant-input[disabled],
+  .ant-input-affix-wrapper.ant-input-affix-wrapper-disabled,
+  .ant-input-number.ant-input-number-disabled {
+    background: transparent !important;
+    color: rgba(255,255,255,.45) !important;
+    border-color: rgba(255,255,255,.16) !important;
+  }
+}
+
+/* Màu lỗi (tooltip dưới input) — bạn đã có: giữ lại */
+.ant-form-item .ant-form-item-explain-error {
+  color: #FFD54F !important;
+  font-size: calc(8px + var(--auth-font-bump));
+  letter-spacing: .01em;
+  padding-top: 5px;
 }
