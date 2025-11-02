@@ -1,3 +1,4 @@
+// src/page/loginPage/index.jsx (đặt theo đường dẫn của bạn)
 import React, { useState } from "react";
 import { Form, Input, Button, Spin } from "antd";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,10 +12,11 @@ import api from "../../config/api";
 import { loginSuccess, loginFailure } from "../../redux/slices/authSlice";
 import { getUserFromToken } from "../../utils/jwtUtils";
 
-/* Ảnh nền */
+/* Ảnh nền + brand */
 import BackgroudSignupLogin from "../../assets/Pictrure/BackgroudSignupLogin.png";
+import mascot1 from "../../assets/Mascot/Asset 1logoFB.png";
 
-const tag = 'Login';
+const tag = "Login";
 
 const Login = () => {
   const [form] = Form.useForm();
@@ -129,8 +131,22 @@ const Login = () => {
 
   return (
     <AuthLayout bgImage={BackgroudSignupLogin} overlayOpacity={0.45}>
+      {/* 2 cột: LEFT brand, RIGHT form */}
       <section className="auth__grid auth__grid--2cols" data-auth="grid">
-        <main className="auth-card auth-card--form" data-auth="form">
+        {/* LEFT: BRAND */}
+        <aside className="auth-card auth-card--brand" data-auth="brand">
+          <div className="brand brand--stack" data-brand="container">
+            <img className="brand__logo" src={mascot1} alt="Logo" />
+            <h1 className="brand__title">TALKADEMY</h1>
+            <h2 className="brand__subtitle">LUYỆN GIỌNG NÓI NÀO</h2>
+            <p className="brand__desc">
+              Ứng dụng luyện giọng nói được thiết kế dành riêng cho người Việt với công nghệ AI tiên tiến.
+            </p>
+          </div>
+        </aside>
+
+        {/* RIGHT: FORM */}
+        <main className="auth-card auth-card--form auth-card--right" data-auth="form">
           <header className="auth-form__header" data-form="header">
             <h1 className="auth-form__title">ĐĂNG NHẬP</h1>
             <p className="auth-form__hint">Chào mừng trở lại</p>
@@ -154,7 +170,7 @@ const Login = () => {
               <Input
                 className="auth-form__input auth-form__input--text is-droplet"
                 variant="filled"
-                placeholder="Nhập tên đăng nhập hoặc email"s
+                placeholder="Nhập tên đăng nhập hoặc email"
               />
             </Form.Item>
 
