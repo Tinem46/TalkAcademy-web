@@ -202,13 +202,16 @@
 }
 input:where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-status-error:not(.ant-input-disabled) {
   color: white !important;
+  background: none !important;
 }
 input:where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-status-error:not(.ant-input-disabled) {
   color: white !important;
+  background: none !important;
 }
 input:where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-status-error:not(.ant-input-disabled), :where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-status-error:not(.ant-input-disabled) input, textarea:where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-status-error:not(.ant-input-disabled), :where(.css-dev-only-do-not-override-vrrzze).ant-input-filled.ant-input-status-error:not(.ant-input-disabled) textarea {
     /* color: #ff4d4f; */
     color: white !important;
+    background: none !important;
 }
 .ant-form-item .ant-form-item-explain-error {
    color: #FFD54F !important;          /* vàng */
