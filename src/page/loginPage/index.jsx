@@ -129,7 +129,7 @@ const Login = () => {
 
   return (
     <AuthLayout bgImage={BackgroudSignupLogin} overlayOpacity={0.45}>
-      <section className="auth__grid auth__grid--single" data-auth="grid">
+      <section className="auth__grid auth__grid--2cols" data-auth="grid">
         <main className="auth-card auth-card--form" data-auth="form">
           <header className="auth-form__header" data-form="header">
             <h1 className="auth-form__title">ĐĂNG NHẬP</h1>
