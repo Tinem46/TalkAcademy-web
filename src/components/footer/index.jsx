@@ -31,9 +31,9 @@ const Footer = () => {
               <h3 className="column-title">Khám Phá</h3>
               <ul className="column-list">
                 <li className="column-item" onClick={() => navigate("/about")}>Về Chúng Tôi</li>
-                <li className="column-item">Đặc Trưng</li>
-                <li className="column-item" onClick={() => navigate("/services")}>Gói Lời</li>
-                <li className="column-item" onClick={() => navigate("/privacy")}>Privacy Policy</li>
+                <li className="column-item" onClick={() => navigate("/services")}>Dịch Vụ</li>
+                <li className="column-item" onClick={() => navigate("/download")}>Tải xuống</li>
+                <li className="column-item" onClick={() => navigate("/contact")}>Liên Hệ</li>
               </ul>
             </div>
 

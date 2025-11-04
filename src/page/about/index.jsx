@@ -5,6 +5,7 @@ import {
   SoundOutlined, MessageOutlined, RobotOutlined, ExperimentOutlined, AimOutlined,
   DashboardOutlined, NodeIndexOutlined, AudioOutlined, RiseOutlined
 } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom'; // ✅ thêm
 import './index.scss';
 import mascot1 from '../../assets/Mascot/mascot Talkademy01.png';
 import mascot2 from '../../assets/Mascot/Asset 1longlanh.png';
@@ -13,6 +14,8 @@ import mascot3 from '../../assets/Mascot/Asset 3talking.png';
 const { Title, Paragraph } = Typography;
 
 const About = () => {
+  const navigate = useNavigate(); // ✅ thêm
+
   // Scroll-in effect
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -206,7 +209,12 @@ const About = () => {
                   <p className="contact-page__cta-subtitle">
                     Tải ứng dụng ngay hôm nay và bắt đầu hành trình chinh phục giọng nói của bạn với sự đồng hành của AI.
                   </p>
-                  <Button type="primary" size="large" className="contact-page__cta-button" href="/download">
+                  <Button
+                    type="primary"
+                    size="large"
+                    className="contact-page__cta-button"
+                    onClick={() => navigate('/download')} // ✅ dùng navigate thay href
+                  >
                     Tải ứng dụng miễn phí
                   </Button>
                 </div>

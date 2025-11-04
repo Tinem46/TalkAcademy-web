@@ -23,7 +23,7 @@ const QuoteSection = () => {
                     <div className="quote-actions" data-aos="zoom-in" data-aos-delay="400">
                         <Button
                             className="quote-btn"
-                            onClick={() => navigate('/contact')}
+                            onClick={() => navigate('/download')}
                         >
                             Bắt đầu ngay
                         </Button>

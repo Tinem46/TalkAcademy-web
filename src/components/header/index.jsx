@@ -84,7 +84,7 @@ const Header = () => {
             <li onClick={() => { navigate("/services"); closeMobileMenu(); }}>Dịch Vụ</li>
             {/* <li onClick={() => { navigate("/team"); closeMobileMenu(); }}>Our Team</li> */}
             {/* <li onClick={() => { navigate("/blog"); closeMobileMenu(); }}>Blog</li> */}
-            <li onClick={() => { navigate("/download"); closeMobileMenu(); }}>Tải XuốngXuống</li>
+            <li onClick={() => { navigate("/download"); closeMobileMenu(); }}>Tải Xuống</li>
             <li onClick={() => { navigate("/contact"); closeMobileMenu(); }}>Liên Hệ</li>
           </ul>
         </nav>
@@ -115,7 +115,7 @@ const Header = () => {
                   closeMobileMenu();
                 }}
               >
-                Sign In
+                Đăng nhập
               </button>
               <button
                 className="sign-up-btn"
@@ -124,7 +124,7 @@ const Header = () => {
                   closeMobileMenu();
                 }}
               >
-                Sign Up
+                Đăng kí
               </button>
             </div>
           )}
