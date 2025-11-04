@@ -79,13 +79,13 @@ const Header = () => {
         {/* Navigation */}
         <nav className={`header-nav ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           <ul className="nav-links">
-            <li onClick={() => { navigate("/"); closeMobileMenu(); }}>Home</li>
-            <li onClick={() => { navigate("/about"); closeMobileMenu(); }}>About Us</li>
-            <li onClick={() => { navigate("/services"); closeMobileMenu(); }}>Services</li>
+            <li onClick={() => { navigate("/"); closeMobileMenu(); }}>Trang Chủ</li>
+            <li onClick={() => { navigate("/about"); closeMobileMenu(); }}>Về Chúng Tôi</li>
+            <li onClick={() => { navigate("/services"); closeMobileMenu(); }}>Dịch Vụ</li>
             {/* <li onClick={() => { navigate("/team"); closeMobileMenu(); }}>Our Team</li> */}
             {/* <li onClick={() => { navigate("/blog"); closeMobileMenu(); }}>Blog</li> */}
-            <li onClick={() => { navigate("/download"); closeMobileMenu(); }}>Download</li>
-            <li onClick={() => { navigate("/contact"); closeMobileMenu(); }}>Contact Us</li>
+            <li onClick={() => { navigate("/download"); closeMobileMenu(); }}>Tải XuốngXuống</li>
+            <li onClick={() => { navigate("/contact"); closeMobileMenu(); }}>Liên Hệ</li>
           </ul>
         </nav>
 

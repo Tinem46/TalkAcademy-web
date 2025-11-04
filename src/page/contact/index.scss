@@ -15,496 +15,311 @@ $shadow-medium: rgba(67, 183, 250, 0.2);
 
 /* --- Mixin hiệu ứng --- */
 @mixin ios-water-drop-active {
-    // Hiệu ứng nhấn giữ
-    &:active {
-        transform: scale(0.97) translateY(0);
-        box-shadow: 0 5px 15px $shadow-light;
-        transition-duration: 0.1s;
-    }
+  &:active {
+    transform: scale(0.97) translateY(0);
+    box-shadow: 0 5px 15px $shadow-light;
+    transition-duration: 0.1s;
+  }
 }
 
 /* --- Keyframes --- */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes floatMascot {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-20px); }
 }
 
 @keyframes floatBubbles {
-    0% { transform: translateY(0px); opacity: 0; }
-    50% { opacity: 0.5; }
-    100% { transform: translateY(-100vh); opacity: 0; }
+  0%   { transform: translateY(0px); opacity: 0; }
+  50%  { opacity: 0.5; }
+  100% { transform: translateY(-100vh); opacity: 0; }
 }
 
 /* --- Base Page --- */
 .contact-page {
-    font-family: 'Be Vietnam Pro', sans-serif;
-    background-color: $background-page;
-    overflow: hidden;
-    position: relative;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background-color: $background-page;
+  overflow: hidden;
+  position: relative;
 
-    .container {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
 }
 
-/* --- Hiệu ứng cuộn --- */
-.fade-in-card {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+/* --- Hiệu ứng cuộn (đổi tên để tránh trùng) --- */
+.contact-fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 
-    &.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* --- Hero Section --- */
 .contact-page__hero {
+  position: relative;
+  padding: 100px 0 200px 0;
+  background: linear-gradient(135deg, $primary-blue 0%, $dark-blue 100%);
+  color: $white;
+  overflow: hidden;
+
+  .contact-page__hero-container {
     position: relative;
-    padding: 100px 0 200px 0; // Padding dưới lớn để tạo khoảng chờ cho card trắng
-    background: linear-gradient(135deg, $primary-blue 0%, $dark-blue 100%);
-    color: $white;
-    overflow: hidden;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    .contact-page__hero-container {
-        position: relative;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+  .contact-page__hero-text {
+    max-width: 550px;
+    .contact-page__hero-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: inline-block;
     }
+    .contact-page__hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: $white;
+      line-height: 1.2;
+    }
+    .contact-page__hero-subtitle {
+      font-size: 1.1rem;
+      color: rgba($white, 0.9);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .contact-page__hero-actions {
+      display: flex;
+      gap: 16px;
+      .hero-button-primary {
+        background: $white;
+        color: $dark-blue;
+        font-weight: 700;
+        border: none;
+        border-radius: 8px;
+        height: 48px;
+        padding: 0 30px;
+        transition: all 0.2s ease;
+        @include ios-water-drop-active;
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+      }
+      .hero-button-secondary {
+        background: transparent;
+        color: $white;
+        font-weight: 700;
+        border: 2px solid rgba($white, 0.5);
+        border-radius: 8px;
+        height: 48px;
+        padding: 0 30px;
+        transition: all 0.2s ease;
+        @include ios-water-drop-active;
+        &:hover {
+          background: rgba($white, 0.1);
+          border-color: $white;
+          transform: translateY(-3px);
+        }
+      }
+    }
+  }
 
-    .contact-page__hero-text {
-        max-width: 550px;
-        .contact-page__hero-icon {
-            font-size: 3rem;
-            margin-bottom: 16px;
-            display: inline-block;
-        }
-        .contact-page__hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-            color: $white;
-            line-height: 1.2;
-        }
-        .contact-page__hero-subtitle {
-            font-size: 1.1rem;
-            color: rgba($white, 0.9);
-            margin-bottom: 32px;
-            line-height: 1.6;
-        }
-        .contact-page__hero-actions {
-            display: flex;
-            gap: 16px;
-            .hero-button-primary {
-                background: $white;
-                color: $dark-blue;
-                font-weight: 700;
-                border: none;
-                border-radius: 8px;
-                height: 48px;
-                padding: 0 30px;
-                transition: all 0.2s ease;
-                @include ios-water-drop-active;
-                &:hover {
-                    transform: translateY(-3px);
-                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-                }
-            }
-            .hero-button-secondary {
-                background: transparent;
-                color: $white;
-                font-weight: 700;
-                border: 2px solid rgba($white, 0.5);
-                border-radius: 8px;
-                height: 48px;
-                padding: 0 30px;
-                transition: all 0.2s ease;
-                @include ios-water-drop-active;
-                &:hover {
-                    background: rgba($white, 0.1);
-                    border-color: $white;
-                    transform: translateY(-3px);
-                }
-            }
-        }
-    }
+  .contact-page__hero-mascot {
+    animation: floatMascot 6s ease-in-out infinite;
+    .contact-page__hero-mascot-image { width: 300px; }
+  }
 
-    .contact-page__hero-mascot {
-        animation: floatMascot 6s ease-in-out infinite;
-        .contact-page__hero-mascot-image {
-            width: 300px;
-        }
+  .contact-page__hero-bubbles {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+    .bubble {
+      position: absolute; bottom: -150px;
+      background: rgba(255, 255, 255, 0.1); border-radius: 50%;
+      animation: floatBubbles 15s linear infinite;
     }
-    
-    // Bong bóng trang trí
-    .contact-page__hero-bubbles {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-
-        .bubble {
-            position: absolute;
-            bottom: -150px; // Bắt đầu từ dưới
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: floatBubbles 15s linear infinite;
-        }
-        .x1 { left: 10%; width: 80px; height: 80px; animation-duration: 12s; }
-        .x2 { left: 25%; width: 40px; height: 40px; animation-duration: 15s; animation-delay: 2s; }
-        .x3 { left: 50%; width: 60px; height: 60px; animation-duration: 10s; }
-        .x4 { left: 70%; width: 100px; height: 100px; animation-duration: 18s; animation-delay: 1s; }
-        .x5 { left: 85%; width: 50px; height: 50px; animation-duration: 13s; animation-delay: 3s; }
-    }
+    .x1 { left: 10%; width: 80px; height: 80px; animation-duration: 12s; }
+    .x2 { left: 25%; width: 40px; height: 40px; animation-duration: 15s; animation-delay: 2s; }
+    .x3 { left: 50%; width: 60px; height: 60px; animation-duration: 10s; }
+    .x4 { left: 70%; width: 100px; height: 100px; animation-duration: 18s; animation-delay: 1s; }
+    .x5 { left: 85%; width: 50px; height: 50px; animation-duration: 13s; animation-delay: 3s; }
+  }
 }
 
 /* --- Main Content Section (Card trắng lớn) --- */
 .contact-page__main-section {
-    position: relative;
-    z-index: 20;
-    margin-top: -150px; // **Quan trọng: Kéo lên đè lên Hero Section**
-    margin-bottom: 80px; // Khoảng cách với section dưới
+  position: relative; z-index: 20;
+  margin-top: -150px; margin-bottom: 80px;
 
-    .contact-page__content-wrapper {
-        background: $white;
-        border-radius: 20px;
-        box-shadow: 0 25px 80px rgba(100, 150, 200, 0.25);
-        padding: 40px;
+  .contact-page__content-wrapper {
+    background: $white; border-radius: 20px;
+    box-shadow: 0 25px 80px rgba(100, 150, 200, 0.25);
+    padding: 40px;
+  }
+
+  .contact-page__form-container {
+    padding-right: 24px; border-right: 1px solid $border-light;
+    .contact-page__form-title { font-size: 1.8rem; font-weight: 700; color: $text-dark; margin-bottom: 24px; }
+    .ant-form-item-label > label { font-weight: 600; color: $text-light; }
+    .form-input, .form-textarea {
+      border-radius: 8px; border: 1px solid #D9E2EC; background: $background-page;
+      height: 48px; font-size: 1rem;
+      &:focus, &:hover { border-color: $primary-blue; box-shadow: 0 0 0 2px rgba($primary-blue, 0.1); }
     }
-
-    // Form bên trái
-    .contact-page__form-container {
-        padding-right: 24px;
-        border-right: 1px solid $border-light; // Đường kẻ dọc
-        .contact-page__form-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: $text-dark;
-            margin-bottom: 24px;
-        }
-        .ant-form-item-label > label {
-            font-weight: 600;
-            color: $text-light;
-        }
-        .form-input, .form-textarea {
-            border-radius: 8px;
-            border: 1px solid #D9E2EC;
-            background: $background-page;
-            height: 48px;
-            font-size: 1rem;
-            &:focus, &:hover {
-                border-color: $primary-blue;
-                box-shadow: 0 0 0 2px rgba($primary-blue, 0.1);
-            }
-        }
-        .form-textarea {
-            height: auto;
-            min-height: 120px;
-            padding-top: 12px;
-        }
-        .contact-page__submit-button {
-            height: 50px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 1.05rem;
-            width: 100%;
-            background: $primary-blue;
-            border: none;
-            transition: all 0.2s ease;
-            @include ios-water-drop-active;
-            &:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 10px 20px rgba($primary-blue, 0.3);
-            }
-        }
+    .form-textarea { height: auto; min-height: 120px; padding-top: 12px; }
+    .contact-page__submit-button {
+      height: 50px; border-radius: 8px; font-weight: 700; font-size: 1.05rem; width: 100%;
+      background: $primary-blue; border: none; transition: all 0.2s ease;
+      @include ios-water-drop-active;
+      &:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba($primary-blue, 0.3); }
     }
+  }
 
-    // Info bên phải
-    .contact-page__info-sidebar {
-        padding-left: 24px;
-        .contact-page__info-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: $text-dark;
-            margin-bottom: 24px;
-        }
-        .contact-page__info-card-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .contact-page__info-card {
-            background: $background-page;
-            border: 1px solid $border-light;
-            border-radius: 16px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            @include ios-water-drop-active;
-            
-            &:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 30px $shadow-light;
-                border-color: $primary-blue;
-            }
-
-            .contact-page__info-card-icon {
-                font-size: 1.8rem;
-                color: $primary-blue;
-                flex-shrink: 0;
-            }
-            .contact-page__info-card-content {
-                display: flex;
-                flex-direction: column;
-                .info-card-title {
-                    font-weight: 700;
-                    font-size: 1rem;
-                    color: $text-dark;
-                }
-                .info-card-text {
-                    font-weight: 500;
-                    color: $text-light;
-                    font-size: 0.95rem;
-                }
-                .info-card-subtext {
-                    font-weight: 400;
-                    color: $text-muted;
-                    font-size: 0.85rem;
-                    margin-top: 2px;
-                }
-            }
-        }
+  .contact-page__info-sidebar {
+    padding-left: 24px;
+    .contact-page__info-title { font-size: 1.8rem; font-weight: 700; color: $text-dark; margin-bottom: 24px; }
+    .contact-page__info-card-list { display: flex; flex-direction: column; gap: 20px; }
+    .contact-page__info-card {
+      background: $background-page; border: 1px solid $border-light; border-radius: 16px; padding: 20px;
+      display: flex; align-items: center; gap: 20px; transition: all 0.3s ease; cursor: pointer;
+      @include ios-water-drop-active;
+      &:hover { transform: translateY(-5px); box-shadow: 0 10px 30px $shadow-light; border-color: $primary-blue; }
+      .contact-page__info-card-icon { font-size: 1.8rem; color: $primary-blue; flex-shrink: 0; }
+      .contact-page__info-card-content {
+        display: flex; flex-direction: column;
+        .info-card-title { font-weight: 700; font-size: 1rem; color: $text-dark; }
+        .info-card-text  { font-weight: 500; color: $text-light; font-size: 0.95rem; }
+        .info-card-subtext { font-weight: 400; color: $text-muted; font-size: 0.85rem; margin-top: 2px; }
+      }
     }
+  }
 }
 
 /* --- Các Section Card chung --- */
 .contact-page__section-container {
-    padding: 60px 0;
-    .contact-page__section-title {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: $text-dark;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    .contact-page__section-subtitle {
-        font-size: 1.1rem;
-        color: $text-light;
-        text-align: center;
-        max-width: 600px;
-        margin: 0 auto 48px auto;
-        line-height: 1.6;
-    }
-    // Card cơ sở
-    .section-card {
-        background: $white;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px $shadow-light;
-        border: 1px solid $border-light;
-        padding: 30px;
-        height: 100%;
-        transition: all 0.3s ease;
-        text-align: center;
-        cursor: pointer;
-        @include ios-water-drop-active;
+  padding: 60px 0;
+  .contact-page__section-title {
+    font-size: 2.2rem; font-weight: 700; color: $text-dark; text-align: center; margin-bottom: 20px;
+  }
+  .contact-page__section-subtitle {
+    font-size: 1.1rem; color: $text-light; text-align: center; max-width: 600px; margin: 0 auto 48px auto; line-height: 1.6;
+  }
+  .section-card {
+    background: $white; border-radius: 16px; box-shadow: 0 10px 30px $shadow-light; border: 1px solid $border-light;
+    padding: 30px; height: 100%; transition: all 0.3s ease; text-align: center; cursor: pointer;
+    @include ios-water-drop-active;
+    &:hover { transform: translateY(-8px); box-shadow: 0 15px 40px $shadow-medium; border-color: $primary-blue; }
+    .card-icon-wrapper { font-size: 2.5rem; color: $primary-blue; margin-bottom: 20px; }
+    .card-title { font-size: 1.3rem; font-weight: 700; color: $text-dark; margin-bottom: 12px; }
+    .card-description { font-size: 0.95rem; color: $text-light; line-height: 1.6; min-height: 50px; }
+  }
+}
 
-        &:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px $shadow-medium;
-            border-color: $primary-blue;
-        }
+/* --- Success card riêng (khi gửi xong) --- */
+.contact-success-card {
+  padding: 24px;
+  border: 1px solid $border-light;
+  box-shadow: 0 10px 30px $shadow-light;
+  margin: 50px;
 
-        .card-icon-wrapper {
-            font-size: 2.5rem;
-            color: $primary-blue;
-            margin-bottom: 20px;
-        }
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: $text-dark;
-            margin-bottom: 12px;
-        }
-        .card-description {
-            font-size: 0.95rem;
-            color: $text-light;
-            line-height: 1.6;
-            min-height: 50px; // Cho đều
-        }
-    }
+
 }
 
 /* --- Chi tiết từng Section --- */
 .contact-page__office-card {
-    text-align: left;
-    .card-title {
-        text-align: center;
-    }
-    .card-text {
-        font-size: 0.95rem;
-        color: $text-light;
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        margin-bottom: 10px;
-        .anticon {
-            margin-top: 3px;
-            color: $primary-blue;
-        }
-    }
+  text-align: left;
+  .card-title { text-align: center; }
+  .card-text {
+    font-size: 0.95rem; color: $text-light; display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;
+    .anticon { margin-top: 3px; color: $primary-blue; }
+  }
 }
 
 .contact-page__department-card {
-    .card-link-button {
-        font-weight: 600;
-        font-size: 1rem;
-        margin-top: 10px;
-    }
+  .card-link-button { font-weight: 600; font-size: 1rem; margin-top: 10px; }
 }
 
-.contact-page__faq-card {
-    text-align: left;
-}
+.contact-page__faq-card { text-align: left; }
 
 /* --- CTA Section --- */
 .contact-page__cta-card {
-    padding: 40px;
-    text-align: left;
-    overflow: hidden;
-
-    .contact-page__cta-mascot-col {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .contact-page__cta-mascot-image {
-            width: 250px;
-            animation: floatMascot 6s ease-in-out infinite;
-        }
+  padding: 40px; text-align: left; overflow: hidden;
+  .contact-page__cta-mascot-col {
+    display: flex; justify-content: center; align-items: center;
+    .contact-page__cta-mascot-image { width: 250px; animation: floatMascot 6s ease-in-out infinite; }
+  }
+  .contact-page__cta-content {
+    .contact-page__cta-title { font-size: 2rem; font-weight: 700; color: $text-dark; margin-bottom: 12px; }
+    .contact-page__cta-subtitle { font-size: 1.1rem; color: $text-light; margin-bottom: 24px; }
+    .contact-page__cta-button {
+      height: 50px; border-radius: 8px; font-weight: 700; font-size: 1.05rem; background: $primary-blue; border: none; transition: all 0.2s ease;
+      @include ios-water-drop-active;
+      &:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba($primary-blue, 0.3); }
     }
-    .contact-page__cta-content {
-        .contact-page__cta-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: $text-dark;
-            margin-bottom: 12px;
-        }
-        .contact-page__cta-subtitle {
-            font-size: 1.1rem;
-            color: $text-light;
-            margin-bottom: 24px;
-        }
-        .contact-page__cta-button {
-            height: 50px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 1.05rem;
-            background: $primary-blue;
-            border: none;
-            transition: all 0.2s ease;
-            @include ios-water-drop-active;
-            &:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 10px 20px rgba($primary-blue, 0.3);
-            }
-        }
-    }
+  }
 }
-
 
 /* --- Responsive --- */
 @media (max-width: 992px) {
-    .contact-page__hero {
-        padding: 80px 0 180px 0;
-        .contact-page__hero-container {
-            flex-direction: column;
-            text-align: center;
-            gap: 40px;
-        }
-        .contact-page__hero-text {
-            max-width: 100%;
-        }
-        .contact-page__hero-actions {
-            justify-content: center;
-        }
-        .contact-page__hero-mascot {
-            order: -1;
-            .contact-page__hero-mascot-image {
-                width: 250px;
-            }
-        }
+  .contact-page__hero {
+    padding: 80px 0 180px 0;
+    .contact-page__hero-container { flex-direction: column; text-align: center; gap: 40px; }
+    .contact-page__hero-text { max-width: 100%; }
+    .contact-page__hero-actions { justify-content: center; }
+    .contact-page__hero-mascot { order: -1;
+      .contact-page__hero-mascot-image { width: 250px; }
     }
+  }
 
-    .contact-page__main-section {
-        .contact-page__form-container {
-            border-right: none;
-            padding-right: 0;
-        }
-        .contact-page__info-sidebar {
-            padding-left: 0;
-            border-top: 1px solid $border-light;
-            padding-top: 30px;
-            margin-top: 30px;
-        }
+  .contact-page__main-section {
+    .contact-page__form-container { border-right: none; padding-right: 0; }
+    .contact-page__info-sidebar {
+      padding-left: 0; border-top: 1px solid $border-light; padding-top: 30px; margin-top: 30px;
     }
-    
-    .contact-page__cta-card {
-        text-align: center;
-        .contact-page__cta-mascot-col {
-            order: -1;
-        }
-        .contact-page__cta-content-col {
-            text-align: center;
-        }
-    }
+  }
+
+  .contact-page__cta-card { text-align: center;
+    .contact-page__cta-mascot-col { order: -1; }
+    .contact-page__cta-content-col { text-align: center; }
+  }
 }
 
 @media (max-width: 768px) {
-    .contact-page__section-container {
-        padding: 40px 0;
-    }
-    .contact-page__main-section {
-        margin-bottom: 40px;
-    }
-    .contact-page__hero {
-        padding: 60px 0 160px 0;
-        .contact-page__hero-title {
-            font-size: 2.5rem;
-        }
-        .contact-page__hero-subtitle {
-            font-size: 1rem;
-        }
-    }
+  .contact-page__section-container { padding: 40px 0; }
+  .contact-page__main-section { margin-bottom: 40px; }
+  .contact-page__hero {
+    padding: 60px 0 160px 0;
+    .contact-page__hero-title { font-size: 2.5rem; }
+    .contact-page__hero-subtitle { font-size: 1rem; }
+  }
 }
 
 @media (max-width: 576px) {
-    .contact-page__main-section .contact-page__content-wrapper {
-        padding: 25px;
-    }
-    .contact-page__hero-actions {
-        flex-direction: column;
-        .hero-button-primary, .hero-button-secondary {
-            width: 100%;
-        }
-    }
+  .contact-page__main-section .contact-page__content-wrapper { padding: 25px; }
+  .contact-page__hero-actions {
+    flex-direction: column;
+    .hero-button-primary, .hero-button-secondary { width: 100%; }
+  }
 }
+// .section-card contact-success-card{
+
+
+// display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     height: 100%;
+//     padding-top: 100px;
+
+// }
