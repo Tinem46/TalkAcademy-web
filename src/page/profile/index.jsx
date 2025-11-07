@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   Card,
@@ -12,29 +12,41 @@ import {
   Modal,
   Form,
   Input,
-  Upload
+  Upload, // Ant Design Upload
+  Image,  // Ant Design Image (để preview)
 } from "antd";
 import {
   UserOutlined,
   MailOutlined,
   CalendarOutlined,
   CrownOutlined,
-  UploadOutlined
+  UploadOutlined,
+  PlusOutlined, // Icon cho nút upload mới
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import api from "../../config/api";
 import { getUserFromToken } from "../../utils/jwtUtils";
 import "./index.scss";
 
-const CLOUD_NAME = 'dbdcznsat';          // ví dụ: demo
-const UPLOAD_PRESET = 'talkademy';  // ví dụ: talkademy
+// Đảm bảo các hằng số này đúng với tài khoản Cloudinary của bạn
+const CLOUD_NAME = "dbdcznsat";
+const UPLOAD_PRESET = "talkademy";
 const CLOUDINARY_UPLOAD_URL = CLOUD_NAME
   ? `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
   : "";
 
+// Hàm helper để convert file sang base64 (cho việc preview)
+const getBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+
 const Profile = () => {
   const navigate = useNavigate();
-  const { user, userId } = useSelector((state) => state.auth);
+  const { userId } = useSelector((state) => state.auth);
 
   const [loading, setLoading] = useState(true);
   const [profileData, setProfileData] = useState(null);
@@ -42,6 +54,11 @@ const Profile = () => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [form] = Form.useForm();
+
+  // State cho UI Upload mới
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [fileList, setFileList] = useState([]);
 
   useEffect(() => {
     if (!userId) {
@@ -65,42 +82,42 @@ const Profile = () => {
 
       const userInfo = getUserFromToken(token);
       if (userInfo) {
-        setProfileData({
-          user: {
-            id: userInfo.id,
-            username: userInfo.username,
-            email: userInfo.email,
-            role: userInfo.role,
-            avatar: userInfo.avatar
-          },
+        const jwtData = {
+          user: { id: userInfo.id, ...userInfo },
           type: "TRIAL",
-          trialExpiresAt: null
-        });
+          trialExpiresAt: null,
+        };
+        setProfileData(jwtData);
 
-        // Thử lấy thêm từ API (không bắt buộc)
         try {
-          const response = await api.get(`/accounts/${userId}`);
-          setProfileData(response.data);
+          const response = await api.get(`/users/profile`);
+          const apiData = response.data;
+          if (apiData && apiData.username) {
+            const structuredData = {
+              user: apiData,
+              type: apiData.account?.type || "TRIAL",
+              trialExpiresAt: apiData.account?.trialExpiresAt || null,
+            };
+            setProfileData(structuredData);
+          }
         } catch (apiError) {
-          // giữ data từ JWT nếu API fail
+          console.error(
+            "Lỗi gọi API /users/profile, dùng tạm data từ JWT:",
+            apiError.response || apiError.message
+          );
         }
       } else {
         throw new Error("Không thể decode JWT token");
       }
     } catch (error) {
+      console.error("Lỗi nghiêm trọng khi tải profile:", error.message);
       message.error("Không thể tải thông tin profile");
-      if (user) {
-        setProfileData({
-          user,
-          type: "TRIAL",
-          trialExpiresAt: null
-        });
-      }
     } finally {
       setLoading(false);
     }
   };
 
+  // --- Các hàm tiện ích (Format, Color) ---
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
     return new Date(dateString).toLocaleDateString("vi-VN", {
@@ -108,79 +125,91 @@ const Profile = () => {
       month: "long",
       day: "numeric",
       hour: "2-digit",
-      minute: "2-digit"
+      minute: "2-digit",
     });
   };
-
-  const getAccountTypeColor = (type) => {
+  const getAccountTypeColor = (type) => { /* (giữ nguyên) */ 
     switch (type) {
-      case "TRIAL":
-        return "blue";
-      case "PREMIUM":
-        return "gold";
-      case "VIP":
-        return "purple";
-      default:
-        return "default";
+      case "TRIAL": return "blue";
+      case "PREMIUM": return "gold";
+      case "VIP": return "purple";
+      default: return "default";
     }
   };
-
-  const getRoleColor = (role) => {
+  const getRoleColor = (role) => { /* (giữ nguyên) */ 
     switch (role) {
-      case "ADMIN":
-        return "red";
-      case "MANAGER":
-        return "orange";
-      case "STAFF":
-        return "green";
-      case "CUSTOMER":
-        return "blue";
-      default:
-        return "default";
+      case "ADMIN": return "red";
+      case "MANAGER": return "orange";
+      case "STAFF": return "green";
+      case "CUSTOMER": return "blue";
+      default: return "default";
     }
   };
 
+  // --- Xử lý Modal Chỉnh sửa (Mở/Đóng) ---
   const openEdit = () => {
     if (!profileData?.user) return;
+    const currentAvatar = profileData.user.avatar;
+
+    // Set giá trị cho Form (bao gồm cả avatar URL)
     form.setFieldsValue({
       username: profileData.user.username,
-      email: profileData.user.email, // hiển thị nhưng khóa
-      avatar: profileData.user.avatar
+      email: profileData.user.email,
+      avatar: currentAvatar,
     });
+
+    // Cập nhật fileList cho component Upload
+    if (currentAvatar) {
+      setFileList([
+        {
+          uid: "-1",
+          name: "avatar.png",
+          status: "done",
+          url: currentAvatar,
+        },
+      ]);
+    } else {
+      setFileList([]);
+    }
+
     setIsEditOpen(true);
   };
 
-  const closeEdit = () => setIsEditOpen(false);
+  const closeEdit = () => {
+    setIsEditOpen(false);
+    // Xóa state của modal cũ
+    setFileList([]);
+    setPreviewImage("");
+    setPreviewOpen(false);
+  };
 
-  // Upload ảnh lên Cloudinary (unsigned)
-  const uploadToCloudinary = async (options) => {
+  // --- Xử lý Upload Ảnh (UI Mới) ---
+
+  // Request lên Cloudinary (đã đổi tên từ uploadToCloudinary)
+  const customUploadRequest = async (options) => {
     const { file, onError, onProgress, onSuccess } = options;
-
     try {
       if (!CLOUDINARY_UPLOAD_URL || !UPLOAD_PRESET) {
-        throw new Error(
-          "Thiếu cấu hình Cloudinary. Hãy set VITE_CLOUDINARY_CLOUD_NAME và VITE_CLOUDINARY_UNSIGNED_PRESET."
-        );
+        throw new Error("Thiếu cấu hình Cloudinary");
       }
-
       const data = new FormData();
       data.append("file", file);
       data.append("upload_preset", UPLOAD_PRESET);
-      // data.append("folder", "user/avatar"); // nếu preset không cố định folder
 
       const xhr = new XMLHttpRequest();
       xhr.open("POST", CLOUDINARY_UPLOAD_URL);
       xhr.upload.onprogress = (evt) => {
         if (evt.lengthComputable && onProgress) {
-          onProgress({ percent: (evt.loaded / evt.total) * 100 });
+          onProgress({ percent: (evt.loaded / evt.total) * 100 }, file);
         }
       };
       xhr.onload = () => {
         try {
           const res = JSON.parse(xhr.responseText);
-          const url = res.secure_url;
-          form.setFieldsValue({ avatar: url });
-          if (onSuccess) onSuccess(res);
+          // Cập nhật giá trị 'avatar' trong Form
+          form.setFieldsValue({ avatar: res.secure_url });
+          // Báo cho AntD Upload biết là đã xong, và đính kèm response
+          if (onSuccess) onSuccess(res, file);
           message.success("Upload ảnh thành công");
         } catch (e) {
           if (onError) onError(new Error("Upload thất bại"));
@@ -196,56 +225,90 @@ const Profile = () => {
   };
 
   const beforeUpload = (file) => {
-    const isImg =
-      file.type === "image/jpeg" ||
-      file.type === "image/png" ||
-      file.type === "image/webp" ||
-      file.type === "image/jpg";
+    const isImg = ["image/jpeg", "image/png", "image/webp", "image/jpg"].includes(file.type);
     if (!isImg) message.error("Chỉ hỗ trợ JPG/PNG/WebP");
     const isLt5M = file.size / 1024 / 1024 < 5;
     if (!isLt5M) message.error("Ảnh phải nhỏ hơn 5MB");
     return isImg && isLt5M;
   };
 
-  // Lưu về backend (KHÔNG cho chỉnh email)
-const onSave = async () => {
-  try {
-    const values = await form.validateFields();
-    console.log("✅ Form values:", values);
-
-    setSaving(true);
-
-    const payload = {
-      username: values.username,
-      avatar: values.avatar
-    };
-
-    console.log("📦 Payload gửi lên API:", payload);
-    console.log("🌐 Gọi PATCH:", `/accounts/${userId}`);
-
-    const response = await api.patch(`/accounts/${userId}`, payload);
-    console.log("🟢 Phản hồi API PATCH:", response?.data);
-
-    // Cập nhật lại giao diện sau khi lưu
-    setProfileData((prev) => ({
-      ...prev,
-      user: { ...prev.user, ...payload }
-    }));
-
-    message.success("Cập nhật thông tin thành công");
-    closeEdit();
-  } catch (err) {
-    console.error("❌ Lỗi khi lưu thông tin:", err);
-    if (!err?.errorFields) {
-      message.error("Không thể lưu thay đổi");
+  // Xử lý khi click preview (mắt)
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
     }
-  } finally {
-    console.log("🔁 Hoàn tất onSave, saving=false");
-    setSaving(false);
-  }
-};
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+  };
 
+  // Xử lý khi file thay đổi (upload, xóa)
+  const handleChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
 
+    // Nếu file cuối cùng được upload xong (status === 'done')
+    // Cập nhật form value (mặc dù customRequest đã làm, nhưng đây là 1 B-plan)
+    const doneFile = newFileList.find(f => f.status === 'done');
+    if (doneFile && doneFile.response) {
+      form.setFieldsValue({ avatar: doneFile.response.secure_url });
+    }
+  };
+
+  // Xử lý khi xóa ảnh
+  const handleRemove = (file) => {
+    // Xóa URL avatar khỏi form
+    form.setFieldsValue({ avatar: null });
+    setFileList([]); // Xóa file khỏi list
+    return true; // Cho phép xóa
+  };
+
+  // Nút upload
+  const uploadButton = (
+    <button style={{ border: 0, background: "none" }} type="button">
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </button>
+  );
+
+  // --- Xử lý Lưu thay đổi (PATCH) ---
+  const onSave = async () => {
+    console.log("--- BẮT ĐẦU TEST onSave (PATCH) ---");
+    try {
+      const values = await form.validateFields();
+      console.log("[PATCH Test 1] Dữ liệu từ Form:", values);
+      setSaving(true);
+
+      // <--- THAY ĐỔI: Chỉ gửi 'avatar'
+      const payload = {
+        avatar: values.avatar,
+      };
+      console.log("[PATCH Test 2] Payload gửi đi:", payload);
+
+      const apiUrl = `/users/${userId}/profile`;
+      console.log(`[PATCH Test 3] Gọi API: PATCH ${apiUrl}`);
+      
+      const response = await api.patch(apiUrl, payload);
+      
+      console.log("[PATCH Test 4] Thành công - Phản hồi API:", response?.data);
+
+      // Cập nhật lại giao diện ngay lập tức
+      setProfileData((prev) => ({
+        ...prev,
+        // Cập nhật 'user.avatar' bên trong 'profileData'
+        user: { ...prev.user, avatar: payload.avatar },
+      }));
+
+      message.success("Cập nhật thông tin thành công");
+      closeEdit();
+    } catch (err) {
+      console.error("[PATCH Test 5] Thất bại - Lỗi:", err.response || err.message || err);
+      message.error("Không thể lưu thay đổi");
+    } finally {
+      setSaving(false);
+      console.log("--- KẾT THÚC TEST onSave ---");
+    }
+  };
+
+  // --- Render Logic ---
   if (loading) {
     return (
       <div className="profile-loading">
@@ -255,7 +318,7 @@ const onSave = async () => {
     );
   }
 
-  if (!profileData) {
+  if (!profileData || !profileData.user) {
     return (
       <div className="profile-error">
         <h2>Không thể tải thông tin profile</h2>
@@ -265,7 +328,7 @@ const onSave = async () => {
       </div>
     );
   }
-
+  
   const { user: userData, type, trialExpiresAt } = profileData;
 
   return (
@@ -283,7 +346,10 @@ const onSave = async () => {
               <div className="user-basic-info">
                 <h2>{userData?.username || "N/A"}</h2>
                 <Space>
-                  <Tag color={getRoleColor(userData?.role)} icon={<CrownOutlined />}>
+                  <Tag
+                    color={getRoleColor(userData?.role)}
+                    icon={<CrownOutlined />}
+                  >
                     {userData?.role || "N/A"}
                   </Tag>
                   <Tag color={getAccountTypeColor(type)}>{type || "N/A"}</Tag>
@@ -298,7 +364,9 @@ const onSave = async () => {
                 <MailOutlined className="detail-icon" />
                 <div className="detail-content">
                   <span className="detail-label">Email:</span>
-                  <span className="detail-value">{userData?.email || "N/A"}</span>
+                  <span className="detail-value">
+                    {userData?.email || "N/A"}
+                  </span>
                 </div>
               </div>
 
@@ -306,7 +374,9 @@ const onSave = async () => {
                 <UserOutlined className="detail-icon" />
                 <div className="detail-content">
                   <span className="detail-label">Tên đăng nhập:</span>
-                  <span className="detail-value">{userData?.username || "N/A"}</span>
+                  <span className="detail-value">
+                    {userData?.username || "N/A"}
+                  </span>
                 </div>
               </div>
 
@@ -323,7 +393,9 @@ const onSave = async () => {
                   <CalendarOutlined className="detail-icon" />
                   <div className="detail-content">
                     <span className="detail-label">Hết hạn dùng thử:</span>
-                    <span className="detail-value">{formatDate(trialExpiresAt)}</span>
+                    <span className="detail-value">
+                      {formatDate(trialExpiresAt)}
+                    </span>
                   </div>
                 </div>
               )}
@@ -342,56 +414,57 @@ const onSave = async () => {
         </Card>
       </div>
 
+      {/* // -----------------------------------------------------------------
+      // <--- MODAL ĐÃ ĐƯỢC CẬP NHẬT
+      // -----------------------------------------------------------------
+      */}
       <Modal
-        title="Chỉnh sửa thông tin"
+        title="Cập nhật ảnh đại diện"
         open={isEditOpen}
         onCancel={closeEdit}
         onOk={onSave}
         okText="Lưu"
         cancelText="Hủy"
         confirmLoading={saving}
-        destroyOnClose
+        destroyOnHidden
+        className="profile-modal"
       >
         <Form form={form} layout="vertical" preserve={false}>
-          <Form.Item label="Email (không thể thay đổi)" name="email">
-            <Input disabled />
+          {/* Ẩn trường avatar đi, nó vẫn giữ URL nhưng người dùng không thấy */}
+          <Form.Item name="avatar" hidden>
+            <Input />
           </Form.Item>
 
-          <Form.Item
-            label="Tên đăng nhập"
-            name="username"
-            rules={[{ required: true, message: "Vui lòng nhập tên đăng nhập" }]}
-          >
-            <Input placeholder="Tên đăng nhập" />
-          </Form.Item>
+          
 
-          <Form.Item label="Ảnh đại diện">
-            <Space direction="vertical" style={{ width: "100%" }}>
-              <Form.Item name="avatar" noStyle>
-                <Input placeholder="URL ảnh (sẽ tự điền sau khi upload)" />
-              </Form.Item>
-              <Upload
-                name="file"
-                showUploadList={false}
-                beforeUpload={beforeUpload}
-                customRequest={uploadToCloudinary}
-              >
-                <Button icon={<UploadOutlined />}>Tải ảnh lên Cloudinary</Button>
-              </Upload>
-
-              {form.getFieldValue("avatar") && (
-                <div style={{ marginTop: 8 }}>
-                  <img
-                    src={form.getFieldValue("avatar")}
-                    alt="avatar preview"
-                    style={{ maxWidth: "100%", borderRadius: 8 }}
-                  />
-                </div>
-              )}
-            </Space>
+          <Form.Item label="Ảnh đại diện hiện tại">
+            <Upload
+              listType="picture-card"
+              fileList={fileList}
+              onPreview={handlePreview}
+              onChange={handleChange}
+              onRemove={handleRemove} // Thêm hàm xử lý xóa
+              beforeUpload={beforeUpload}
+              customRequest={customUploadRequest} // Dùng hàm upload Cloudinary
+            >
+              {fileList.length >= 1 ? null : uploadButton}
+            </Upload>
           </Form.Item>
         </Form>
       </Modal>
+
+      {/* Component <Image> để xử lý preview */}
+      {previewImage && (
+        <Image
+          wrapperStyle={{ display: "none" }}
+          preview={{
+            visible: previewOpen,
+            onVisibleChange: (visible) => setPreviewOpen(visible),
+            afterOpenChange: (visible) => !visible && setPreviewImage(""),
+          }}
+          src={previewImage}
+        />
+      )}
     </div>
   );
 };

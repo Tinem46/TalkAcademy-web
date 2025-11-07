@@ -284,3 +284,99 @@ $border-color: #E8F4FD;
     }
   }
 }
+.profile-modal {
+
+  // Áp dụng style "profile-card" cho panel
+  .ant-modal-content {
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    padding: 0; // Tắt padding mặc định để tự custom
+  }
+
+  // Header (Tiêu đề)
+  .ant-modal-header {
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0; // Giữ 1 đường kẻ mỏng
+    padding: 24px 32px;
+    border-radius: 16px 16px 0 0;
+
+    .ant-modal-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: $text-dark;
+    }
+  }
+
+  // Body (Phần form upload)
+  .ant-modal-body {
+    padding: 32px;
+
+    .ant-form-item-label > label {
+      font-weight: 500;
+      color: #555;
+    }
+
+    // Căn giữa khu vực upload
+    .ant-upload-wrapper.ant-upload-picture-card-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+    
+    // Style cái thẻ upload (cả nút + và ảnh đã upload)
+    .ant-upload-select, 
+    .ant-upload-list-item-container {
+      .ant-upload-list-item,
+      .ant-upload.ant-upload-select {
+        width: 120px;
+        height: 120px;
+        border-radius: 12px;
+        background: whitesmoke;
+        border: 2px dashed $border-color;
+
+        &:hover {
+          border-color: $primary-blue;
+        }
+      }
+    }
+  }
+
+  // Footer (Các nút bấm)
+  .ant-modal-footer {
+    border-top: 1px solid #f0f0f0;
+    padding: 24px 32px;
+    
+    // Style các nút giống .profile-actions
+    .ant-btn {
+      height: 44px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 0 24px;
+
+      // Nút Lưu (Primary)
+      &.ant-btn-primary {
+        background: linear-gradient(135deg, $primary-blue, $secondary-blue);
+        border: none;
+        box-shadow: 0 4px 16px rgba(67, 183, 250, 0.3);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(67, 183, 250, 0.4);
+        }
+      }
+
+      // Nút Hủy (Default)
+      &:not(.ant-btn-primary) {
+        border: 2px solid $border-color;
+        color: $text-dark;
+
+        &:hover {
+          border-color: $primary-blue;
+          color: $primary-blue;
+        }
+      }
+    }
+  }
+}
