@@ -1,0 +1,36 @@
+.admin-user-surveys-page {
+    .page-title {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+
+    .surveys-card {
+        .surveys-toolbar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 12px;
+        }
+
+        .ant-table-wrapper {
+            .ant-table {
+                .ant-table-thead > tr > th {
+                    background: #fafafa;
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .survey-content {
+            background: #f6f8fa;
+            padding: 12px;
+            border-radius: 6px;
+            max-height: 320px;
+            overflow: auto;
+        }
+    }
+
+    .center {
+        text-align: center;
+        padding: 30px 0;
+    }
+}
