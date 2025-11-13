@@ -21,6 +21,8 @@ import AccountManagement from "./page/admin/accountManagement";
 import ReadingPassageManagement from "./page/admin/readingPassageManagement";
 import CategoryManagement from "./page/admin/categoryManagement";
 import PackageManagement from "./page/admin/packageManagement";
+import RevenueManagement from "./page/admin/revenue";
+import UserSurveys from "./page/admin/userSurveys";
 import DownloadPage from "./page/downloadPage";
 
 function App() {
@@ -38,21 +40,40 @@ function App() {
   const router = createBrowserRouter([
     // Auth routes (without header/footer)
     {
-
       path: "/login",
-      element: (<><Login /><ScrollToTop /></>),
+      element: (
+        <>
+          <Login />
+          <ScrollToTop />
+        </>
+      ),
     },
     {
       path: "/register",
-      element: (<><Register /><ScrollToTop /></>),
+      element: (
+        <>
+          <Register />
+          <ScrollToTop />
+        </>
+      ),
     },
     {
       path: "/forgot-password",
-      element: (<><ForgotPassword /><ScrollToTop /></>),
+      element: (
+        <>
+          <ForgotPassword />
+          <ScrollToTop />
+        </>
+      ),
     },
     {
       path: "/reset-password",
-      element: (<><ResetPassword /><ScrollToTop /></>),
+      element: (
+        <>
+          <ResetPassword />
+          <ScrollToTop />
+        </>
+      ),
     },
     // Main app routes (with header/footer)
     {
@@ -100,7 +121,6 @@ function App() {
       ],
     },
 
-
     {
       path: "/admin",
       element: <Dashboard />,
@@ -108,6 +128,14 @@ function App() {
         {
           path: "accounts",
           element: <AccountManagement />,
+        },
+        {
+          path: "user-surveys",
+          element: <UserSurveys />,
+        },
+        {
+          path: "revenue",
+          element: <RevenueManagement />,
         },
         {
           path: "reading-passages",
