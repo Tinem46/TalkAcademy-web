@@ -39,9 +39,19 @@ const Dashboard = () => {
           label: <Link to="/admin/accounts">Quản lý tài khoản</Link>,
         },
         {
+          key: "revenue",
+          icon: <WalletIcon style={{ fontSize: 18 }} />,
+          label: <Link to="/admin/revenue">Thống kê doanh thu</Link>,
+        },
+        {
           key: "reading-passages",
           icon: <FileTextOutlined />,
           label: <Link to="/admin/reading-passages">Quản lý đoạn đọc</Link>,
+        },
+        {
+          key: "user-surveys",
+          icon: <FileTextOutlined />,
+          label: <Link to="/admin/user-surveys">Quản lý khảo sát</Link>,
         },
         {
           key: "categories",

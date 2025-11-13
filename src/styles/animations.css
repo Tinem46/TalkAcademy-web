@@ -37,7 +37,6 @@ button:hover::before {
 .why-item {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    overflow: hidden;
 }
 
 .ant-card:hover,
@@ -45,6 +44,11 @@ button:hover::before {
 .why-item:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Allow card body to show overflow (charts, tooltips) while keeping card container positioned */
+.ant-card .ant-card-body {
+    overflow: visible;
 }
 
 /* Image hover effects */
